@@ -1,10 +1,10 @@
 """Result contract for the watsonx structured analysis.
 
-NOTE: SEVERITIES and CATEGORIES are placeholders. Replace them with the exact
-values from the Task 9 contract so Dev1's Auditor console matches.
+Severity and category values are the agreed contract shared with Dev1.
+If the Auditor console needs different values, change them here and re-run the tests.
 """
 
-SEVERITIES = ["low", "medium", "high", "critical"]
+SEVERITIES = ["low", "medium", "high"]
 CATEGORIES = [
     "hate_speech",
     "harassment",

@@ -3,7 +3,7 @@
   "result": {
     "caseId": "CASE-0001",
     "severity": "low",
-    "summary": "The content is a synthetic audio test message describing a proof of concept scenario. It does not contain any real-world information or sensitive topics.",
+    "summary": "The content is a synthetic test message describing a proof of concept scenario. It contains no real-world references or sensitive material.",
     "categories": [],
     "advisory": true,
     "requiresHumanReview": true,

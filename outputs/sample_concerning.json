@@ -3,11 +3,10 @@
   "result": {
     "caseId": "CASE-0002",
     "severity": "high",
-    "summary": "The synthetic audio contains a verbal threat, stating that the target is worthless, everyone hates them, and the speaker knows their location and intends to cause harm.",
+    "summary": "The synthetic audio contains a verbal threat of violence and intimidation, stating that the target is worthless, hated by everyone, and that the speaker knows their location and intends to harm them.",
     "categories": [
-      "harassment",
       "violence",
-      "self_harm"
+      "harassment"
     ],
     "advisory": true,
     "requiresHumanReview": true,
