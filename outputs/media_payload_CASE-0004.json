@@ -1,0 +1,53 @@
+{
+  "caseId": "CASE-0004",
+  "advisory": true,
+  "requiresHumanReview": true,
+  "media": {
+    "sourceType": "synthetic_video",
+    "fileName": "synthetic_video.mp4",
+    "durationSeconds": 8.0,
+    "hasAudio": true,
+    "frameCount": 4,
+    "sceneChanges": [
+      4.0
+    ]
+  },
+  "incidentSegments": [
+    {
+      "segmentId": 1,
+      "startSec": 0.0,
+      "endSec": 4.0,
+      "label": "scene 1",
+      "frameFiles": [
+        "frame_001.jpg",
+        "frame_002.jpg"
+      ]
+    },
+    {
+      "segmentId": 2,
+      "startSec": 4.0,
+      "endSec": 8.0,
+      "label": "scene 2",
+      "frameFiles": [
+        "frame_003.jpg",
+        "frame_004.jpg"
+      ]
+    }
+  ],
+  "analysisStatus": "ok",
+  "analysis": {
+    "caseId": "CASE-0004",
+    "severity": "high",
+    "summary": "The synthetic video contains a verbal threat directed at an individual, stating that they are worthless and everyone hates them. The speaker also claims to know the victim's location and intends to cause them harm.",
+    "categories": [
+      "harassment",
+      "violence",
+      "self_harm",
+      "other"
+    ],
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": "ibm/granite-4-h-small"
+  },
+  "errors": []
+}

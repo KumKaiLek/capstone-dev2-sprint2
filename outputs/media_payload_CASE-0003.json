@@ -1,0 +1,46 @@
+{
+  "caseId": "CASE-0003",
+  "advisory": true,
+  "requiresHumanReview": true,
+  "media": {
+    "sourceType": "synthetic_video",
+    "fileName": "synthetic_video.mp4",
+    "durationSeconds": 8.0,
+    "hasAudio": true,
+    "frameCount": 4,
+    "sceneChanges": [
+      4.0
+    ]
+  },
+  "incidentSegments": [
+    {
+      "segmentId": 1,
+      "startSec": 0.0,
+      "endSec": 4.0,
+      "label": "scene 1",
+      "frameFiles": [
+        "frame_001.jpg",
+        "frame_002.jpg"
+      ]
+    },
+    {
+      "segmentId": 2,
+      "startSec": 4.0,
+      "endSec": 8.0,
+      "label": "scene 2",
+      "frameFiles": [
+        "frame_003.jpg",
+        "frame_004.jpg"
+      ]
+    }
+  ],
+  "analysisStatus": "missing",
+  "analysis": null,
+  "errors": [
+    {
+      "stage": "analysis",
+      "code": "ANALYSIS_MISSING",
+      "message": "No watsonx.ai result was provided"
+    }
+  ]
+}
