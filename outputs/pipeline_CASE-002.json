@@ -1,0 +1,89 @@
+{
+  "status": "ok",
+  "caseId": "CASE-002",
+  "transcript": {
+    "caseId": "CASE-002",
+    "transcript": "this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it",
+    "confidence": 0.95,
+    "status": "ok",
+    "error": null,
+    "segments": [
+      {
+        "startSec": 0.02,
+        "endSec": 1.9,
+        "text": "this is a synthetic test recording",
+        "confidence": 0.96
+      },
+      {
+        "startSec": 3.64,
+        "endSec": 9.7,
+        "text": "synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it",
+        "confidence": 0.94
+      }
+    ],
+    "source": "synthetic_concerning_video_audio.wav",
+    "model": "en-US_Multimedia",
+    "durationSeconds": 9.7
+  },
+  "case": {
+    "caseId": "CASE-002",
+    "severity": "high",
+    "summary": "The content contains a synthetic voice making threats of violence and stating that the target is hated by everyone. It also includes a threat to physically harm the target.",
+    "categories": [
+      "harassment",
+      "violence"
+    ],
+    "timestamps": [
+      {
+        "start": 3.64,
+        "end": 9.7,
+        "reason": "segment 2 flagged by watsonx.ai (harassment, violence)",
+        "timestampStatus": "available"
+      }
+    ],
+    "processingStatus": {
+      "stt": "ok",
+      "mediaAnalysis": "ok",
+      "watsonx": "ok"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": "ibm/granite-4-h-small",
+    "media": {
+      "fileName": "synthetic_concerning_video.mp4",
+      "durationSeconds": 9.77,
+      "hasAudio": true,
+      "frameCount": 5,
+      "sceneChanges": [
+        5.0
+      ]
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 5.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg",
+          "frame_003.jpg"
+        ],
+        "transcriptText": "this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it"
+      },
+      {
+        "segmentId": 2,
+        "startSec": 5.0,
+        "endSec": 9.77,
+        "label": "scene 2",
+        "frameFiles": [
+          "frame_004.jpg",
+          "frame_005.jpg"
+        ],
+        "transcriptText": "synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  }
+}
