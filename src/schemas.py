@@ -16,7 +16,7 @@ CATEGORIES = [
 ]
 
 # Fields the model is allowed to return
-ALLOWED_MODEL_FIELDS = {"caseId", "severity", "summary", "categories"}
+ALLOWED_MODEL_FIELDS = {"caseId", "severity", "summary", "categories", "concerningSegments"}
 
 # Anything that looks like a moderation decision is stripped and flagged
 FORBIDDEN_KEYS = {
@@ -34,6 +34,8 @@ RESULT_CONTRACT = {
         "severity": f"one of {SEVERITIES}",
         "summary": f"non-empty string, max {MAX_SUMMARY_CHARS} chars",
         "categories": f"list, may be empty when nothing applies, unique values from {CATEGORIES}",
+        "concerningSegments": "list of 1-based STT segment numbers the model flagged, [] if none. "
+                              "Never trusted as a time: code looks up the real start/end from STT",
         "advisory": "always true, set by code, not the model",
         "requiresHumanReview": "always true, set by code, not the model",
         "model": "model id used",

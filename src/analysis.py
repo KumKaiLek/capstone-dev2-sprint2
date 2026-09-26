@@ -13,13 +13,18 @@ IAM_URL = "https://iam.cloud.ibm.com/identity/token"
 API_VERSION = "2025-02-11"
 TIMEOUT = 60
 
-SYSTEM_PROMPT = f"""You are an assistant that helps a human content-safety auditor.
+SEGMENT_KEY = """
+  "concerningSegments": a list of the segment numbers (integers) from the numbered transcript that contain concerning content, [] if none. Use only numbers that appear in the transcript"""
+
+
+def build_system_prompt(with_segments=False):
+    return f"""You are an assistant that helps a human content-safety auditor.
 You do NOT make moderation decisions. You only describe and classify.
 Return ONLY one JSON object, no prose, no code fences, with exactly these keys:
   "caseId": copy the caseId you are given, unchanged
   "severity": one of {SEVERITIES}
   "summary": 1 to 3 neutral sentences describing what the content contains
-  "categories": a list with values only from {CATEGORIES}
+  "categories": a list with values only from {CATEGORIES}{SEGMENT_KEY if with_segments else ""}
 Never include keys such as decision, action, verdict, remove or ban."""
 
 
@@ -45,15 +50,20 @@ def get_token(api_key):
     return r.json()["access_token"]
 
 
-def build_messages(case_id, transcript, media_context):
+def build_messages(case_id, transcript, media_context, segments=None):
+    if segments:
+        numbered = "\n".join(f"[{i}] {s['text']}" for i, s in enumerate(segments, start=1))
+        transcript_block = f"transcript (numbered segments):\n{numbered}\n"
+    else:
+        transcript_block = f"transcript: {transcript}\n"
     user = (
         f"caseId: {case_id}\n"
-        f"transcript: {transcript}\n"
+        f"{transcript_block}"
         f"media_context: {json.dumps(media_context)}\n"
         "Return the JSON object now."
     )
     return [
-        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "system", "content": build_system_prompt(bool(segments))},
         {"role": "user", "content": user},
     ]
 
@@ -144,6 +154,10 @@ def validate_result(obj, case_id, model_id="unknown"):
         if len(set(map(str, cats))) != len(cats):
             problems.append("categories contain duplicates")
 
+    segs = obj.get("concerningSegments", [])
+    if not isinstance(segs, list) or any(isinstance(n, bool) or not isinstance(n, int) for n in segs):
+        problems.append("concerningSegments must be a list of integers (empty if none)")
+
     if problems:
         raise AnalysisError("INVALID_OUTPUT", "; ".join(problems))
 
@@ -156,6 +170,7 @@ def validate_result(obj, case_id, model_id="unknown"):
         "severity": obj["severity"],
         "summary": obj["summary"].strip(),
         "categories": obj["categories"],
+        "concerningSegments": segs,
         # Set by code, never trusted from the model
         "advisory": True,
         "requiresHumanReview": True,
@@ -164,8 +179,9 @@ def validate_result(obj, case_id, model_id="unknown"):
     return clean, warnings
 
 
-def analyze(case_id, transcript, media_context, _chat_fn=None):
+def analyze(case_id, transcript, media_context, segments=None, _chat_fn=None):
     """Never raises. Returns {"status": "ok", ...} or {"status": "error", ...}.
+    segments (STT segments with "text") lets the model refer to numbered segments.
     _chat_fn lets tests inject a fake model response without calling IBM."""
     if not case_id or not isinstance(case_id, str):
         return {"status": "error", "error": {"code": "MISSING_INPUT", "message": "caseId is required"}}
@@ -175,7 +191,7 @@ def analyze(case_id, transcript, media_context, _chat_fn=None):
 
     try:
         settings = watsonx_settings() if _chat_fn is None else {"model_id": "test-model"}
-        messages = build_messages(case_id, transcript, media_context)
+        messages = build_messages(case_id, transcript, media_context, segments)
         if _chat_fn is None:
             token = get_token(settings["api_key"])
             chat = lambda: call_chat(settings, token, messages)

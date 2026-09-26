@@ -36,6 +36,29 @@ ok, out = run("decision field stripped", {**GOOD, "decision": "remove content"},
 results.append(ok and "decision" not in out["result"])
 results.append(run("extra field dropped", {**GOOD, "confidenceNote": "x"}, "ok", expect_warning="dropped_unexpected_field")[0])
 
+ok, out = run("concerningSegments kept", {**GOOD, "concerningSegments": [2]}, "ok")
+results.append(ok and out["result"]["concerningSegments"] == [2])
+results.append(run("concerningSegments must be integers", {**GOOD, "concerningSegments": ["two"]}, "error", "INVALID_OUTPUT")[0])
+results.append(run("concerningSegments must be a list", {**GOOD, "concerningSegments": 2}, "error", "INVALID_OUTPUT")[0])
+ok, out = run("concerningSegments defaults to empty", GOOD, "ok")
+results.append(ok and out["result"]["concerningSegments"] == [])
+
+seen = {}
+
+
+def spy(messages):
+    seen["m"] = messages
+    return json.dumps(GOOD)
+
+
+analyze(CASE, "t", {}, segments=[{"text": "hello"}, {"text": "bye"}], _chat_fn=spy)
+system_p, user_p = seen["m"][0]["content"], seen["m"][1]["content"]
+results.append("[1] hello" in user_p and "[2] bye" in user_p and "concerningSegments" in system_p)
+print("PASS" if results[-1] else "FAIL", "- segments are numbered in the prompt when provided")
+analyze(CASE, "t", {}, _chat_fn=spy)
+results.append("concerningSegments" not in seen["m"][0]["content"])
+print("PASS" if results[-1] else "FAIL", "- no segment instruction when no segments are given")
+
 r = analyze("", "text", {}, _chat_fn=lambda m: "{}")
 results.append(r["error"]["code"] == "MISSING_INPUT"); print("PASS" if results[-1] else "FAIL", "- missing caseId handled")
 r = analyze(CASE, "   ", {}, _chat_fn=lambda m: "{}")
