@@ -129,22 +129,37 @@ class CaseStore:
         return {"status": "ok", "caseId": case_id, "case": docs[CASE_FILE], "transcript": docs[TRANSCRIPT_FILE]}
 
 
+def store_kind():
+    """CASE_STORE picks local or cos. Raises ConfigError for anything else."""
+    kind = (os.getenv("CASE_STORE") or "local").strip().lower()
+    if kind not in ("local", "cos"):
+        raise ConfigError(f"CASE_STORE must be local or cos, not {kind}")
+    return kind
+
+
+def local_dir():
+    return os.getenv("CASE_STORE_DIR") or "."
+
+
+def cos_client():
+    """Returns (client, bucket) from the COS_* settings. Raises ConfigError if incomplete."""
+    api_key = get_setting("COS_API_KEY")
+    instance = get_setting("COS_INSTANCE_CRN")
+    endpoint = get_setting("COS_ENDPOINT")
+    bucket = get_setting("COS_BUCKET")
+    try:
+        import ibm_boto3
+        from ibm_botocore.client import Config
+    except ImportError:
+        raise ConfigError("CASE_STORE=cos needs the ibm-cos-sdk package (pip install ibm-cos-sdk)")
+    client = ibm_boto3.client("s3", ibm_api_key_id=api_key, ibm_service_instance_id=instance,
+                              config=Config(signature_version="oauth"), endpoint_url=endpoint)
+    return client, bucket
+
+
 def default_store():
     """Backend chosen by CASE_STORE. Raises ConfigError for a bad or incomplete setting."""
-    kind = (os.getenv("CASE_STORE") or "local").strip().lower()
-    if kind == "local":
-        return CaseStore(LocalBackend(os.getenv("CASE_STORE_DIR") or "."))
-    if kind == "cos":
-        api_key = get_setting("COS_API_KEY")
-        instance = get_setting("COS_INSTANCE_CRN")
-        endpoint = get_setting("COS_ENDPOINT")
-        bucket = get_setting("COS_BUCKET")
-        try:
-            import ibm_boto3
-            from ibm_botocore.client import Config
-        except ImportError:
-            raise ConfigError("CASE_STORE=cos needs the ibm-cos-sdk package (pip install ibm-cos-sdk)")
-        client = ibm_boto3.client("s3", ibm_api_key_id=api_key, ibm_service_instance_id=instance,
-                                  config=Config(signature_version="oauth"), endpoint_url=endpoint)
-        return CaseStore(CosBackend(bucket, client))
-    raise ConfigError(f"CASE_STORE must be local or cos, not {kind}")
+    if store_kind() == "local":
+        return CaseStore(LocalBackend(local_dir()))
+    client, bucket = cos_client()
+    return CaseStore(CosBackend(bucket, client))
