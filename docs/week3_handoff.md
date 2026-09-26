@@ -118,7 +118,7 @@ Needs Dev1 to confirm:
 
 Not verified:
 - The COS backends have only been tested against a fake client. They have never run against a real bucket. The `COS_*` setting names are proposals, and `ibm-cos-sdk` is not installed or listed in `requirements.txt`.
-- Confirm that the CASE-002 sample video (made with text to speech, not a real recording) counts as approved test media.
+- The CASE-002 sample video is made with text to speech from a synthetic script, not a real recording. The team chose to keep it as the concerning test sample.
 
 Scope:
 - Analysis is based on the transcript. Frames are extracted but not classified visually, so a video with no speech gets no meaningful severity.
