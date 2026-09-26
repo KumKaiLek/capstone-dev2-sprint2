@@ -36,14 +36,18 @@ check("frames attached to segments", segs[0]["frameFiles"] == ["f1.jpg"] and seg
 check("no scene change gives one full segment", len(build_segments(6.0, [])) == 1)
 tseg = build_segments(8.0, [4.0], transcript_segments=[{"startSec": 0.5, "endSec": 3.0, "text": "hello"}])
 check("transcript text attached by time", tseg[0]["transcriptText"] == "hello" and tseg[1]["transcriptText"] == "")
+untimed = build_segments(8.0, [4.0], transcript_segments=[{"startSec": None, "endSec": None, "text": "hello"},
+                                                          {"startSec": 5.0, "endSec": 7.0, "text": "later"}])
+check("transcript segments without timing do not crash or get a guessed time",
+      untimed[0]["transcriptText"] == "" and untimed[1]["transcriptText"] == "later")
 
 # payload states
 ok_media = {"status": "ok", "media": {"sourceType": "synthetic_video", "fileName": "a.mp4", "durationSeconds": 8.0,
-            "hasAudio": True, "frameCount": 4, "sceneChanges": [4.0], "incidentSegments": segs}}
+            "hasAudio": True, "frameCount": 4, "sceneChanges": [4.0], "sceneSegments": segs}}
 good = {"status": "ok", "result": {"caseId": "C1", "severity": "low", "summary": "x", "categories": [],
         "advisory": True, "requiresHumanReview": True, "model": "m"}}
 p = build_backend_payload("C1", ok_media, good)
-check("payload built with analysis", p["analysisStatus"] == "ok" and p["analysis"]["severity"] == "low" and len(p["incidentSegments"]) == 2)
+check("payload built with analysis", p["analysisStatus"] == "ok" and p["analysis"]["severity"] == "low" and len(p["sceneSegments"]) == 2)
 p = build_backend_payload("C1", ok_media, None)
 check("missing analysis result handled", p["analysisStatus"] == "missing" and p["errors"][0]["code"] == "ANALYSIS_MISSING")
 p = build_backend_payload("C1", ok_media, {"status": "error", "error": {"code": "AUTH_OR_PROJECT_ACCESS", "message": "403"}})

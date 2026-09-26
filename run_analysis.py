@@ -12,7 +12,7 @@ SAMPLES = {
         "media_context": {
             "sourceType": "synthetic_audio",
             "durationSeconds": 6.2,
-            "incidentSegments": [{"startSec": 0.0, "endSec": 6.2, "label": "full clip"}],
+            "sceneSegments": [{"startSec": 0.0, "endSec": 6.2, "label": "full clip"}],
         },
     },
     "concerning": {
@@ -21,7 +21,7 @@ SAMPLES = {
         "media_context": {
             "sourceType": "synthetic_audio",
             "durationSeconds": 7.0,
-            "incidentSegments": [{"startSec": 0.0, "endSec": 7.0, "label": "full clip"}],
+            "sceneSegments": [{"startSec": 0.0, "endSec": 7.0, "label": "full clip"}],
         },
     },
 }

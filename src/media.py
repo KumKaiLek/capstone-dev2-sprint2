@@ -1,12 +1,14 @@
-"""Video/media analysis and incident timestamp adapter.
+"""Video/media analysis and scene segment adapter.
 
 Selected approach (MVP): ffmpeg based. For an approved synthetic or staged video we
   1. validate the input,
   2. probe duration and streams,
   3. extract audio (ready for the STT component),
   4. extract frames every few seconds (ready for a future vision model),
-  5. detect scene changes and turn them into incident segments with start/end times,
+  5. detect scene changes and turn them into scene segments with start/end times,
   6. build a backend ready payload that also carries the watsonx.ai result.
+Scene segments are visual cuts only and are never treated as incident evidence. Incident
+timestamps come from measured STT segment times (see src/pipeline.py).
 Visual classification of the frames is out of scope for this MVP. The media signals
 (duration, scene changes, segments) are passed to watsonx.ai as media context so they can
 contribute to severity, summary and categories.
@@ -111,17 +113,20 @@ def detect_scene_changes(p, threshold=SCENE_THRESHOLD):
 
 
 def build_segments(duration, scene_times, frames=None, transcript_segments=None):
-    """Turn scene change times into incident segments with start and end seconds."""
+    """Turn scene change times into scene segments with start and end seconds.
+    These are visual cuts only, not evidence of an incident. Transcript segments without
+    timing are left out of the time matching instead of being given a guessed time."""
     cuts = [0.0] + [t for t in scene_times if 0 < t < duration] + [round(duration, 2)]
     cuts = sorted(set(cuts))
+    timed = [t for t in (transcript_segments or [])
+             if t.get("startSec") is not None and t.get("endSec") is not None]
     segments = []
     for i in range(len(cuts) - 1):
         start, end = cuts[i], cuts[i + 1]
         seg = {"segmentId": i + 1, "startSec": start, "endSec": end, "label": f"scene {i + 1}",
                "frameFiles": [f["file"] for f in (frames or []) if start <= f["timeSec"] < end]}
         if transcript_segments:
-            texts = [t["text"] for t in transcript_segments
-                     if t["startSec"] < end and t["endSec"] > start]
+            texts = [t["text"] for t in timed if t["startSec"] < end and t["endSec"] > start]
             seg["transcriptText"] = " ".join(texts)
         segments.append(seg)
     return segments
@@ -148,7 +153,7 @@ def analyse_media(path, work_dir="outputs/media", transcript_segments=None):
             "frameCount": len(frames),
             "frames": frames,
             "sceneChanges": scenes,
-            "incidentSegments": segments,
+            "sceneSegments": segments,
         }
         return {"status": "ok", "media": media}
     except MediaError as e:
@@ -162,9 +167,9 @@ def media_context_for_ai(media):
         "durationSeconds": media["durationSeconds"],
         "hasAudio": media["hasAudio"],
         "sceneChangeCount": len(media["sceneChanges"]),
-        "incidentSegments": [
+        "sceneSegments": [
             {"startSec": s["startSec"], "endSec": s["endSec"], "label": s["label"]}
-            for s in media["incidentSegments"]
+            for s in media["sceneSegments"]
         ],
     }
 
@@ -177,7 +182,7 @@ def build_backend_payload(case_id, media_result, analysis_result):
         "advisory": True,
         "requiresHumanReview": True,
         "media": None,
-        "incidentSegments": [],
+        "sceneSegments": [],
         "analysisStatus": "missing",
         "analysis": None,
         "errors": [],
@@ -189,7 +194,7 @@ def build_backend_payload(case_id, media_result, analysis_result):
         m = media_result["media"]
         payload["media"] = {k: m[k] for k in ("sourceType", "fileName", "durationSeconds",
                                               "hasAudio", "frameCount", "sceneChanges")}
-        payload["incidentSegments"] = m["incidentSegments"]
+        payload["sceneSegments"] = m["sceneSegments"]
 
     if analysis_result is None:
         payload["analysisStatus"] = "missing"
