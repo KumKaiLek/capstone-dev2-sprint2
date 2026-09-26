@@ -15,7 +15,7 @@
         "confidence": 0.97
       }
     ],
-    "source": "synthetic_video_audio.wav",
+    "source": "video_audio.wav",
     "model": "en-US_Multimedia",
     "durationSeconds": 4.26
   },
@@ -34,7 +34,7 @@
     "requiresHumanReview": true,
     "model": "ibm/granite-4-h-small",
     "media": {
-      "fileName": "synthetic_video.mp4",
+      "fileName": "video.mp4",
       "durationSeconds": 8.0,
       "hasAudio": true,
       "frameCount": 4,

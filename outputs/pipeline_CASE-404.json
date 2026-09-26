@@ -1,0 +1,40 @@
+{
+  "status": "failed",
+  "caseId": "CASE-404",
+  "transcript": {
+    "caseId": "CASE-404",
+    "transcript": null,
+    "confidence": null,
+    "status": "unavailable",
+    "error": null,
+    "segments": [],
+    "source": null,
+    "model": null,
+    "durationSeconds": null
+  },
+  "case": {
+    "caseId": "CASE-404",
+    "severity": null,
+    "summary": null,
+    "categories": [],
+    "timestamps": [],
+    "processingStatus": {
+      "stt": "unavailable",
+      "mediaAnalysis": "failed",
+      "watsonx": "unavailable"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": null,
+    "media": null,
+    "sceneSegments": [],
+    "errors": [
+      {
+        "stage": "mediaAnalysis",
+        "code": "MEDIA_NOT_FOUND",
+        "message": "No video is stored for CASE-404"
+      }
+    ],
+    "warnings": []
+  }
+}
