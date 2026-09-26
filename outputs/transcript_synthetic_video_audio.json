@@ -1,0 +1,18 @@
+{
+  "status": "ok",
+  "transcript": {
+    "source": "synthetic_video_audio.wav",
+    "model": "en-US_Multimedia",
+    "text": "this is a test message describing a synthetic scenario for the proof of concept",
+    "confidence": 0.97,
+    "durationSeconds": 4.26,
+    "segments": [
+      {
+        "startSec": 0.02,
+        "endSec": 4.26,
+        "text": "this is a test message describing a synthetic scenario for the proof of concept",
+        "confidence": 0.97
+      }
+    ]
+  }
+}

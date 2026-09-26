@@ -1,0 +1,72 @@
+{
+  "status": "ok",
+  "caseId": "CASE-001",
+  "transcript": {
+    "caseId": "CASE-001",
+    "transcript": "this is a test message describing a synthetic scenario for the proof of concept",
+    "confidence": 0.97,
+    "status": "ok",
+    "error": null,
+    "segments": [
+      {
+        "startSec": 0.02,
+        "endSec": 4.26,
+        "text": "this is a test message describing a synthetic scenario for the proof of concept",
+        "confidence": 0.97
+      }
+    ],
+    "source": "synthetic_video_audio.wav",
+    "model": "en-US_Multimedia",
+    "durationSeconds": 4.26
+  },
+  "case": {
+    "caseId": "CASE-001",
+    "severity": "low",
+    "summary": "The content is a synthetic test message describing a proof of concept scenario. It contains no concerning or inappropriate material.",
+    "categories": [],
+    "timestamps": [],
+    "processingStatus": {
+      "stt": "ok",
+      "mediaAnalysis": "ok",
+      "watsonx": "ok"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": "ibm/granite-4-h-small",
+    "media": {
+      "fileName": "synthetic_video.mp4",
+      "durationSeconds": 8.0,
+      "hasAudio": true,
+      "frameCount": 4,
+      "sceneChanges": [
+        4.0
+      ]
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 4.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg"
+        ],
+        "transcriptText": "this is a test message describing a synthetic scenario for the proof of concept"
+      },
+      {
+        "segmentId": 2,
+        "startSec": 4.0,
+        "endSec": 8.0,
+        "label": "scene 2",
+        "frameFiles": [
+          "frame_003.jpg",
+          "frame_004.jpg"
+        ],
+        "transcriptText": "this is a test message describing a synthetic scenario for the proof of concept"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  }
+}
