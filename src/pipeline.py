@@ -88,9 +88,11 @@ def build_case_doc(case_id, status, analysis, timestamps, media, errors, warning
     }
 
 
-def run_case(case_id, media_path, work_dir="outputs/media", _media_fn=None, _stt_fn=None, _analyze_fn=None):
+def run_case(case_id, media_path=None, work_dir="outputs/media", source=None,
+             _media_fn=None, _stt_fn=None, _analyze_fn=None):
     """Never raises. Returns {"status": "error", ...} for a bad caseId, otherwise
     {"status": "ok" | "partial" | "failed", "caseId", "transcript": {...}, "case": {...}}.
+    Give media_path, or a source (see src/media_source.py) to fetch the stored video for the case.
     The _fn arguments let the tests run without ffmpeg or IBM."""
     if not valid_case_id(case_id):
         return {"status": "error", "error": {"code": "INVALID_CASE_ID",
@@ -104,7 +106,16 @@ def run_case(case_id, media_path, work_dir="outputs/media", _media_fn=None, _stt
     media = transcript = analysis = None
     stt_error = None
 
-    media_result = media_fn(media_path, work_dir=str(Path(work_dir) / case_id))
+    case_dir = str(Path(work_dir) / case_id)
+    media_result = None
+    if media_path is None and source is not None:
+        fetched = source.fetch(case_id, str(Path(case_dir) / "source"))
+        if fetched.get("status") == "ok":
+            media_path = fetched["path"]
+        else:
+            media_result = {"status": "error", "error": fetched.get("error")}
+    if media_result is None:
+        media_result = media_fn(media_path, work_dir=case_dir)
     if media_result.get("status") == "ok":
         status["mediaAnalysis"] = "ok"
         media = media_result["media"]

@@ -137,5 +137,41 @@ check("watsonx failure recorded, transcript kept", o["status"] == "partial" and 
     "stt": "ok", "mediaAnalysis": "ok", "watsonx": "failed"} and o["transcript"]["transcript"] is not None
       and o["case"]["severity"] is None and o["case"]["timestamps"] == [] and o["case"]["errors"][0]["stage"] == "watsonx")
 
+# stored video fetched through a source
+class FakeSource:
+    def __init__(self, result):
+        self.result, self.calls = result, []
+
+    def fetch(self, case_id, dest_dir):
+        self.calls.append((case_id, dest_dir))
+        return self.result
+
+
+seen = []
+
+
+def media_spy(path, work_dir=None):
+    seen.append(path)
+    return media_ok()(path, work_dir)
+
+
+src = FakeSource({"status": "ok", "path": "cases/CASE-001/video.mp4"})
+o = run_case(CASE, source=src, _media_fn=media_spy, _stt_fn=stt_ok(), _analyze_fn=ai())
+check("stored video is fetched for the case and then analysed",
+      o["status"] == "ok" and seen == ["cases/CASE-001/video.mp4"] and src.calls[0][0] == CASE)
+
+src = FakeSource({"status": "error", "error": {"code": "MEDIA_NOT_FOUND", "message": "No video is stored for CASE-001"}})
+stt_calls = []
+o = run_case(CASE, source=src, _media_fn=lambda *a, **k: 1 / 0, _stt_fn=lambda p: stt_calls.append(p), _analyze_fn=ai())
+check("missing stored video is recorded as a media failure and nothing else runs",
+      o["status"] == "failed" and o["case"]["processingStatus"]["mediaAnalysis"] == "failed"
+      and o["case"]["errors"][0] == {"stage": "mediaAnalysis", "code": "MEDIA_NOT_FOUND", "message": "No video is stored for CASE-001"}
+      and stt_calls == [])
+
+seen.clear()
+src = FakeSource({"status": "ok", "path": "should/not/be/used.mp4"})
+run_case(CASE, media_path="given.mp4", source=src, _media_fn=media_spy, _stt_fn=stt_ok(), _analyze_fn=ai())
+check("a video path you give wins over the source", seen == ["given.mp4"] and src.calls == [])
+
 print(f"\n{sum(results)}/{len(results)} passed")
 raise SystemExit(0 if all(results) else 1)
