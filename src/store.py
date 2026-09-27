@@ -1,165 +1,146 @@
-"""Case store: saves and loads the two case documents.
+"""Case store. The files of a case live under cases/<caseId>/, the same layout as Dev1's COS bucket:
+  case.json         Dev1's metadata for the case (names the media in mediaObject). Read only, never written here.
+  <media file>      the audio or video that mediaObject points at
+  transcript.json   written by us (Speech to Text)
+  analysis.json     written by us (watsonx.ai)
 
-The keys match Dev1's COS layout so switching backends changes nothing else:
-  cases/<caseId>/transcript.json
-  cases/<caseId>/case.json
-
-CASE_STORE=local (default) keeps them on disk under CASE_STORE_DIR (default: the project folder).
-CASE_STORE=cos writes them to the COS bucket. That backend needs ibm-cos-sdk and the COS_* settings,
-and it has not been run against a real bucket yet because the COS credentials are not available.
-
+CaseStore is the interface. LocalCaseStore keeps the files on disk. CosCaseStore is a stub for later.
 save and load never raise. They return {"status": "ok", ...} or {"status": "error", "error": {...}}.
 """
 import json
 import os
+import re
 from pathlib import Path
 
-from .config import get_setting, ConfigError
-from .pipeline import valid_case_id
+from .config import ConfigError
 
-TRANSCRIPT_FILE = "transcript.json"
-CASE_FILE = "case.json"
+CASE_ID_PATTERN = re.compile(r"^CASE-[0-9]{3,}$")
+FILENAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$")
+READ_ONLY_FILES = {"case.json"}
 
 
-class NotFound(Exception):
-    pass
+def valid_case_id(case_id):
+    return isinstance(case_id, str) and bool(CASE_ID_PATTERN.match(case_id))
+
+
+def valid_filename(filename):
+    return isinstance(filename, str) and bool(FILENAME_PATTERN.match(filename))
 
 
 def _error(code, message):
     return {"status": "error", "error": {"code": code, "message": message}}
 
 
-def _key(case_id, name):
-    return f"cases/{case_id}/{name}"
+class CaseStore:
+    """Interface. filename is a plain file name inside the case folder, never a path."""
+
+    def save(self, case_id, filename, data):
+        raise NotImplementedError
+
+    def load(self, case_id, filename):
+        raise NotImplementedError
+
+    def exists(self, case_id, filename):
+        raise NotImplementedError
+
+    def path(self, case_id, filename):
+        """A local file path for the file (for ffmpeg and Speech to Text), or None if it is not there."""
+        raise NotImplementedError
 
 
-class LocalBackend:
+class LocalCaseStore(CaseStore):
     def __init__(self, base_dir="."):
         self.base = Path(base_dir).resolve()
 
-    def _path(self, key):
-        path = (self.base / key).resolve()
-        if self.base not in path.parents:
-            raise ValueError("key is outside the store folder")
-        return path
+    def _file(self, case_id, filename):
+        if not valid_case_id(case_id) or not valid_filename(filename):
+            return None
+        return self.base / "cases" / case_id / filename
 
-    def put(self, key, text):
-        path = self._path(key)
-        path.parent.mkdir(parents=True, exist_ok=True)
-        tmp = path.with_name(path.name + ".tmp")
-        tmp.write_text(text, encoding="utf-8")
-        os.replace(tmp, path)
+    def exists(self, case_id, filename):
+        f = self._file(case_id, filename)
+        return f is not None and f.is_file()
 
-    def get(self, key):
-        path = self._path(key)
-        if not path.is_file():
-            raise NotFound(key)
-        return path.read_text(encoding="utf-8")
+    def path(self, case_id, filename):
+        return str(self._file(case_id, filename)) if self.exists(case_id, filename) else None
 
-
-class CosBackend:
-    """client is an S3 style client (ibm_boto3), passed in so tests can use a fake."""
-
-    def __init__(self, bucket, client):
-        self.bucket = bucket
-        self.client = client
-
-    def put(self, key, text):
-        self.client.put_object(Bucket=self.bucket, Key=key, Body=text.encode("utf-8"),
-                               ContentType="application/json")
-
-    def get(self, key):
-        try:
-            obj = self.client.get_object(Bucket=self.bucket, Key=key)
-        except Exception as e:
-            code = getattr(e, "response", {}).get("Error", {}).get("Code")
-            if code in ("NoSuchKey", "404"):
-                raise NotFound(key)
-            raise
-        return obj["Body"].read().decode("utf-8")
-
-
-class CaseStore:
-    def __init__(self, backend):
-        self.backend = backend
-
-    def save(self, case_id, transcript_doc, case_doc):
+    def save(self, case_id, filename, data):
         if not valid_case_id(case_id):
             return _error("INVALID_CASE_ID", "caseId must look like CASE-001")
-        for name, doc in (("transcript", transcript_doc), ("case", case_doc)):
-            if not isinstance(doc, dict):
-                return _error("INVALID_DOCUMENT", f"The {name} document must be a JSON object")
-            if doc.get("caseId") != case_id:
-                return _error("INVALID_DOCUMENT", f"The {name} document caseId does not match {case_id}")
+        if not valid_filename(filename):
+            return _error("INVALID_FILENAME", "filename must be a plain file name")
+        if filename in READ_ONLY_FILES:
+            return _error("READ_ONLY_FILE", f"{filename} belongs to Dev1 and is never written here")
+        if isinstance(data, (dict, list)):
+            if isinstance(data, dict) and "caseId" in data and data["caseId"] != case_id:
+                return _error("INVALID_DOCUMENT", f"The document caseId does not match {case_id}")
+            try:
+                payload = json.dumps(data, indent=2).encode("utf-8")
+            except (TypeError, ValueError):
+                return _error("INVALID_DOCUMENT", "The document could not be turned into JSON")
+        elif isinstance(data, str):
+            payload = data.encode("utf-8")
+        elif isinstance(data, bytes):
+            payload = data
+        else:
+            return _error("INVALID_DOCUMENT", "data must be a dict, list, str or bytes")
+        target = self._file(case_id, filename)
+        tmp = target.with_name(target.name + ".tmp")
         try:
-            texts = {TRANSCRIPT_FILE: json.dumps(transcript_doc, indent=2),
-                     CASE_FILE: json.dumps(case_doc, indent=2)}
-        except (TypeError, ValueError):
-            return _error("INVALID_DOCUMENT", "A document could not be turned into JSON")
-        keys = []
-        try:
-            for name, text in texts.items():
-                self.backend.put(_key(case_id, name), text)
-                keys.append(_key(case_id, name))
-        except Exception as e:
-            return _error("STORE_WRITE_FAILED", f"Could not write the case ({type(e).__name__}), saved so far: {keys or 'nothing'}")
-        return {"status": "ok", "caseId": case_id, "keys": keys}
+            target.parent.mkdir(parents=True, exist_ok=True)
+            tmp.write_bytes(payload)
+            os.replace(tmp, target)
+        except OSError as e:
+            return _error("STORE_WRITE_FAILED", f"Could not write {filename} ({type(e).__name__})")
+        return {"status": "ok", "caseId": case_id, "key": f"cases/{case_id}/{filename}"}
 
-    def load(self, case_id):
+    def load(self, case_id, filename):
         if not valid_case_id(case_id):
             return _error("INVALID_CASE_ID", "caseId must look like CASE-001")
-        docs = {}
-        for name in (CASE_FILE, TRANSCRIPT_FILE):
+        if not valid_filename(filename):
+            return _error("INVALID_FILENAME", "filename must be a plain file name")
+        target = self._file(case_id, filename)
+        if not target.is_file():
+            return _error("FILE_NOT_FOUND", f"cases/{case_id}/{filename} does not exist")
+        try:
+            raw = target.read_bytes()
+        except OSError as e:
+            return _error("STORE_READ_FAILED", f"Could not read {filename} ({type(e).__name__})")
+        if filename.endswith(".json"):
             try:
-                text = self.backend.get(_key(case_id, name))
-            except NotFound:
-                if name == CASE_FILE:
-                    return _error("CASE_NOT_FOUND", f"No stored case for {case_id}")
-                docs[name] = None
-                continue
-            except Exception as e:
-                return _error("STORE_READ_FAILED", f"Could not read the case ({type(e).__name__})")
-            try:
-                doc = json.loads(text)
+                data = json.loads(raw.decode("utf-8"))
             except ValueError:
-                return _error("CASE_DATA_INVALID", f"{name} for {case_id} is not valid JSON")
-            if not isinstance(doc, dict) or doc.get("caseId") != case_id:
-                return _error("CASE_DATA_INVALID", f"{name} does not belong to {case_id}")
-            docs[name] = doc
-        return {"status": "ok", "caseId": case_id, "case": docs[CASE_FILE], "transcript": docs[TRANSCRIPT_FILE]}
+                return _error("CASE_DATA_INVALID", f"{filename} is not valid JSON")
+        else:
+            data = raw
+        return {"status": "ok", "caseId": case_id, "filename": filename, "data": data}
 
 
-def store_kind():
-    """CASE_STORE picks local or cos. Raises ConfigError for anything else."""
-    kind = (os.getenv("CASE_STORE") or "local").strip().lower()
-    if kind not in ("local", "cos"):
-        raise ConfigError(f"CASE_STORE must be local or cos, not {kind}")
-    return kind
+class CosCaseStore(CaseStore):
+    """TODO: read and write cases/<caseId>/<filename> in the COS bucket once Dev1 gives the
+    credentials and confirms the layout. Not built. Every call returns NOT_IMPLEMENTED."""
 
+    def _todo(self):
+        return _error("NOT_IMPLEMENTED", "The COS store is not built yet, use CASE_STORE=local")
 
-def local_dir():
-    return os.getenv("CASE_STORE_DIR") or "."
+    def save(self, case_id, filename, data):
+        return self._todo()
 
+    def load(self, case_id, filename):
+        return self._todo()
 
-def cos_client():
-    """Returns (client, bucket) from the COS_* settings. Raises ConfigError if incomplete."""
-    api_key = get_setting("COS_API_KEY")
-    instance = get_setting("COS_INSTANCE_CRN")
-    endpoint = get_setting("COS_ENDPOINT")
-    bucket = get_setting("COS_BUCKET")
-    try:
-        import ibm_boto3
-        from ibm_botocore.client import Config
-    except ImportError:
-        raise ConfigError("CASE_STORE=cos needs the ibm-cos-sdk package (pip install ibm-cos-sdk)")
-    client = ibm_boto3.client("s3", ibm_api_key_id=api_key, ibm_service_instance_id=instance,
-                              config=Config(signature_version="oauth"), endpoint_url=endpoint)
-    return client, bucket
+    def exists(self, case_id, filename):
+        return False
+
+    def path(self, case_id, filename):
+        return None
 
 
 def default_store():
-    """Backend chosen by CASE_STORE. Raises ConfigError for a bad or incomplete setting."""
-    if store_kind() == "local":
-        return CaseStore(LocalBackend(local_dir()))
-    client, bucket = cos_client()
-    return CaseStore(CosBackend(bucket, client))
+    """CASE_STORE picks local (default) or cos. CASE_STORE_DIR is the folder that holds cases/."""
+    kind = (os.getenv("CASE_STORE") or "local").strip().lower()
+    if kind == "local":
+        return LocalCaseStore(os.getenv("CASE_STORE_DIR") or ".")
+    if kind == "cos":
+        return CosCaseStore()
+    raise ConfigError(f"CASE_STORE must be local or cos, not {kind}")

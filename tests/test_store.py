@@ -5,7 +5,7 @@ import os
 import tempfile
 from pathlib import Path
 from src.config import ConfigError
-from src.store import CaseStore, LocalBackend, CosBackend, default_store
+from src.store import CosCaseStore, LocalCaseStore, default_store, valid_case_id
 
 results = []
 
@@ -16,115 +16,78 @@ def check(name, ok):
 
 
 CASE = "CASE-001"
-TRANSCRIPT = {"caseId": CASE, "transcript": "hello", "confidence": 0.9, "status": "ok", "error": None,
-              "segments": [{"startSec": 0.5, "endSec": 2.0, "text": "hello", "confidence": 0.9}]}
-CASE_DOC = {"caseId": CASE, "severity": "low", "summary": "A summary.", "categories": [],
-            "timestamps": [{"start": None, "end": None, "reason": "none", "timestampStatus": "unavailable"}],
-            "processingStatus": {"stt": "ok", "mediaAnalysis": "ok", "watsonx": "ok"}}
+DOC = {"caseId": CASE, "severity": "low", "timestamps": [{"start": None, "end": None, "timestampStatus": "unavailable"}]}
 
 
 def new_store():
     tmp = Path(tempfile.mkdtemp())
-    return tmp, CaseStore(LocalBackend(tmp))
+    return tmp, LocalCaseStore(tmp)
 
 
-# local backend
 tmp, store = new_store()
-saved = store.save(CASE, TRANSCRIPT, CASE_DOC)
-check("save works and reports the COS style keys", saved["status"] == "ok" and saved["keys"] == [
-    "cases/CASE-001/transcript.json", "cases/CASE-001/case.json"])
-check("files are written in the cases/<caseId>/ layout",
-      (tmp / "cases/CASE-001/case.json").is_file() and (tmp / "cases/CASE-001/transcript.json").is_file())
-loaded = store.load(CASE)
-check("load returns exactly what was saved", loaded["status"] == "ok" and loaded["case"] == CASE_DOC
-      and loaded["transcript"] == TRANSCRIPT)
+saved = store.save(CASE, "analysis.json", DOC)
+check("save works and reports the COS style key", saved["status"] == "ok" and saved["key"] == "cases/CASE-001/analysis.json")
+check("file is written in the cases/<caseId>/ layout", (tmp / "cases/CASE-001/analysis.json").is_file())
+loaded = store.load(CASE, "analysis.json")
+check("load returns exactly what was saved", loaded["status"] == "ok" and loaded["data"] == DOC)
+check("exists is true for a saved file and false for another", store.exists(CASE, "analysis.json") and not store.exists(CASE, "nope.json"))
+store.save(CASE, "analysis.json", {**DOC, "severity": "high"})
+check("saving again replaces the file", store.load(CASE, "analysis.json")["data"]["severity"] == "high")
 check("no temp files are left behind", not list((tmp / "cases").rglob("*.tmp")))
-CASE_DOC2 = {**CASE_DOC, "severity": "high"}
-store.save(CASE, TRANSCRIPT, CASE_DOC2)
-check("saving again replaces the stored case", store.load(CASE)["case"]["severity"] == "high")
 
-# case id handling
-for bad in [None, "", "CASE-1", "../CASE-001", "CASE-001/../../x", "case-001"]:
-    r1, r2 = store.save(bad, TRANSCRIPT, CASE_DOC), store.load(bad)
-    if not (r1["error"]["code"] == "INVALID_CASE_ID" and r2["error"]["code"] == "INVALID_CASE_ID"):
-        check(f"bad case id rejected {bad!r}", False)
-        break
-else:
-    check("bad case ids rejected by save and load", True)
-check("a bad case id wrote nothing outside the cases folder", sorted(p.name for p in tmp.iterdir()) == ["cases"])
-r = store.save("CASE-002", TRANSCRIPT, CASE_DOC)
+r = store.save(CASE, "video.mp4", b"\x00\x01binary")
+check("binary files can be saved and read back", r["status"] == "ok" and store.load(CASE, "video.mp4")["data"] == b"\x00\x01binary")
+check("path gives the local file, or None when missing",
+      store.path(CASE, "video.mp4") == str(tmp.resolve() / "cases/CASE-001/video.mp4") and store.path(CASE, "nope.mp4") is None)
+
+# Dev1's case.json is read only
+(tmp / "cases/CASE-001/case.json").write_text('{"caseId": "CASE-001", "mine": true}')
+r = store.save(CASE, "case.json", {"caseId": CASE, "overwritten": True})
+check("case.json is never written", r["error"]["code"] == "READ_ONLY_FILE"
+      and json.loads((tmp / "cases/CASE-001/case.json").read_text()) == {"caseId": "CASE-001", "mine": True})
+check("case.json can be read", store.load(CASE, "case.json")["data"]["mine"] is True)
+
+# ids and names
+check("valid case ids", valid_case_id("CASE-001") and valid_case_id("CASE-0001"))
+bad_ids = [None, "", "CASE-1", "case-001", "../CASE-001", "CASE-001/../x", 5]
+check("bad case ids rejected by save, load, exists and path", all(
+    store.save(b, "analysis.json", DOC)["status"] == "error" and store.load(b, "analysis.json")["status"] == "error"
+    and not store.exists(b, "analysis.json") and store.path(b, "analysis.json") is None for b in bad_ids))
+bad_names = ["", "../x.json", "sub/x.json", ".hidden", "a\\b.json", None]
+check("bad file names rejected", all(store.save(CASE, n, DOC)["error"]["code"] == "INVALID_FILENAME"
+                                     and store.load(CASE, n)["error"]["code"] == "INVALID_FILENAME"
+                                     and not store.exists(CASE, n) for n in bad_names))
+check("nothing was written outside the cases folder", sorted(p.name for p in tmp.iterdir()) == ["cases"])
+
+# documents
+r = store.save("CASE-002", "analysis.json", DOC)
 check("document caseId must match the caseId given", r["error"]["code"] == "INVALID_DOCUMENT" and not (tmp / "cases/CASE-002").exists())
-check("non object document rejected", store.save(CASE, "text", CASE_DOC)["error"]["code"] == "INVALID_DOCUMENT")
-r = store.save("CASE-003", {"caseId": "CASE-003", "x": {1, 2}}, {"caseId": "CASE-003"})
-check("document that is not JSON is rejected before anything is written",
-      r["error"]["code"] == "INVALID_DOCUMENT" and not (tmp / "cases/CASE-003").exists())
+r = store.save("CASE-003", "analysis.json", {"caseId": "CASE-003", "x": {1, 2}})
+check("document that is not JSON is rejected and nothing is written", r["error"]["code"] == "INVALID_DOCUMENT" and not (tmp / "cases/CASE-003").exists())
+check("unsupported data type rejected", store.save(CASE, "analysis.json", 42)["error"]["code"] == "INVALID_DOCUMENT")
 
 # load problems
-check("missing case gives CASE_NOT_FOUND", store.load("CASE-404")["error"]["code"] == "CASE_NOT_FOUND")
+check("missing file gives FILE_NOT_FOUND", store.load("CASE-404", "case.json")["error"]["code"] == "FILE_NOT_FOUND")
 (tmp / "cases/CASE-005").mkdir()
-(tmp / "cases/CASE-005/case.json").write_text("{not json")
-check("corrupt case.json gives CASE_DATA_INVALID", store.load("CASE-005")["error"]["code"] == "CASE_DATA_INVALID")
-(tmp / "cases/CASE-006").mkdir()
-(tmp / "cases/CASE-006/case.json").write_text(json.dumps({"caseId": "CASE-999"}))
-check("case.json for a different case is rejected", store.load("CASE-006")["error"]["code"] == "CASE_DATA_INVALID")
-(tmp / "cases/CASE-007").mkdir()
-(tmp / "cases/CASE-007/case.json").write_text(json.dumps({"caseId": "CASE-007", "severity": "low"}))
-r = store.load("CASE-007")
-check("transcript.json is optional when loading", r["status"] == "ok" and r["transcript"] is None and r["case"]["severity"] == "low")
+(tmp / "cases/CASE-005/transcript.json").write_text("{not json")
+check("corrupt JSON gives CASE_DATA_INVALID", store.load("CASE-005", "transcript.json")["error"]["code"] == "CASE_DATA_INVALID")
 blocker = tmp / "blocker"; blocker.write_text("a file, not a folder")
-r = CaseStore(LocalBackend(blocker)).save(CASE, TRANSCRIPT, CASE_DOC)
+r = LocalCaseStore(blocker).save(CASE, "analysis.json", DOC)
 check("write problem gives STORE_WRITE_FAILED and does not raise", r["error"]["code"] == "STORE_WRITE_FAILED")
 
-
-# COS backend with a fake client
-class ClientError(Exception):
-    def __init__(self, code):
-        super().__init__(code)
-        self.response = {"Error": {"Code": code}}
-
-
-class FakeCos:
-    def __init__(self):
-        self.objects, self.fail_put, self.get_error = {}, False, None
-
-    def put_object(self, Bucket, Key, Body, ContentType):
-        if self.fail_put:
-            raise RuntimeError("down")
-        self.objects[(Bucket, Key)] = Body
-
-    def get_object(self, Bucket, Key):
-        if self.get_error:
-            raise ClientError(self.get_error)
-        if (Bucket, Key) not in self.objects:
-            raise ClientError("NoSuchKey")
-
-        class Body:
-            def read(_):
-                return self.objects[(Bucket, Key)]
-        return {"Body": Body()}
-
-
-fake = FakeCos()
-cos = CaseStore(CosBackend("test-bucket", fake))
-check("COS save writes both keys to the bucket", cos.save(CASE, TRANSCRIPT, CASE_DOC)["status"] == "ok" and
-      set(fake.objects) == {("test-bucket", "cases/CASE-001/transcript.json"), ("test-bucket", "cases/CASE-001/case.json")})
-check("COS load returns what was saved", cos.load(CASE)["case"] == CASE_DOC)
-check("COS missing key gives CASE_NOT_FOUND", cos.load("CASE-404")["error"]["code"] == "CASE_NOT_FOUND")
-fake.get_error = "AccessDenied"
-check("COS read error gives STORE_READ_FAILED", cos.load(CASE)["error"]["code"] == "STORE_READ_FAILED")
-fake.fail_put = True
-check("COS write error gives STORE_WRITE_FAILED", cos.save("CASE-009", {"caseId": "CASE-009"}, {"caseId": "CASE-009"})["error"]["code"] == "STORE_WRITE_FAILED")
+# COS stub
+cos = CosCaseStore()
+check("COS stub says NOT_IMPLEMENTED and never raises",
+      cos.save(CASE, "analysis.json", DOC)["error"]["code"] == "NOT_IMPLEMENTED"
+      and cos.load(CASE, "analysis.json")["error"]["code"] == "NOT_IMPLEMENTED"
+      and cos.exists(CASE, "analysis.json") is False and cos.path(CASE, "video.mp4") is None)
 
 # backend choice from the environment
-keep = {k: os.environ.pop(k, None) for k in ("CASE_STORE", "CASE_STORE_DIR", "COS_API_KEY", "COS_INSTANCE_CRN", "COS_ENDPOINT", "COS_BUCKET")}
+keep = {k: os.environ.pop(k, None) for k in ("CASE_STORE", "CASE_STORE_DIR")}
 try:
-    check("local backend is the default", isinstance(default_store().backend, LocalBackend))
+    check("local store is the default", isinstance(default_store(), LocalCaseStore))
     os.environ["CASE_STORE"] = "cos"
-    try:
-        default_store(); ok = False
-    except ConfigError as e:
-        ok = "COS_API_KEY" in str(e)
-    check("cos without its settings gives a config error", ok)
+    check("CASE_STORE=cos gives the COS stub", isinstance(default_store(), CosCaseStore))
     os.environ["CASE_STORE"] = "database"
     try:
         default_store(); ok = False
