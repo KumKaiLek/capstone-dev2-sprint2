@@ -1,0 +1,78 @@
+{
+  "scenario": "missing_media",
+  "description": "case.json names a video that is not in the folder",
+  "caseId": "CASE-002",
+  "services": {
+    "mediaAnalysis": "simulated",
+    "speechToText": "simulated",
+    "watsonx": "simulated"
+  },
+  "resultStatus": "failed",
+  "error": null,
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-002",
+      "key": "cases/CASE-002/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-002",
+      "key": "cases/CASE-002/analysis.json"
+    }
+  },
+  "files": {
+    "case.json": {
+      "caseId": "CASE-002",
+      "title": "Synthetic test case",
+      "status": "submitted",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "synthetic": true,
+      "mediaObject": {
+        "key": "cases/CASE-002/video.mp4",
+        "contentType": "video/mp4"
+      }
+    },
+    "transcript.json": {
+      "caseId": "CASE-002",
+      "transcript": null,
+      "confidence": null,
+      "status": "unavailable",
+      "error": null,
+      "segments": [],
+      "source": null,
+      "model": null,
+      "durationSeconds": null
+    },
+    "analysis.json": {
+      "caseId": "CASE-002",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "processingStatus": {
+        "stt": "unavailable",
+        "mediaAnalysis": "failed",
+        "watsonx": "unavailable"
+      },
+      "advisory": true,
+      "requiresHumanReview": true,
+      "model": null,
+      "mediaType": "video",
+      "mediaFile": "video.mp4",
+      "media": null,
+      "sceneSegments": [],
+      "errors": [
+        {
+          "stage": "mediaAnalysis",
+          "code": "MEDIA_NOT_FOUND",
+          "message": "The media file video.mp4 is not in the case folder"
+        }
+      ],
+      "warnings": []
+    }
+  }
+}

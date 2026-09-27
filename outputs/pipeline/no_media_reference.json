@@ -1,0 +1,74 @@
+{
+  "scenario": "no_media_reference",
+  "description": "case.json has no mediaObject",
+  "caseId": "CASE-011",
+  "services": {
+    "mediaAnalysis": "simulated",
+    "speechToText": "simulated",
+    "watsonx": "simulated"
+  },
+  "resultStatus": "failed",
+  "error": null,
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-011",
+      "key": "cases/CASE-011/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-011",
+      "key": "cases/CASE-011/analysis.json"
+    }
+  },
+  "files": {
+    "case.json": {
+      "caseId": "CASE-011",
+      "title": "Synthetic test case",
+      "status": "submitted",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "synthetic": true
+    },
+    "transcript.json": {
+      "caseId": "CASE-011",
+      "transcript": null,
+      "confidence": null,
+      "status": "unavailable",
+      "error": null,
+      "segments": [],
+      "source": null,
+      "model": null,
+      "durationSeconds": null
+    },
+    "analysis.json": {
+      "caseId": "CASE-011",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "processingStatus": {
+        "stt": "unavailable",
+        "mediaAnalysis": "failed",
+        "watsonx": "unavailable"
+      },
+      "advisory": true,
+      "requiresHumanReview": true,
+      "model": null,
+      "mediaType": null,
+      "mediaFile": null,
+      "media": null,
+      "sceneSegments": [],
+      "errors": [
+        {
+          "stage": "mediaAnalysis",
+          "code": "MEDIA_REFERENCE_MISSING",
+          "message": "case.json has no usable mediaObject"
+        }
+      ],
+      "warnings": []
+    }
+  }
+}

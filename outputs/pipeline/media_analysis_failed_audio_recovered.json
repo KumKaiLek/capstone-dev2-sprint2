@@ -1,0 +1,107 @@
+{
+  "scenario": "media_analysis_failed_audio_recovered",
+  "description": "Video analysis fails but the audio can still be extracted, so the rest runs",
+  "caseId": "CASE-010",
+  "services": {
+    "mediaAnalysis": "simulated",
+    "speechToText": "simulated",
+    "watsonx": "simulated"
+  },
+  "resultStatus": "partial",
+  "error": null,
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-010",
+      "key": "cases/CASE-010/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-010",
+      "key": "cases/CASE-010/analysis.json"
+    }
+  },
+  "files": {
+    "case.json": {
+      "caseId": "CASE-010",
+      "title": "Synthetic test case",
+      "status": "submitted",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "synthetic": true,
+      "mediaObject": {
+        "key": "cases/CASE-010/video.mp4",
+        "contentType": "video/mp4"
+      }
+    },
+    "transcript.json": {
+      "caseId": "CASE-010",
+      "transcript": "this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it",
+      "confidence": 0.93,
+      "status": "ok",
+      "error": null,
+      "segments": [
+        {
+          "startSec": 0.02,
+          "endSec": 1.9,
+          "text": "this is a synthetic test recording",
+          "confidence": 0.93,
+          "timestampStatus": "available",
+          "timestampReason": null
+        },
+        {
+          "startSec": 3.64,
+          "endSec": 9.7,
+          "text": "synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it",
+          "confidence": 0.93,
+          "timestampStatus": "available",
+          "timestampReason": null
+        }
+      ],
+      "source": "recovered_audio.wav",
+      "model": "en-US_Multimedia",
+      "durationSeconds": 9.7
+    },
+    "analysis.json": {
+      "caseId": "CASE-010",
+      "severity": "high",
+      "summary": "A neutral summary of the recording.",
+      "categories": [
+        "harassment",
+        "violence"
+      ],
+      "timestamps": [
+        {
+          "start": 3.64,
+          "end": 9.7,
+          "reason": "segment 2 flagged by watsonx.ai (harassment, violence)",
+          "timestampStatus": "available"
+        }
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "failed",
+        "watsonx": "ok"
+      },
+      "advisory": true,
+      "requiresHumanReview": true,
+      "model": "test-model",
+      "mediaType": "video",
+      "mediaFile": "video.mp4",
+      "media": null,
+      "sceneSegments": [],
+      "errors": [
+        {
+          "stage": "mediaAnalysis",
+          "code": "MEDIA_UNREADABLE",
+          "message": "ffprobe could not read the file"
+        }
+      ],
+      "warnings": [
+        "audio_recovered_after_media_analysis_failed"
+      ]
+    }
+  }
+}

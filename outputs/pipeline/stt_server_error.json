@@ -1,0 +1,104 @@
+{
+  "scenario": "stt_server_error",
+  "description": "Speech to Text answers HTTP 500",
+  "caseId": "CASE-004",
+  "services": {
+    "mediaAnalysis": "simulated",
+    "speechToText": "simulated",
+    "watsonx": "simulated"
+  },
+  "resultStatus": "partial",
+  "error": null,
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-004",
+      "key": "cases/CASE-004/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-004",
+      "key": "cases/CASE-004/analysis.json"
+    }
+  },
+  "files": {
+    "case.json": {
+      "caseId": "CASE-004",
+      "title": "Synthetic test case",
+      "status": "submitted",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "synthetic": true,
+      "mediaObject": {
+        "key": "cases/CASE-004/video.mp4",
+        "contentType": "video/mp4"
+      }
+    },
+    "transcript.json": {
+      "caseId": "CASE-004",
+      "transcript": null,
+      "confidence": null,
+      "status": "failed",
+      "error": {
+        "code": "STT_SERVICE_ERROR",
+        "message": "Speech to Text returned HTTP 500"
+      },
+      "segments": [],
+      "source": null,
+      "model": null,
+      "durationSeconds": null
+    },
+    "analysis.json": {
+      "caseId": "CASE-004",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "processingStatus": {
+        "stt": "failed",
+        "mediaAnalysis": "ok",
+        "watsonx": "unavailable"
+      },
+      "advisory": true,
+      "requiresHumanReview": true,
+      "model": null,
+      "mediaType": "video",
+      "mediaFile": "video.mp4",
+      "media": {
+        "fileName": "video.mp4",
+        "durationSeconds": 10.0,
+        "hasAudio": true,
+        "frameCount": 5,
+        "sceneChanges": [
+          5.0
+        ]
+      },
+      "sceneSegments": [
+        {
+          "segmentId": 1,
+          "startSec": 0.0,
+          "endSec": 5.0,
+          "label": "scene 1",
+          "frameFiles": []
+        },
+        {
+          "segmentId": 2,
+          "startSec": 5.0,
+          "endSec": 10.0,
+          "label": "scene 2",
+          "frameFiles": []
+        }
+      ],
+      "errors": [
+        {
+          "stage": "stt",
+          "code": "STT_SERVICE_ERROR",
+          "message": "Speech to Text returned HTTP 500"
+        }
+      ],
+      "warnings": []
+    }
+  }
+}

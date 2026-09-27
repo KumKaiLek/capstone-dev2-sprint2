@@ -1,0 +1,78 @@
+{
+  "scenario": "invalid_media_type",
+  "description": "mediaObject points at a text file",
+  "caseId": "CASE-003",
+  "services": {
+    "mediaAnalysis": "simulated",
+    "speechToText": "simulated",
+    "watsonx": "simulated"
+  },
+  "resultStatus": "failed",
+  "error": null,
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-003",
+      "key": "cases/CASE-003/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-003",
+      "key": "cases/CASE-003/analysis.json"
+    }
+  },
+  "files": {
+    "case.json": {
+      "caseId": "CASE-003",
+      "title": "Synthetic test case",
+      "status": "submitted",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "synthetic": true,
+      "mediaObject": {
+        "key": "cases/CASE-003/notes.txt",
+        "contentType": "text/plain"
+      }
+    },
+    "transcript.json": {
+      "caseId": "CASE-003",
+      "transcript": null,
+      "confidence": null,
+      "status": "unavailable",
+      "error": null,
+      "segments": [],
+      "source": null,
+      "model": null,
+      "durationSeconds": null
+    },
+    "analysis.json": {
+      "caseId": "CASE-003",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "processingStatus": {
+        "stt": "unavailable",
+        "mediaAnalysis": "failed",
+        "watsonx": "unavailable"
+      },
+      "advisory": true,
+      "requiresHumanReview": true,
+      "model": null,
+      "mediaType": null,
+      "mediaFile": "notes.txt",
+      "media": null,
+      "sceneSegments": [],
+      "errors": [
+        {
+          "stage": "mediaAnalysis",
+          "code": "INVALID_MEDIA_TYPE",
+          "message": "Unsupported media type .txt; audio ['.flac', '.mp3', '.ogg', '.wav', '.webm'] or video ['.mkv', '.mov', '.mp4', '.webm'] is expected"
+        }
+      ],
+      "warnings": []
+    }
+  }
+}

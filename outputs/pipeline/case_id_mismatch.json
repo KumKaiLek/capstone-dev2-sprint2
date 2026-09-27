@@ -1,0 +1,32 @@
+{
+  "scenario": "case_id_mismatch",
+  "description": "case.json says CASE-999 but the folder is CASE-008",
+  "caseId": "CASE-008",
+  "services": {
+    "mediaAnalysis": "simulated",
+    "speechToText": "simulated",
+    "watsonx": "simulated"
+  },
+  "resultStatus": "error",
+  "error": {
+    "code": "CASE_ID_MISMATCH",
+    "message": "case.json says CASE-999 but the case folder is CASE-008, nothing was written"
+  },
+  "saved": null,
+  "files": {
+    "case.json": {
+      "caseId": "CASE-999",
+      "title": "Synthetic test case",
+      "status": "submitted",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "synthetic": true,
+      "mediaObject": {
+        "key": "cases/CASE-008/video.mp4",
+        "contentType": "video/mp4"
+      }
+    }
+  }
+}

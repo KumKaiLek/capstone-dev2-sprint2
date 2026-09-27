@@ -1,0 +1,120 @@
+{
+  "scenario": "malformed_watsonx_output",
+  "description": "watsonx.ai answers with prose instead of JSON",
+  "caseId": "CASE-005",
+  "services": {
+    "mediaAnalysis": "simulated",
+    "speechToText": "simulated",
+    "watsonx": "simulated"
+  },
+  "resultStatus": "partial",
+  "error": null,
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-005",
+      "key": "cases/CASE-005/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-005",
+      "key": "cases/CASE-005/analysis.json"
+    }
+  },
+  "files": {
+    "case.json": {
+      "caseId": "CASE-005",
+      "title": "Synthetic test case",
+      "status": "submitted",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "synthetic": true,
+      "mediaObject": {
+        "key": "cases/CASE-005/video.mp4",
+        "contentType": "video/mp4"
+      }
+    },
+    "transcript.json": {
+      "caseId": "CASE-005",
+      "transcript": "this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it",
+      "confidence": 0.93,
+      "status": "ok",
+      "error": null,
+      "segments": [
+        {
+          "startSec": 0.02,
+          "endSec": 1.9,
+          "text": "this is a synthetic test recording",
+          "confidence": 0.93,
+          "timestampStatus": "available",
+          "timestampReason": null
+        },
+        {
+          "startSec": 3.64,
+          "endSec": 9.7,
+          "text": "synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it",
+          "confidence": 0.93,
+          "timestampStatus": "available",
+          "timestampReason": null
+        }
+      ],
+      "source": "video_audio.wav",
+      "model": "en-US_Multimedia",
+      "durationSeconds": 9.7
+    },
+    "analysis.json": {
+      "caseId": "CASE-005",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "timestamps": [],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      },
+      "advisory": true,
+      "requiresHumanReview": true,
+      "model": null,
+      "mediaType": "video",
+      "mediaFile": "video.mp4",
+      "media": {
+        "fileName": "video.mp4",
+        "durationSeconds": 10.0,
+        "hasAudio": true,
+        "frameCount": 5,
+        "sceneChanges": [
+          5.0
+        ]
+      },
+      "sceneSegments": [
+        {
+          "segmentId": 1,
+          "startSec": 0.0,
+          "endSec": 5.0,
+          "label": "scene 1",
+          "frameFiles": [],
+          "transcriptText": "this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it"
+        },
+        {
+          "segmentId": 2,
+          "startSec": 5.0,
+          "endSec": 10.0,
+          "label": "scene 2",
+          "frameFiles": [],
+          "transcriptText": "synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it"
+        }
+      ],
+      "errors": [
+        {
+          "stage": "watsonx",
+          "code": "MALFORMED_OUTPUT",
+          "message": "Model output was not valid JSON"
+        }
+      ],
+      "warnings": []
+    }
+  }
+}
