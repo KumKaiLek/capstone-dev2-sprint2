@@ -91,8 +91,11 @@ def normalise(raw, model, source_name):
         conf = alt.get("confidence")
         if conf is not None:
             confidences.append(float(conf))
+        timed = start is not None and end is not None
         segments.append({"startSec": start, "endSec": end, "text": text,
-                         "confidence": round(float(conf), 2) if conf is not None else None})
+                         "confidence": round(float(conf), 2) if conf is not None else None,
+                         "timestampStatus": "available" if timed else "unavailable",
+                         "timestampReason": None if timed else "Speech to Text gave no timing for this segment"})
 
     if not segments:
         raise SttError("EMPTY_TRANSCRIPT", "STT returned only empty text")

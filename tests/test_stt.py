@@ -54,7 +54,12 @@ out = run(lambda *a, **k: Resp(200, GOOD))
 t = out.get("transcript", {})
 check("transcript returned", out["status"] == "ok" and t.get("text") == "this is a test message")
 check("confidence returned", t.get("confidence") == 0.97)
-check("timestamps normalised into segments", t.get("segments") == [{"startSec": 0.4, "endSec": 1.6, "text": "this is a test message", "confidence": 0.97}])
+check("timestamps normalised into segments", t.get("segments") == [{"startSec": 0.4, "endSec": 1.6, "text": "this is a test message", "confidence": 0.97,
+                                                                    "timestampStatus": "available", "timestampReason": None}])
+no_stamps = {"results": [{"alternatives": [{"transcript": "no timing here ", "confidence": 0.8}]}]}
+seg = run(lambda *a, **k: Resp(200, no_stamps))["transcript"]["segments"][0]
+check("segment without timestamps has null times, unavailable status and a reason (never 0)",
+      seg["startSec"] is None and seg["endSec"] is None and seg["timestampStatus"] == "unavailable" and bool(seg["timestampReason"]))
 check("duration and source recorded", t.get("durationSeconds") == 1.6 and t.get("source") == "sample.wav")
 
 no_conf = {"results": [{"alternatives": [{"transcript": "hello there", "timestamps": [["hello", 0.0, 0.5], ["there", 0.5, 1.0]]}]}]}
