@@ -1,6 +1,6 @@
 {
   "scenario": "no_media_reference",
-  "description": "case.json has no mediaObject",
+  "description": "case.json has no fileName, mediaObjectKey or mediaObject",
   "caseId": "CASE-011",
   "services": {
     "mediaAnalysis": "simulated",
@@ -24,12 +24,12 @@
   "files": {
     "case.json": {
       "caseId": "CASE-011",
-      "title": "Synthetic test case",
-      "status": "submitted",
+      "submittedBy": "synthetic-seed",
+      "submittedAt": "2026-10-03T00:00:00Z",
+      "status": "Queued",
       "severity": null,
-      "summary": null,
-      "categories": [],
-      "timestamps": [],
+      "isTestCase": true,
+      "exposureMinutes": 0,
       "synthetic": true
     },
     "transcript.json": {
@@ -65,7 +65,7 @@
         {
           "stage": "mediaAnalysis",
           "code": "MEDIA_REFERENCE_MISSING",
-          "message": "case.json has no usable mediaObject"
+          "message": "case.json has no usable mediaObjectKey, fileName or mediaObject"
         }
       ],
       "warnings": []

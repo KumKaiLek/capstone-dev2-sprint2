@@ -1,7 +1,7 @@
 {
-  "scenario": "invalid_media_type",
-  "description": "The case file is a type Speech to Text and media analysis cannot use",
-  "caseId": "CASE-003",
+  "scenario": "media_key_wrong_case",
+  "description": "mediaObjectKey points at a different case folder, D2 must refuse it, never use it",
+  "caseId": "CASE-012",
   "services": {
     "mediaAnalysis": "simulated",
     "speechToText": "simulated",
@@ -12,18 +12,18 @@
   "saved": {
     "transcript": {
       "status": "ok",
-      "caseId": "CASE-003",
-      "key": "cases/CASE-003/transcript.json"
+      "caseId": "CASE-012",
+      "key": "cases/CASE-012/transcript.json"
     },
     "analysis": {
       "status": "ok",
-      "caseId": "CASE-003",
-      "key": "cases/CASE-003/analysis.json"
+      "caseId": "CASE-012",
+      "key": "cases/CASE-012/analysis.json"
     }
   },
   "files": {
     "case.json": {
-      "caseId": "CASE-003",
+      "caseId": "CASE-012",
       "submittedBy": "synthetic-seed",
       "submittedAt": "2026-10-03T00:00:00Z",
       "status": "Queued",
@@ -31,12 +31,13 @@
       "isTestCase": true,
       "exposureMinutes": 0,
       "synthetic": true,
-      "fileName": "notes.txt",
-      "mediaObjectKey": "cases/CASE-003/notes.txt",
-      "mediaMimeType": "text/plain"
+      "fileName": "video.mp4",
+      "mediaObjectKey": "cases/CASE-999/video.mp4",
+      "contentType": "video",
+      "mediaMimeType": "video/mp4"
     },
     "transcript.json": {
-      "caseId": "CASE-003",
+      "caseId": "CASE-012",
       "transcript": null,
       "confidence": null,
       "status": "unavailable",
@@ -47,7 +48,7 @@
       "durationSeconds": null
     },
     "analysis.json": {
-      "caseId": "CASE-003",
+      "caseId": "CASE-012",
       "severity": null,
       "summary": null,
       "categories": [],
@@ -61,14 +62,14 @@
       "requiresHumanReview": true,
       "model": null,
       "mediaType": null,
-      "mediaFile": "notes.txt",
+      "mediaFile": null,
       "media": null,
       "sceneSegments": [],
       "errors": [
         {
           "stage": "mediaAnalysis",
-          "code": "INVALID_MEDIA_TYPE",
-          "message": "Unsupported media type .txt; audio ['.flac', '.mp3', '.ogg', '.wav', '.webm'] or video ['.mkv', '.mov', '.mp4', '.webm'] is expected"
+          "code": "MEDIA_KEY_WRONG_CASE",
+          "message": "mediaObjectKey points at 'CASE-999', not CASE-012"
         }
       ],
       "warnings": []

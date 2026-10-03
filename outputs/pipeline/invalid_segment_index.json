@@ -24,17 +24,17 @@
   "files": {
     "case.json": {
       "caseId": "CASE-007",
-      "title": "Synthetic test case",
-      "status": "submitted",
+      "submittedBy": "synthetic-seed",
+      "submittedAt": "2026-10-03T00:00:00Z",
+      "status": "Queued",
       "severity": null,
-      "summary": null,
-      "categories": [],
-      "timestamps": [],
+      "isTestCase": true,
+      "exposureMinutes": 0,
       "synthetic": true,
-      "mediaObject": {
-        "key": "cases/CASE-007/video.mp4",
-        "contentType": "video/mp4"
-      }
+      "fileName": "video.mp4",
+      "mediaObjectKey": "cases/CASE-007/video.mp4",
+      "contentType": "video",
+      "mediaMimeType": "video/mp4"
     },
     "transcript.json": {
       "caseId": "CASE-007",
@@ -68,10 +68,7 @@
       "caseId": "CASE-007",
       "severity": "high",
       "summary": "A neutral summary of the recording.",
-      "categories": [
-        "harassment",
-        "violence"
-      ],
+      "categories": [],
       "timestamps": [
         {
           "start": null,
@@ -118,7 +115,10 @@
         }
       ],
       "errors": [],
-      "warnings": []
+      "warnings": [
+        "category_dropped_no_evidence:harassment",
+        "category_dropped_no_evidence:violence"
+      ]
     }
   }
 }

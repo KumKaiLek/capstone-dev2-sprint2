@@ -124,13 +124,30 @@ check("media analysis failure still lets STT and watsonx run on the recovered au
 check("case.json without mediaObject is recorded as a failed media stage", out["no_media_reference"]["resultStatus"] == "failed"
       and errors("no_media_reference")[0]["code"] == "MEDIA_REFERENCE_MISSING")
 
+# D1, D2, D3, D5: end to end through the real pipeline, not just the pure functions above
+check("a mediaObjectKey for a different case is refused end to end, the real file next to it is never read (D2)",
+      out["media_key_wrong_case"]["resultStatus"] == "failed"
+      and status("media_key_wrong_case") == {"stt": "unavailable", "mediaAnalysis": "failed", "watsonx": "unavailable"}
+      and errors("media_key_wrong_case")[0]["code"] == "MEDIA_KEY_WRONG_CASE" and dev1_untouched("media_key_wrong_case"))
+fs = files("filename_with_spaces")["analysis.json"]
+check("a file name with spaces and punctuation resolves through the real store end to end (D3)",
+      out["filename_with_spaces"]["resultStatus"] == "ok" and fs["severity"] == "high" and fs["mediaFile"] == "My Clip (Final v2).mp4")
+lg = files("legacy_media_object")["analysis.json"]
+check("the older mediaObject field still resolves a case end to end (D5, kept for backward compatibility)",
+      out["legacy_media_object"]["resultStatus"] == "ok" and lg["mediaFile"] == "video.mp4" and lg["severity"] == "high")
+uid = "CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab"
+ud = files("uuid_case_id")["analysis.json"]
+check("a CASE-<uuid> style case id runs end to end and round trips through transcript.json and analysis.json (D1)",
+      out["uuid_case_id"]["resultStatus"] == "ok" and ud["caseId"] == uid
+      and files("uuid_case_id")["transcript.json"]["caseId"] == uid and ud["severity"] == "high")
+
 store = LocalCaseStore(base)
 check("bad case id refused", run_case("../x", store)["error"]["code"] == "INVALID_CASE_ID")
 check("no case.json gives CASE_NOT_FOUND and writes nothing", run_case("CASE-404", store)["error"]["code"] == "CASE_NOT_FOUND"
       and not (base / "cases/CASE-404").exists())
-(base / "cases/CASE-012").mkdir()
-(base / "cases/CASE-012/case.json").write_text('{"title": "no id"}')
-check("case.json without a caseId is refused", run_case("CASE-012", store)["error"]["code"] == "CASE_DATA_INVALID")
+(base / "cases/CASE-099").mkdir()
+(base / "cases/CASE-099/case.json").write_text('{"title": "no id"}')
+check("case.json without a caseId is refused", run_case("CASE-099", store)["error"]["code"] == "CASE_DATA_INVALID")
 
 
 class NoWriteStore(LocalCaseStore):

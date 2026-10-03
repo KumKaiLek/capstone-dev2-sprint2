@@ -88,47 +88,91 @@ def extract_service(path, out_dir):
     return str(audio)
 
 
-def dev1_case_json(case_id, media_object, case_id_inside=None):
-    """A stand in for Dev1's case.json. The real shape is not confirmed, this is our assumption."""
-    doc = {"caseId": case_id_inside or case_id, "title": "Synthetic test case", "status": "submitted",
-           "severity": None, "summary": None, "categories": [], "timestamps": [], "synthetic": True}
-    if media_object is not None:
-        doc["mediaObject"] = media_object
+def dev1_case_json(case_id, filename=None, content_type=None, media_mime_type=None, media_object_key=None,
+                   case_id_inside=None, legacy=False, legacy_media_object=None):
+    """A stand in for Dev1's case.json. D5, Sprint 2 Week 3 stabilisation: this now matches the shape
+    his backend actually sends: {caseId, fileName, contentType: "video"|"audio", mediaMimeType,
+    mediaObjectKey: "cases/<caseId>/<originalname>", submittedBy, submittedAt, status, severity,
+    isTestCase, exposureMinutes}. legacy=True builds the older shape this pipeline used before that
+    was confirmed, kept for the one backward-compatibility scenario."""
+    if legacy:
+        doc = {"caseId": case_id_inside or case_id, "title": "Synthetic test case", "status": "submitted",
+               "severity": None, "summary": None, "categories": [], "timestamps": [], "synthetic": True}
+        if legacy_media_object is not None:
+            doc["mediaObject"] = legacy_media_object
+        return doc
+    doc = {
+        "caseId": case_id_inside or case_id,
+        "submittedBy": "synthetic-seed",
+        "submittedAt": "2026-10-03T00:00:00Z",
+        "status": "Queued",
+        "severity": None,
+        "isTestCase": True,
+        "exposureMinutes": 0,
+        "synthetic": True,
+    }
+    if filename is not None:
+        doc["fileName"] = filename
+        doc["mediaObjectKey"] = media_object_key if media_object_key is not None else f"cases/{case_id}/{filename}"
+    if content_type is not None:
+        doc["contentType"] = content_type
+    if media_mime_type is not None:
+        doc["mediaMimeType"] = media_mime_type
     return doc
-
-
-def _video(case_id):
-    return {"key": f"cases/{case_id}/video.mp4", "contentType": "video/mp4"}
 
 
 # name -> what the case folder holds and which services answer
 SCENARIOS = {
     "happy_path": dict(case_id="CASE-001", description="Video case, every stage works",
-                       media=_video("CASE-001"), files=["video.mp4"], stt="ok", chat="concerning"),
+                       filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                       files=["video.mp4"], stt="ok", chat="concerning"),
     "missing_media": dict(case_id="CASE-002", description="case.json names a video that is not in the folder",
-                          media=_video("CASE-002"), files=[], stt="ok", chat="concerning"),
-    "invalid_media_type": dict(case_id="CASE-003", description="mediaObject points at a text file",
-                               media={"key": "cases/CASE-003/notes.txt", "contentType": "text/plain"},
+                          filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                          files=[], stt="ok", chat="concerning"),
+    "invalid_media_type": dict(case_id="CASE-003", description="The case file is a type Speech to Text and media analysis cannot use",
+                               filename="notes.txt", media_mime_type="text/plain",
                                files=["notes.txt"], stt="ok", chat="concerning"),
     "stt_server_error": dict(case_id="CASE-004", description="Speech to Text answers HTTP 500",
-                             media=_video("CASE-004"), files=["video.mp4"], stt="server_error", chat="concerning"),
+                             filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                             files=["video.mp4"], stt="server_error", chat="concerning"),
     "malformed_watsonx_output": dict(case_id="CASE-005", description="watsonx.ai answers with prose instead of JSON",
-                                     media=_video("CASE-005"), files=["video.mp4"], stt="ok", chat="malformed"),
+                                     filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                                     files=["video.mp4"], stt="ok", chat="malformed"),
     "no_timestamps": dict(case_id="CASE-006", description="Speech to Text gives no timing for its segments",
-                          media=_video("CASE-006"), files=["video.mp4"], stt="no_timestamps", chat="no_timestamps"),
+                          filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                          files=["video.mp4"], stt="no_timestamps", chat="no_timestamps"),
     "invalid_segment_index": dict(case_id="CASE-007", description="watsonx.ai names a segment that does not exist",
-                                  media=_video("CASE-007"), files=["video.mp4"], stt="ok", chat="invalid_index"),
+                                  filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                                  files=["video.mp4"], stt="ok", chat="invalid_index"),
     "case_id_mismatch": dict(case_id="CASE-008", description="case.json says CASE-999 but the folder is CASE-008",
-                             media=_video("CASE-008"), files=["video.mp4"], stt="ok", chat="concerning",
-                             case_id_inside="CASE-999"),
+                             filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                             files=["video.mp4"], stt="ok", chat="concerning", case_id_inside="CASE-999"),
     "audio_only": dict(case_id="CASE-009", description="The case media is audio, so it goes straight to Speech to Text",
-                       media={"key": "cases/CASE-009/speech.wav", "contentType": "audio/wav"},
+                       filename="speech.wav", content_type="audio", media_mime_type="audio/wav",
                        files=["speech.wav"], stt="ok", chat="concerning"),
     "media_analysis_failed_audio_recovered": dict(
         case_id="CASE-010", description="Video analysis fails but the audio can still be extracted, so the rest runs",
-        media=_video("CASE-010"), files=["video.mp4"], stt="ok", chat="concerning", media_fails=True),
-    "no_media_reference": dict(case_id="CASE-011", description="case.json has no mediaObject",
-                               media=None, files=[], stt="ok", chat="concerning"),
+        filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+        files=["video.mp4"], stt="ok", chat="concerning", media_fails=True),
+    "no_media_reference": dict(case_id="CASE-011", description="case.json has no fileName, mediaObjectKey or mediaObject",
+                               files=[], stt="ok", chat="concerning"),
+    "media_key_wrong_case": dict(
+        case_id="CASE-012", description="mediaObjectKey points at a different case folder, D2 must refuse it, never use it",
+        filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+        media_object_key="cases/CASE-999/video.mp4", files=["video.mp4"], stt="ok", chat="concerning"),
+    "filename_with_spaces": dict(
+        case_id="CASE-013", description="A file name with spaces and punctuation resolves and loads correctly (D3)",
+        filename="My Clip (Final v2).mp4", content_type="video", media_mime_type="video/mp4",
+        files=["My Clip (Final v2).mp4"], stt="ok", chat="concerning"),
+    "legacy_media_object": dict(
+        case_id="CASE-014", description="The older mediaObject field still works, kept for backward compatibility (D5)",
+        legacy=True, legacy_media_object={"key": "cases/CASE-014/video.mp4", "contentType": "video/mp4"},
+        files=["video.mp4"], stt="ok", chat="concerning"),
+    "uuid_case_id": dict(
+        case_id="CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab",
+        description="A Dev1 style CASE-<uuid> id works end to end, not just CASE-001 style (D1)",
+        filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+        files=["video.mp4"], stt="ok", chat="concerning"),
 }
 
 
@@ -148,9 +192,14 @@ def run_scenario(name, base_dir, work_dir, clip=None, real_media=False, live=Fal
     folder.mkdir(parents=True, exist_ok=True)
     for generated in GENERATED:
         (folder / generated).unlink(missing_ok=True)
-    existing.write_text(json.dumps(dev1_case_json(s["case_id"], s["media"], s.get("case_id_inside")), indent=2))
+    case_doc = dev1_case_json(
+        s["case_id"], filename=s.get("filename"), content_type=s.get("content_type"),
+        media_mime_type=s.get("media_mime_type"), media_object_key=s.get("media_object_key"),
+        case_id_inside=s.get("case_id_inside"), legacy=s.get("legacy", False),
+        legacy_media_object=s.get("legacy_media_object"))
+    existing.write_text(json.dumps(case_doc, indent=2))
     for fname in s["files"]:
-        if clip is not None and fname.endswith(".mp4"):
+        if clip is not None and fname.endswith(".mp4") and name == "happy_path":
             (folder / fname).write_bytes(Path(clip).read_bytes())
         else:
             (folder / fname).write_bytes(b"simulated file")
@@ -170,4 +219,4 @@ def run_scenario(name, base_dir, work_dir, clip=None, real_media=False, live=Fal
                          "speechToText": "IBM live" if use_live else "simulated",
                          "watsonx": "IBM live" if use_live else "simulated"},
             "resultStatus": result["status"], "error": result.get("error"), "saved": result.get("saved"),
-            "files": files, "original_case_json": dev1_case_json(s["case_id"], s["media"], s.get("case_id_inside"))}
+            "files": files, "original_case_json": case_doc}

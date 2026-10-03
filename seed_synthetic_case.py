@@ -1,5 +1,6 @@
-"""Creates synthetic cases under cases/ (a stand in for Dev1's case.json plus media), runs the pipeline on
-each scenario and saves the output of each one under outputs/pipeline/.
+"""Creates synthetic cases under cases/ (a stand in for Dev1's case.json plus media, in his actual
+shape: fileName, contentType, mediaMimeType, mediaObjectKey, see tests/simulated.py), runs the
+pipeline on each scenario and saves the output of each one under outputs/pipeline/.
 Usage: python seed_synthetic_case.py           simulated Speech to Text and watsonx.ai, no keys needed
        python seed_synthetic_case.py --live    CASE-001 uses the real IBM services
 CASE-001 uses samples/synthetic_concerning_video.mp4 and ffmpeg when they are available.

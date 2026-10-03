@@ -24,17 +24,17 @@
   "files": {
     "case.json": {
       "caseId": "CASE-001",
-      "title": "Synthetic test case",
-      "status": "submitted",
+      "submittedBy": "synthetic-seed",
+      "submittedAt": "2026-10-03T00:00:00Z",
+      "status": "Queued",
       "severity": null,
-      "summary": null,
-      "categories": [],
-      "timestamps": [],
+      "isTestCase": true,
+      "exposureMinutes": 0,
       "synthetic": true,
-      "mediaObject": {
-        "key": "cases/CASE-001/video.mp4",
-        "contentType": "video/mp4"
-      }
+      "fileName": "video.mp4",
+      "mediaObjectKey": "cases/CASE-001/video.mp4",
+      "contentType": "video",
+      "mediaMimeType": "video/mp4"
     },
     "transcript.json": {
       "caseId": "CASE-001",
@@ -67,7 +67,7 @@
     "analysis.json": {
       "caseId": "CASE-001",
       "severity": "high",
-      "summary": "The content contains a synthetic voice making threats of violence and stating that the target is hated and worthless. It also includes a threat to physically harm the target.",
+      "summary": "The synthetic video contains a short segment where the speaker verbally abuses a target, making threats and stating that others hate the target. The threatening language and intent to cause harm are clear.",
       "categories": [
         "harassment",
         "violence"

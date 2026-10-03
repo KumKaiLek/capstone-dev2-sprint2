@@ -24,17 +24,17 @@
   "files": {
     "case.json": {
       "caseId": "CASE-004",
-      "title": "Synthetic test case",
-      "status": "submitted",
+      "submittedBy": "synthetic-seed",
+      "submittedAt": "2026-10-03T00:00:00Z",
+      "status": "Queued",
       "severity": null,
-      "summary": null,
-      "categories": [],
-      "timestamps": [],
+      "isTestCase": true,
+      "exposureMinutes": 0,
       "synthetic": true,
-      "mediaObject": {
-        "key": "cases/CASE-004/video.mp4",
-        "contentType": "video/mp4"
-      }
+      "fileName": "video.mp4",
+      "mediaObjectKey": "cases/CASE-004/video.mp4",
+      "contentType": "video",
+      "mediaMimeType": "video/mp4"
     },
     "transcript.json": {
       "caseId": "CASE-004",
