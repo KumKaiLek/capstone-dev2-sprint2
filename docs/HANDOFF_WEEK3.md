@@ -199,8 +199,8 @@ Only `happy_path` uses the real IBM services. The other scenarios use simulated 
 
 Not built or not confirmed:
 - **Local store instead of COS.** The COS store is a stub that returns `NOT_IMPLEMENTED`. Nothing has been run against a real bucket.
-- **No Auditor retrieval endpoint yet.** Results can only be read with `run_load.py` or the store. Nothing is connected to Dev1's backend.
-- **Some of this is still unconfirmed by Dev1.** `case.json`'s fields now match what his backend's prototype actually produces, but he has not formally signed off on them. `transcript.json` and `analysis.json`, including their file names, are our own choice, not something he specified.
+- **No Auditor retrieval endpoint yet.** Dev1 has agreed his `GET /api/cases/:caseId` will read `transcript.json` and `analysis.json` straight from the case folder and return them with the case (his "option 1"), confirming our file names and confirming we never write `case.json`, only read it. His endpoint change to actually do this is not built yet, so until it is, results can only be read with `run_load.py` or the store, nothing is connected to his backend.
+- **case.json's fields are still not formally confirmed by Dev1.** They match what his backend's prototype actually produces, but he has not formally signed off on them.
 - **English synthetic audio only.** Speech to Text uses the English model `en-US_Multimedia`, there is no speaker separation, and the samples are text to speech, not real recordings. The concerning sample video was made with text to speech from a synthetic script.
 
 Scope:
