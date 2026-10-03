@@ -14,7 +14,7 @@ from pathlib import Path
 
 from .config import ConfigError
 
-CASE_ID_PATTERN = re.compile(r"^CASE-[0-9]{3,}$")
+CASE_ID_PATTERN = re.compile(r"^CASE-[A-Za-z0-9-]{3,64}$")
 FILENAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$")
 READ_ONLY_FILES = {"case.json"}
 
@@ -66,7 +66,7 @@ class LocalCaseStore(CaseStore):
 
     def save(self, case_id, filename, data):
         if not valid_case_id(case_id):
-            return _error("INVALID_CASE_ID", "caseId must look like CASE-001")
+            return _error("INVALID_CASE_ID", "caseId must look like CASE-001 or CASE-<uuid>, letters, digits and hyphens only")
         if not valid_filename(filename):
             return _error("INVALID_FILENAME", "filename must be a plain file name")
         if filename in READ_ONLY_FILES:
@@ -96,7 +96,7 @@ class LocalCaseStore(CaseStore):
 
     def load(self, case_id, filename):
         if not valid_case_id(case_id):
-            return _error("INVALID_CASE_ID", "caseId must look like CASE-001")
+            return _error("INVALID_CASE_ID", "caseId must look like CASE-001 or CASE-<uuid>, letters, digits and hyphens only")
         if not valid_filename(filename):
             return _error("INVALID_FILENAME", "filename must be a plain file name")
         target = self._file(case_id, filename)

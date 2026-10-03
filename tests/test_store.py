@@ -48,9 +48,12 @@ check("case.json is never written", r["error"]["code"] == "READ_ONLY_FILE"
 check("case.json can be read", store.load(CASE, "case.json")["data"]["mine"] is True)
 
 # ids and names
-check("valid case ids", valid_case_id("CASE-001") and valid_case_id("CASE-0001"))
-bad_ids = [None, "", "CASE-1", "case-001", "../CASE-001", "CASE-001/../x", 5]
-check("bad case ids rejected by save, load, exists and path", all(
+check("valid case ids: CASE-001 style", valid_case_id("CASE-001") and valid_case_id("CASE-0001"))
+check("valid case ids: CASE-<uuid> style (D1)", valid_case_id("CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab")
+      and valid_case_id("CASE-abc123"))
+bad_ids = [None, "", "CASE-1", "case-001", "../CASE-001", "CASE-001/../x", 5,
+           "CASE-abc/def", "CASE-abc..def", "CASE-../../etc", "CASE-" + "a" * 65]
+check("bad case ids rejected by save, load, exists and path, including / and .. in a uuid-style id (D1)", all(
     store.save(b, "analysis.json", DOC)["status"] == "error" and store.load(b, "analysis.json")["status"] == "error"
     and not store.exists(b, "analysis.json") and store.path(b, "analysis.json") is None for b in bad_ids))
 bad_names = ["", "../x.json", "sub/x.json", ".hidden", "a\\b.json", None]

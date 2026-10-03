@@ -134,7 +134,7 @@ def run_case(case_id, store, work_dir="outputs/media", _media_fn=None, _stt_fn=N
     {"status": "ok" | "partial" | "failed", "caseId", "mediaType", "transcript": {...}, "analysis": {...}, "saved": {...}}
     and has written transcript.json and analysis.json. The _fn arguments let the tests run without ffmpeg or IBM."""
     if not valid_case_id(case_id):
-        return {"status": "error", "error": {"code": "INVALID_CASE_ID", "message": "caseId must look like CASE-001"}}
+        return {"status": "error", "error": {"code": "INVALID_CASE_ID", "message": "caseId must look like CASE-001 or CASE-<uuid>, letters, digits and hyphens only"}}
     media_fn = _media_fn or analyse_media
     stt_fn = _stt_fn or transcribe
     analyze_fn = _analyze_fn or analyze
