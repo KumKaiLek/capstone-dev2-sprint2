@@ -2,7 +2,7 @@
 no IBM call and no key needed. Run: python -m tests.test_pipeline"""
 import tempfile
 from pathlib import Path
-from src.pipeline import media_kind, read_media_object, run_case
+from src.pipeline import media_kind, read_media_object, resolve_media_reference, run_case
 from src.store import LocalCaseStore
 from tests.simulated import SCENARIOS, media_service, run_scenario, stt_service, chat_service
 
@@ -152,6 +152,32 @@ check("mediaObject with nothing usable gives none", read_media_object(None) == (
 check("media kinds", media_kind("a.mp4") == "video" and media_kind("a.wav") == "audio" and media_kind("a.mp3") == "audio"
       and media_kind("a.txt") is None and media_kind("a") is None and media_kind("a.webm") == "video"
       and media_kind("a.webm", "audio/webm") == "audio")
+check("media kind trusts Dev1's coarse contentType directly, even over the extension (D2)",
+      media_kind("anything", "video") == "video" and media_kind("anything", "audio") == "audio"
+      and media_kind("a.mp4", "audio") == "audio")
+
+# D2: resolve_media_reference, checked in order mediaObjectKey, fileName, the older mediaObject
+CASE = "CASE-001"
+check("mediaObjectKey is read first and its cases/<caseId>/ prefix is stripped (D2)",
+      resolve_media_reference({"mediaObjectKey": "cases/CASE-001/My Clip.mp4", "contentType": "video"}, CASE)
+      == ("My Clip.mp4", "video", None))
+check("a mediaObjectKey naming a different case is refused, not silently used (D2)",
+      resolve_media_reference({"mediaObjectKey": "cases/CASE-002/video.mp4", "contentType": "video"}, CASE)
+      == (None, None, {"code": "MEDIA_KEY_WRONG_CASE", "message": "mediaObjectKey points at 'CASE-002', not CASE-001"}))
+check("a mediaObjectKey with no cases/<id>/ prefix falls back to its basename (D2)",
+      resolve_media_reference({"mediaObjectKey": "video.mp4", "contentType": "video"}, CASE) == ("video.mp4", "video", None))
+check("fileName is used when there is no mediaObjectKey (D2)",
+      resolve_media_reference({"fileName": "clip.mov", "contentType": "video"}, CASE) == ("clip.mov", "video", None))
+check("the older mediaObject is used when neither mediaObjectKey nor fileName is present (D2)",
+      resolve_media_reference({"mediaObject": {"key": "cases/CASE-001/old.mp4", "contentType": "video/mp4"}}, CASE)
+      == ("old.mp4", "video/mp4", None))
+check("contentType wins over mediaMimeType for the type hint (D2)",
+      resolve_media_reference({"fileName": "a.mp4", "contentType": "video", "mediaMimeType": "video/mp4"}, CASE)[1] == "video")
+check("mediaMimeType is used when there is no contentType (D2)",
+      resolve_media_reference({"fileName": "a.mp4", "mediaMimeType": "video/mp4"}, CASE)[1] == "video/mp4")
+check("nothing usable in case.json gives no reference and no error (D2)",
+      resolve_media_reference({}, CASE) == (None, None, None)
+      and resolve_media_reference({"mediaObjectKey": "  ", "fileName": "  "}, CASE) == (None, None, None))
 
 print(f"\n{sum(results)}/{len(results)} passed")
 raise SystemExit(0 if all(results) else 1)

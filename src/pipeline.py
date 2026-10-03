@@ -1,4 +1,4 @@
-"""Case pipeline. Reads Dev1's case.json, gets the media it names in mediaObject, runs Speech to Text
+"""Case pipeline. Reads Dev1's case.json, gets the media it references, runs Speech to Text
 and watsonx.ai, and writes transcript.json and analysis.json next to it. case.json is never written.
 
   audio  -> straight to Speech to Text
@@ -8,7 +8,14 @@ A failure in one stage is recorded in processingStatus and errors and the other 
 The result is partial, never a crash. Incident timestamps are never invented: watsonx.ai refers to numbered
 Speech to Text segments and the code looks up the measured start and end of that segment. A segment number that
 does not exist, or a segment with no timing, gives start/end = null and timestampStatus "unavailable".
+
+Media reference (D2, Sprint 2 Week 3 stabilisation): case.json is checked in this order,
+  1. mediaObjectKey, Dev1's current field, shaped "cases/<caseId>/<originalname>"
+  2. fileName, a plain name alongside mediaObjectKey
+  3. mediaObject, the older shape this pipeline used before (kept for backward compatibility)
+A mediaObjectKey that names a different case folder is refused, never silently used.
 """
+import re
 from pathlib import Path
 
 from .analysis import analyze
@@ -18,13 +25,14 @@ from .stt import ALLOWED_TYPES as STT_TYPES, transcribe
 from .store import valid_case_id
 
 AUDIO_EXT = set(STT_TYPES)
-# The exact shape of mediaObject in Dev1's case.json is not confirmed. A plain string or an object is accepted.
+# The exact shape of mediaObject, the older field, is not confirmed. A plain string or an object is accepted.
 MEDIA_NAME_KEYS = ("key", "objectKey", "fileName", "filename", "name", "path", "file")
 MEDIA_TYPE_KEYS = ("contentType", "mimeType", "mediaType", "type")
+KEY_PREFIX_PATTERN = re.compile(r"^cases/([^/]+)/")
 
 
 def read_media_object(obj):
-    """(file name, content type) from mediaObject, or (None, None) if there is nothing usable."""
+    """(file name, content type) from the older mediaObject field, or (None, None) if nothing is usable."""
     content_type = None
     if isinstance(obj, dict):
         ref = next((obj[k] for k in MEDIA_NAME_KEYS if isinstance(obj.get(k), str) and obj[k].strip()), None)
@@ -36,10 +44,53 @@ def read_media_object(obj):
     return ref.strip().replace("\\", "/").split("/")[-1], content_type
 
 
+def _type_hint(meta):
+    """contentType first (Dev1's coarse "video"/"audio"), then mediaMimeType (a full mime type)."""
+    for key in ("contentType", "mediaMimeType"):
+        value = meta.get(key)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    return None
+
+
+def resolve_media_reference(meta, case_id):
+    """(file name, content type, error) from case.json, checked in the order in the module docstring.
+    error is only set when mediaObjectKey names a different case; any other unusable field is just
+    skipped in favour of the next one, not treated as an error."""
+    key = meta.get("mediaObjectKey")
+    if isinstance(key, str) and key.strip():
+        key = key.strip().replace("\\", "/")
+        match = KEY_PREFIX_PATTERN.match(key)
+        if match:
+            if match.group(1) != case_id:
+                return None, None, {"code": "MEDIA_KEY_WRONG_CASE",
+                                    "message": f"mediaObjectKey points at {match.group(1)!r}, not {case_id}"}
+            rest = key[match.end():].split("/")[-1].strip()
+        else:
+            rest = key.split("/")[-1].strip()
+        if rest:
+            return rest, _type_hint(meta), None
+
+    name = meta.get("fileName")
+    if isinstance(name, str) and name.strip():
+        return name.strip().split("/")[-1], _type_hint(meta), None
+
+    legacy_name, legacy_type = read_media_object(meta.get("mediaObject"))
+    if legacy_name:
+        return legacy_name, legacy_type or _type_hint(meta), None
+
+    return None, None, None
+
+
 def media_kind(filename, content_type=None):
-    """"audio", "video" or None when the type is not supported. .webm without a hint counts as video."""
+    """"audio", "video" or None when the type cannot be worked out. A coarse content_type of
+    "audio" or "video" (Dev1's contentType field) is trusted directly. Otherwise a full mime type
+    ("video/mp4") is used if it matches the extension, then the extension alone. .webm with no
+    audio/video hint counts as video."""
+    ct = (content_type or "").lower().strip()
+    if ct in ("audio", "video"):
+        return ct
     ext = Path(filename).suffix.lower()
-    ct = (content_type or "").lower()
     if ct.startswith("audio/") and ext in AUDIO_EXT:
         return "audio"
     if ct.startswith("video/") and ext in VIDEO_EXT:
@@ -164,10 +215,13 @@ def run_case(case_id, store, work_dir="outputs/media", _media_fn=None, _stt_fn=N
         errors.append({"stage": stage, "code": code, "message": message})
         return {"code": code, "message": message}
 
-    media_file, content_type = read_media_object(meta.get("mediaObject"))
+    media_file, content_type, media_error = resolve_media_reference(meta, case_id)
     kind = media_kind(media_file, content_type) if media_file else None
-    if media_file is None:
-        fail("mediaAnalysis", "MEDIA_REFERENCE_MISSING", "case.json has no usable mediaObject")
+    if media_error is not None:
+        fail("mediaAnalysis", media_error["code"], media_error["message"])
+    elif media_file is None:
+        fail("mediaAnalysis", "MEDIA_REFERENCE_MISSING",
+             "case.json has no usable mediaObjectKey, fileName or mediaObject")
     elif kind is None:
         ext = Path(media_file).suffix.lower() or "(none)"
         fail("mediaAnalysis", "INVALID_MEDIA_TYPE",
