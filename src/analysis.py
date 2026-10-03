@@ -190,6 +190,12 @@ def validate_result(obj, case_id, model_id="unknown", segment_count=None):
                 warnings.append(f"category_dropped_no_evidence:{cat}")
         categories = kept
 
+    # D6, Sprint 2 Week 3 stabilisation: watsonx.ai does not return categories in a stable order
+    # (seen across repeated runs with run_repeat.py), so sort into the fixed order of CATEGORIES
+    # here, once, and everything built from categories afterwards (including the timestamp
+    # reason text in src/pipeline.py) follows that same order.
+    categories = sorted(categories, key=CATEGORIES.index)
+
     for key in obj:
         if key not in ALLOWED_MODEL_FIELDS:
             warnings.append(f"dropped_unexpected_field:{key}")

@@ -1,6 +1,7 @@
 """Offline tests: no IBM call, no key needed. Run: python -m tests.test_validation"""
 import json
 from src.analysis import analyze
+from src.schemas import CATEGORIES
 
 CASE = "CASE-0001"
 GOOD = {"caseId": CASE, "severity": "low", "summary": "A neutral test message.", "categories": ["other"]}
@@ -87,6 +88,20 @@ ok, out = run_seg("D4: duplicate and out-of-range segment numbers are cleaned, t
 results.append(ok and out["result"]["categories"] == ["harassment"] and out["result"]["evidenceSegments"] == {"harassment": [2]})
 ok, out = run("D4: a legacy call with no segments keeps categories regardless of evidenceSegments", GOOD, "ok")
 results.append(ok and out["result"]["categories"] == ["other"] and out["result"]["evidenceSegments"] == {})
+
+# D6 (Sprint 2 Week 3 stabilisation): watsonx.ai does not return categories in a stable order
+# across repeated runs (seen with run_repeat.py), so they are sorted into the fixed CATEGORIES
+# order before the result is returned.
+scrambled = list(reversed(CATEGORIES))
+ok, out = run_seg("D6: categories come back in the fixed CATEGORIES order, however the model ordered them",
+                   {**GOOD, "categories": scrambled, "evidenceSegments": {c: [1] for c in scrambled}}, "ok")
+results.append(ok and out["result"]["categories"] == CATEGORIES)
+ok, out = run_seg("D6: order is normalised for just two out-of-order categories too",
+                   {**GOOD, "categories": ["violence", "harassment"], "evidenceSegments": {"violence": [1], "harassment": [1]}}, "ok")
+results.append(ok and out["result"]["categories"] == ["harassment", "violence"])
+ok, out = run("D6: order is normalised on a legacy call with no segments too",
+              {**GOOD, "categories": ["sexual_content", "hate_speech"]}, "ok")
+results.append(ok and out["result"]["categories"] == ["hate_speech", "sexual_content"])
 
 seen = {}
 
