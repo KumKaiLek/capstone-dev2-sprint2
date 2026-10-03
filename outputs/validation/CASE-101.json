@@ -1,0 +1,78 @@
+{
+  "status": "ok",
+  "caseId": "CASE-101",
+  "mediaType": "video",
+  "transcript": {
+    "caseId": "CASE-101",
+    "transcript": "this is a routine status update for the weekly team meeting everyone please review the agenda before friday",
+    "confidence": 0.96,
+    "status": "ok",
+    "error": null,
+    "segments": [
+      {
+        "startSec": 0.02,
+        "endSec": 5.88,
+        "text": "this is a routine status update for the weekly team meeting everyone please review the agenda before friday",
+        "confidence": 0.96,
+        "timestampStatus": "available",
+        "timestampReason": null
+      }
+    ],
+    "source": "video_audio.wav",
+    "model": "en-US_Multimedia",
+    "durationSeconds": 5.88
+  },
+  "analysis": {
+    "caseId": "CASE-101",
+    "severity": "low",
+    "summary": "The content is a brief, neutral status update for a team meeting, instructing attendees to review the agenda by Friday.",
+    "categories": [],
+    "evidenceSegments": {},
+    "timestamps": [],
+    "processingStatus": {
+      "stt": "ok",
+      "mediaAnalysis": "ok",
+      "watsonx": "ok"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": "ibm/granite-4-h-small",
+    "mediaType": "video",
+    "mediaFile": "video.mp4",
+    "media": {
+      "fileName": "video.mp4",
+      "durationSeconds": 6.0,
+      "hasAudio": true,
+      "frameCount": 3,
+      "sceneChanges": []
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 6.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg",
+          "frame_003.jpg"
+        ],
+        "transcriptText": "this is a routine status update for the weekly team meeting everyone please review the agenda before friday"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-101",
+      "key": "cases/CASE-101/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-101",
+      "key": "cases/CASE-101/analysis.json"
+    }
+  }
+}

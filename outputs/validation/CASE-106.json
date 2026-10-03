@@ -1,0 +1,56 @@
+{
+  "status": "failed",
+  "caseId": "CASE-106",
+  "mediaType": "video",
+  "transcript": {
+    "caseId": "CASE-106",
+    "transcript": null,
+    "confidence": null,
+    "status": "unavailable",
+    "error": null,
+    "segments": [],
+    "source": null,
+    "model": null,
+    "durationSeconds": null
+  },
+  "analysis": {
+    "caseId": "CASE-106",
+    "severity": null,
+    "summary": null,
+    "categories": [],
+    "evidenceSegments": {},
+    "timestamps": [],
+    "processingStatus": {
+      "stt": "unavailable",
+      "mediaAnalysis": "failed",
+      "watsonx": "unavailable"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": null,
+    "mediaType": "video",
+    "mediaFile": "missing.mp4",
+    "media": null,
+    "sceneSegments": [],
+    "errors": [
+      {
+        "stage": "mediaAnalysis",
+        "code": "MEDIA_NOT_FOUND",
+        "message": "The media file missing.mp4 is not in the case folder"
+      }
+    ],
+    "warnings": []
+  },
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-106",
+      "key": "cases/CASE-106/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-106",
+      "key": "cases/CASE-106/analysis.json"
+    }
+  }
+}
