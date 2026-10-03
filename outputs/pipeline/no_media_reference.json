@@ -48,6 +48,7 @@
       "severity": null,
       "summary": null,
       "categories": [],
+      "evidenceSegments": {},
       "timestamps": [],
       "processingStatus": {
         "stt": "unavailable",

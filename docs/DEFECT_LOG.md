@@ -65,3 +65,13 @@ Each entry is one commit on `sprint2-week3-stabilisation`. Format: defect, cause
 **Before/after test.** `tests/test_validation.py`, the D6 section. Before the fix, `analyze` returning `{"categories": ["violence", "harassment"], ...}` (plus matching `evidenceSegments`) gave back `["violence", "harassment"]` unchanged. After, it gives back `["harassment", "violence"]`, and a model returning all seven categories in reverse gives back `CATEGORIES` in its original order, for both a segment-aware call and a legacy call with no segments.
 
 **Before/after on the real CASE-001 recording.** Before the fix, `python run_repeat.py CASE-001 3` against the live services gave 2 distinct results out of 3 runs, differing only in category order (severity and timestamps matched every time). After the fix, all 3 live runs of `CASE-001` matched exactly, `run_repeat.py` reporting "All 3 runs of CASE-001 matched exactly on severity, categories and timestamps."
+
+## D7: evidenceSegments was computed but never saved
+
+**Defect.** `analyze()` in `src/analysis.py` has returned `evidenceSegments` (the segment numbers behind each kept category) since D4. `build_analysis_doc` in `src/pipeline.py`, which builds the `analysis.json` that actually gets saved, never copied it in. So a category could survive the D4 evidence check and still leave an Auditor with no way to see what justified it, only that it was named.
+
+**Cause.** D4 added `evidenceSegments` to `analyze()`'s return value but stopped there; the pipeline's document builder was not updated to carry the new field through to disk.
+
+**Fix.** One line in `build_analysis_doc`: `"evidenceSegments": a.get("evidenceSegments", {})`, next to the existing `categories` line, so it is saved and defaults to `{}` when there is no analysis (the same pattern already used for `categories`).
+
+**Before/after test.** `tests/test_pipeline.py`, "happy path: evidenceSegments is saved in analysis.json ... (D7)" and "invalid segment index: no category survived, so evidenceSegments is empty too (D7)". Before the fix, `analysis.json` for the happy path scenario had no `evidenceSegments` key at all. After, it has `{"harassment": [2], "violence": [2]}`, matching the segment watsonx.ai actually flagged.

@@ -72,6 +72,14 @@
         "harassment",
         "violence"
       ],
+      "evidenceSegments": {
+        "harassment": [
+          1
+        ],
+        "violence": [
+          1
+        ]
+      },
       "timestamps": [
         {
           "start": null,

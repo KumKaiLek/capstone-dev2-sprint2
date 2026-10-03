@@ -77,6 +77,7 @@ Dev1's fields `caseId`, `severity`, `summary`, `categories` and `timestamps` are
 | severity | `low`, `medium` or `high`, or `null` if watsonx.ai gave no result |
 | summary | 1 to 3 neutral sentences, or `null` |
 | categories | From `hate_speech`, `harassment`, `violence`, `self_harm`, `sexual_content`, `misinformation`, `other`, always in that fixed order regardless of the order watsonx.ai used. A category the model named with no real supporting segment is dropped before this is built. Empty list if none |
+| evidenceSegments | Object mapping each category still in `categories` to the list of transcript segment numbers (1 based, the same numbering as `timestamps`) that justify it. Empty object if `categories` is empty |
 | timestamps | List of `{start, end, reason, timestampStatus}` in seconds (see the rules below) |
 | processingStatus | `{stt, mediaAnalysis, watsonx}`, each `ok`, `failed` or `unavailable` |
 | advisory | Always `true`, set by code |
@@ -98,6 +99,7 @@ Example from `CASE-001` (frame lists shortened):
   "severity": "high",
   "summary": "The content contains a synthetic voice making threats of violence and stating that the target is hated and worthless. It also includes a threat to physically harm the target.",
   "categories": ["harassment", "violence"],
+  "evidenceSegments": {"harassment": [2], "violence": [2]},
   "timestamps": [
     {"start": 3.64, "end": 9.7, "reason": "segment 2 flagged by watsonx.ai (harassment, violence)", "timestampStatus": "available"}
   ],

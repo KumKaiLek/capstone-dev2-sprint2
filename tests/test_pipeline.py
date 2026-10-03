@@ -51,6 +51,8 @@ check("happy path: incident timestamp is the measured STT time of the flagged se
 check("happy path: Dev1's fields and advisory flags in analysis.json", h["analysis.json"]["severity"] == "high"
       and h["analysis.json"]["categories"] == ["harassment", "violence"] and h["analysis.json"]["summary"]
       and h["analysis.json"]["advisory"] is True and h["analysis.json"]["requiresHumanReview"] is True)
+check("happy path: evidenceSegments is saved in analysis.json, the STT segment behind each category (D7)",
+      h["analysis.json"]["evidenceSegments"] == {"harassment": [2], "violence": [2]})
 scenes = h["analysis.json"]["sceneSegments"]
 check("happy path: scene cuts kept as sceneSegments with no severity", len(scenes) == 2
       and all("severity" not in s for s in scenes) and "sceneSegments" in h["analysis.json"])
@@ -105,6 +107,8 @@ t = files("invalid_segment_index")["analysis.json"]["timestamps"]
 check("invalid segment index: recorded as unavailable with a reason, run still ok", out["invalid_segment_index"]["resultStatus"] == "ok"
       and len(t) == 1 and t[0]["start"] is None and t[0]["end"] is None and t[0]["timestampStatus"] == "unavailable"
       and "segment 9" in t[0]["reason"])
+check("invalid segment index: no category survived, so evidenceSegments is empty too (D7)",
+      files("invalid_segment_index")["analysis.json"]["evidenceSegments"] == {})
 
 # 8 case id mismatch
 cm = out["case_id_mismatch"]
