@@ -15,8 +15,9 @@ from pathlib import Path
 from .config import ConfigError
 
 CASE_ID_PATTERN = re.compile(r"^CASE-[A-Za-z0-9-]{3,64}$")
-FILENAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$")
 READ_ONLY_FILES = {"case.json"}
+MAX_FILENAME_LENGTH = 150
+CONTROL_CHARS = frozenset(chr(c) for c in list(range(0x20)) + [0x7F])
 
 
 def valid_case_id(case_id):
@@ -24,7 +25,16 @@ def valid_case_id(case_id):
 
 
 def valid_filename(filename):
-    return isinstance(filename, str) and bool(FILENAME_PATTERN.match(filename))
+    """A plain file name: spaces and normal punctuation are fine, since original file names from
+    Dev1 can have both (D3, Sprint 2 Week 3 stabilisation). Still blocked: path separators, ..
+    anywhere in the name, and control characters."""
+    if not isinstance(filename, str) or not filename or filename.isspace():
+        return False
+    if len(filename) > MAX_FILENAME_LENGTH:
+        return False
+    if "/" in filename or "\\" in filename or ".." in filename:
+        return False
+    return not any(ch in CONTROL_CHARS for ch in filename)
 
 
 def _error(code, message):

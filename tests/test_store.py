@@ -56,10 +56,15 @@ bad_ids = [None, "", "CASE-1", "case-001", "../CASE-001", "CASE-001/../x", 5,
 check("bad case ids rejected by save, load, exists and path, including / and .. in a uuid-style id (D1)", all(
     store.save(b, "analysis.json", DOC)["status"] == "error" and store.load(b, "analysis.json")["status"] == "error"
     and not store.exists(b, "analysis.json") and store.path(b, "analysis.json") is None for b in bad_ids))
-bad_names = ["", "../x.json", "sub/x.json", ".hidden", "a\\b.json", None]
-check("bad file names rejected", all(store.save(CASE, n, DOC)["error"]["code"] == "INVALID_FILENAME"
-                                     and store.load(CASE, n)["error"]["code"] == "INVALID_FILENAME"
-                                     and not store.exists(CASE, n) for n in bad_names))
+bad_names = ["", "   ", "../x.json", "sub/x.json", "a/../b.json", "a\\b.json", None, "x" * 151,
+             "control\x00char.json", "a\nb.json", "a\x7fb.json"]
+check("bad file names rejected: path separators, .., control characters, empty (D3)", all(
+    store.save(CASE, n, DOC)["error"]["code"] == "INVALID_FILENAME"
+    and store.load(CASE, n)["error"]["code"] == "INVALID_FILENAME" and not store.exists(CASE, n) for n in bad_names))
+good_names = ["My Clip (Final v2).mp4", "notes, v2 - draft.txt", "O'Brien's report.json", "résumé.mp4", ".hidden.json"]
+check("spaces and normal punctuation in a file name are now allowed (D3)", all(
+    store.save(CASE, n, DOC)["status"] == "ok" and store.load(CASE, n)["status"] == "ok" and store.exists(CASE, n)
+    for n in good_names))
 check("nothing was written outside the cases folder", sorted(p.name for p in tmp.iterdir()) == ["cases"])
 
 # documents
