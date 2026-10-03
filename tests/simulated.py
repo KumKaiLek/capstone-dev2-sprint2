@@ -54,8 +54,12 @@ def chat_service(kind):
         case_id = messages[1]["content"].split("\n")[0].split(": ", 1)[1]
         if kind == "malformed":
             return "I think this content is fine."
+        # evidenceSegments points at the same numbers as concerningSegments (D4), so a scenario that
+        # deliberately flags an index outside the transcript (invalid_index) also drops its categories,
+        # the way a model that hallucinates a segment number would hallucinate the same one as evidence.
         return json.dumps({"caseId": case_id, "severity": "high", "summary": "A neutral summary of the recording.",
-                           "categories": ["harassment", "violence"], "concerningSegments": flagged[kind]})
+                           "categories": ["harassment", "violence"], "concerningSegments": flagged[kind],
+                           "evidenceSegments": {"harassment": flagged[kind], "violence": flagged[kind]}})
     return partial(analyze, _chat_fn=chat)
 
 

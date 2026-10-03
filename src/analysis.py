@@ -6,15 +6,20 @@ import requests
 
 from .config import watsonx_settings, ConfigError
 from .schemas import (
-    SEVERITIES, CATEGORIES, ALLOWED_MODEL_FIELDS, FORBIDDEN_KEYS, MAX_SUMMARY_CHARS,
+    SEVERITIES, CATEGORIES, CATEGORY_DEFINITIONS, ALLOWED_MODEL_FIELDS, FORBIDDEN_KEYS, MAX_SUMMARY_CHARS,
 )
 
 IAM_URL = "https://iam.cloud.ibm.com/identity/token"
 API_VERSION = "2025-02-11"
 TIMEOUT = 60
 
+CATEGORY_LINES = "\n".join(f"    {c} = {CATEGORY_DEFINITIONS[c]}" for c in CATEGORIES)
 SEGMENT_KEY = """
   "concerningSegments": a list of the segment numbers (integers) from the numbered transcript that contain concerning content, [] if none. Use only numbers that appear in the transcript"""
+# D4, Sprint 2 Week 3 stabilisation: every category must point at the evidence for it, or it is
+# dropped before the result is returned (see validate_result).
+EVIDENCE_KEY = """
+  "evidenceSegments": an object mapping each category you return in "categories" to a list of the segment numbers (integers) that support it. A category with no real supporting segment number here will be dropped, so only return a category you can point to"""
 
 
 def build_system_prompt(with_segments=False):
@@ -24,7 +29,8 @@ Return ONLY one JSON object, no prose, no code fences, with exactly these keys:
   "caseId": copy the caseId you are given, unchanged
   "severity": one of {SEVERITIES}
   "summary": 1 to 3 neutral sentences describing what the content contains
-  "categories": a list with values only from {CATEGORIES}{SEGMENT_KEY if with_segments else ""}
+  "categories": a list with values only from {CATEGORIES}, defined as:
+{CATEGORY_LINES}{SEGMENT_KEY if with_segments else ""}{EVIDENCE_KEY if with_segments else ""}
 Never include keys such as decision, action, verdict, remove or ban."""
 
 
@@ -119,8 +125,13 @@ def extract_json(text):
     raise AnalysisError("MALFORMED_OUTPUT", "Model output was not valid JSON")
 
 
-def validate_result(obj, case_id, model_id="unknown"):
-    """Returns (clean_result, warnings). Raises INVALID_OUTPUT with all problems listed."""
+def validate_result(obj, case_id, model_id="unknown", segment_count=None):
+    """Returns (clean_result, warnings). Raises INVALID_OUTPUT with all problems listed.
+    segment_count is how many numbered transcript segments the model was given. When it is not
+    None (D4, Sprint 2 Week 3 stabilisation), a category with no valid evidenceSegments entry is
+    dropped and a category_dropped_no_evidence warning is added, instead of trusting the category
+    on its own. Pass None for a call with no numbered transcript, which skips this and keeps the
+    model's categories as given (the behaviour before D4)."""
     warnings = []
     if not isinstance(obj, dict):
         raise AnalysisError("INVALID_OUTPUT", "Result is not a JSON object")
@@ -161,6 +172,24 @@ def validate_result(obj, case_id, model_id="unknown"):
     if problems:
         raise AnalysisError("INVALID_OUTPUT", "; ".join(problems))
 
+    categories = obj["categories"]
+    evidence_out = {}
+    if segment_count is not None:
+        evidence_in = obj.get("evidenceSegments")
+        if not isinstance(evidence_in, dict):
+            evidence_in = {}
+        kept = []
+        for cat in categories:
+            raw = evidence_in.get(cat)
+            valid = [n for n in raw if isinstance(n, int) and not isinstance(n, bool) and 1 <= n <= segment_count] \
+                if isinstance(raw, list) else []
+            if valid:
+                kept.append(cat)
+                evidence_out[cat] = sorted(set(valid))
+            else:
+                warnings.append(f"category_dropped_no_evidence:{cat}")
+        categories = kept
+
     for key in obj:
         if key not in ALLOWED_MODEL_FIELDS:
             warnings.append(f"dropped_unexpected_field:{key}")
@@ -169,8 +198,9 @@ def validate_result(obj, case_id, model_id="unknown"):
         "caseId": obj["caseId"],
         "severity": obj["severity"],
         "summary": obj["summary"].strip(),
-        "categories": obj["categories"],
+        "categories": categories,
         "concerningSegments": segs,
+        "evidenceSegments": evidence_out,
         # Set by code, never trusted from the model
         "advisory": True,
         "requiresHumanReview": True,
@@ -203,7 +233,8 @@ def analyze(case_id, transcript, media_context, segments=None, _chat_fn=None):
             try:
                 raw = chat()
                 obj, warnings = extract_json(raw)
-                clean, more = validate_result(obj, case_id, settings["model_id"])
+                clean, more = validate_result(obj, case_id, settings["model_id"],
+                                              segment_count=(len(segments) if segments else None))
                 warnings += more
                 if attempt == 2:
                     warnings.append("succeeded_on_retry")
