@@ -8,11 +8,12 @@ Settings come from .env (never hardcoded, never printed):
   STT_URL      the service URL including the instance, e.g.
                https://api.<region>.speech-to-text.watson.cloud.ibm.com/instances/<id>
   STT_MODEL    optional, defaults to en-US_Multimedia
+  STT_TIMEOUT  optional, seconds to wait for Speech to Text, defaults to 120
 """
 from pathlib import Path
 import requests
 
-from .config import get_setting, ConfigError
+from .config import get_setting, get_timeout, ConfigError
 
 ALLOWED_TYPES = {
     ".wav": "audio/wav",
@@ -62,7 +63,8 @@ def validate_audio(path):
 
 
 def _default_post(url, params, headers, data, auth):
-    return requests.post(url, params=params, headers=headers, data=data, auth=auth, timeout=TIMEOUT)
+    return requests.post(url, params=params, headers=headers, data=data, auth=auth,
+                         timeout=get_timeout("STT_TIMEOUT", TIMEOUT))
 
 
 def _segment_times(stamps):
@@ -145,6 +147,9 @@ def transcribe(path, _settings=None, _post_fn=None):
                     f,
                     ("apikey", s["api_key"]),
                 )
+        except requests.Timeout:
+            # Sprint 3: a timeout gets its own code, checked before the general network error
+            raise SttError("TIMEOUT", "Speech to Text did not answer in time")
         except requests.RequestException as e:
             raise SttError("NETWORK_ERROR", f"Could not reach Speech to Text: {type(e).__name__}")
 

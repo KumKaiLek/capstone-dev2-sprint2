@@ -4,14 +4,16 @@ import json
 import re
 import requests
 
-from .config import watsonx_settings, ConfigError
+from .config import get_timeout, watsonx_settings, ConfigError
 from .schemas import (
     SEVERITIES, CATEGORIES, CATEGORY_DEFINITIONS, ALLOWED_MODEL_FIELDS, FORBIDDEN_KEYS, MAX_SUMMARY_CHARS,
 )
 
 IAM_URL = "https://iam.cloud.ibm.com/identity/token"
 API_VERSION = "2025-02-11"
-TIMEOUT = 60
+TIMEOUT = 60  # seconds, overridable with WATSONX_TIMEOUT (IAM token call and chat call)
+# These are retried once, the same single retry as before; anything else fails at once
+RETRYABLE = ("MALFORMED_OUTPUT", "INVALID_OUTPUT")
 
 CATEGORY_LINES = "\n".join(f"    {c} = {CATEGORY_DEFINITIONS[c]}" for c in CATEGORIES)
 SEGMENT_KEY = """
@@ -42,14 +44,17 @@ class AnalysisError(Exception):
         self.message = message
 
 
-def get_token(api_key):
+def get_token(api_key, post=None):
+    post = post or requests.post
     try:
-        r = requests.post(
+        r = post(
             IAM_URL,
             headers={"Content-Type": "application/x-www-form-urlencoded"},
             data={"grant_type": "urn:ibm:params:oauth:grant-type:apikey", "apikey": api_key},
-            timeout=TIMEOUT,
+            timeout=get_timeout("WATSONX_TIMEOUT", TIMEOUT),
         )
+    except requests.Timeout:
+        raise AnalysisError("TIMEOUT", "IBM IAM did not answer in time")
     except requests.RequestException as e:
         raise AnalysisError("NETWORK_ERROR", f"Could not reach IBM IAM: {type(e).__name__}")
     if r.status_code != 200:
@@ -75,7 +80,7 @@ def build_messages(case_id, transcript, media_context, segments=None):
     ]
 
 
-def call_chat(settings, token, messages):
+def call_chat(settings, token, messages, post=None):
     url = f"{settings['url']}/ml/v1/text/chat?version={API_VERSION}"
     body = {
         "model_id": settings["model_id"],
@@ -84,13 +89,16 @@ def call_chat(settings, token, messages):
         "max_tokens": 800,
         "temperature": 0,
     }
+    post = post or requests.post
     try:
-        r = requests.post(
+        r = post(
             url,
             headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
             json=body,
-            timeout=TIMEOUT,
+            timeout=get_timeout("WATSONX_TIMEOUT", TIMEOUT),
         )
+    except requests.Timeout:
+        raise AnalysisError("TIMEOUT", "watsonx.ai did not answer in time")
     except requests.RequestException as e:
         raise AnalysisError("NETWORK_ERROR", f"Could not reach watsonx.ai: {type(e).__name__}")
     if r.status_code in (401, 403):
@@ -98,9 +106,11 @@ def call_chat(settings, token, messages):
     if r.status_code != 200:
         raise AnalysisError("SERVICE_ERROR", f"watsonx.ai returned HTTP {r.status_code}")
     try:
-        return r.json()["choices"][0]["message"]["content"]
-    except (KeyError, IndexError, ValueError):
+        choice = r.json()["choices"][0]
+        content = choice["message"]["content"]
+    except (KeyError, IndexError, TypeError, ValueError):
         raise AnalysisError("MALFORMED_OUTPUT", "watsonx.ai response had no message content")
+    return content
 
 
 def extract_json(text):
@@ -216,10 +226,11 @@ def validate_result(obj, case_id, model_id="unknown", segment_count=None):
     return clean, warnings
 
 
-def analyze(case_id, transcript, media_context, segments=None, _chat_fn=None):
+def analyze(case_id, transcript, media_context, segments=None, _chat_fn=None, _settings=None, _post_fn=None):
     """Never raises. Returns {"status": "ok", ...} or {"status": "error", ...}.
     segments (STT segments with "text") lets the model refer to numbered segments.
-    _chat_fn lets tests inject a fake model response without calling IBM."""
+    _chat_fn lets tests inject a fake model response without calling IBM. _settings and _post_fn
+    instead keep the real IAM and chat code and only fake the network, the same as transcribe."""
     if not case_id or not isinstance(case_id, str):
         return {"status": "error", "error": {"code": "MISSING_INPUT", "message": "caseId is required"}}
     if not transcript or not str(transcript).strip():
@@ -227,11 +238,14 @@ def analyze(case_id, transcript, media_context, segments=None, _chat_fn=None):
     media_context = media_context or {}
 
     try:
-        settings = watsonx_settings() if _chat_fn is None else {"model_id": "test-model"}
+        if _chat_fn is not None:
+            settings = {"model_id": "test-model"}
+        else:
+            settings = _settings if _settings is not None else watsonx_settings()
         messages = build_messages(case_id, transcript, media_context, segments)
         if _chat_fn is None:
-            token = get_token(settings["api_key"])
-            chat = lambda: call_chat(settings, token, messages)
+            token = get_token(settings["api_key"], _post_fn)
+            chat = lambda: call_chat(settings, token, messages, _post_fn)
         else:
             chat = lambda: _chat_fn(messages)
 
@@ -248,7 +262,7 @@ def analyze(case_id, transcript, media_context, segments=None, _chat_fn=None):
                 return {"status": "ok", "result": clean, "warnings": warnings}
             except AnalysisError as e:
                 last_error = e
-                if e.code not in ("MALFORMED_OUTPUT", "INVALID_OUTPUT"):
+                if e.code not in RETRYABLE:
                     raise
         raise last_error
     except ConfigError as e:
