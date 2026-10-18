@@ -1,0 +1,30 @@
+V1_CASE-101: STABLE over 5 runs
+  severity identical=True categories identical=True timestamps identical=True status and error codes identical=True
+  summary: rules passed on every run, 1 distinct wording(s); caseId linked in case.json, transcript.json, analysis.json on every run=True
+  run 1: status=ok severity=low categories=[] timestamps=[] errors=[]
+V2_CASE-102: STABLE over 5 runs
+  severity identical=True categories identical=True timestamps identical=True status and error codes identical=True
+  summary: rules passed on every run, 2 distinct wording(s); caseId linked in case.json, transcript.json, analysis.json on every run=True
+  run 1: status=ok severity=high categories=['violence'] timestamps=[(3.64, 9.7, 'available')] errors=[]
+V3_CASE-103: STABLE over 5 runs
+  severity identical=True categories identical=True timestamps identical=True status and error codes identical=True
+  summary: rules passed on every run, 1 distinct wording(s); caseId linked in case.json, transcript.json, analysis.json on every run=True
+  run 1: status=ok severity=medium categories=['harassment'] timestamps=[(0.0, 11.54, 'available')] errors=[]
+V4_CASE-104: STABLE over 5 runs
+  severity identical=True categories identical=True timestamps identical=True status and error codes identical=True
+  summary: rules passed on every run, 1 distinct wording(s); caseId linked in case.json, transcript.json, analysis.json on every run=True
+  run 1: status=ok severity=low categories=[] timestamps=[] errors=[]
+V5_CASE-105_no_speech: STABLE over 5 runs
+  severity identical=True categories identical=True timestamps identical=True status and error codes identical=True
+  summary: no summary on any run (correct for a failed stage), 1 distinct wording(s); caseId linked in case.json, transcript.json, analysis.json on every run=True
+  run 1: status=partial severity=None categories=[] timestamps=[] errors=['stt:EMPTY_TRANSCRIPT']
+V6_CASE-106_missing_media: STABLE over 5 runs
+  severity identical=True categories identical=True timestamps identical=True status and error codes identical=True
+  summary: no summary on any run (correct for a failed stage), 1 distinct wording(s); caseId linked in case.json, transcript.json, analysis.json on every run=True
+  run 1: status=failed severity=None categories=[] timestamps=[] errors=['mediaAnalysis:MEDIA_NOT_FOUND']
+FORCED_stt_timeout_CASE-101: STABLE over 5 runs
+  severity identical=True categories identical=True timestamps identical=True status and error codes identical=True
+  summary: no summary on any run (correct for a failed stage), 1 distinct wording(s); caseId linked in case.json, transcript.json, analysis.json on every run=True
+  run 1: status=partial severity=None categories=[] timestamps=[] errors=['stt:TIMEOUT']
+
+Saved raw runs and results.json to outputs/sprint3/repeatability/

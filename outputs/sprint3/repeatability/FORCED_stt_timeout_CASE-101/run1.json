@@ -1,0 +1,105 @@
+{
+  "overrides": {
+    "STT_TIMEOUT": "0.001"
+  },
+  "record": {
+    "status": "partial",
+    "severity": null,
+    "categories": [],
+    "timestamps": [],
+    "summary": null,
+    "summaryRules": null,
+    "processingStatus": {
+      "stt": "failed",
+      "mediaAnalysis": "ok",
+      "watsonx": "unavailable"
+    },
+    "errorCodes": [
+      "stt:TIMEOUT"
+    ],
+    "caseIds": {
+      "result": "CASE-101",
+      "case.json": "CASE-101",
+      "transcript.json": "CASE-101",
+      "analysis.json": "CASE-101"
+    },
+    "caseIdLinked": true
+  },
+  "result": {
+    "status": "partial",
+    "caseId": "CASE-101",
+    "mediaType": "video",
+    "transcript": {
+      "caseId": "CASE-101",
+      "transcript": null,
+      "confidence": null,
+      "status": "failed",
+      "error": {
+        "code": "TIMEOUT",
+        "message": "Speech to Text did not answer in time"
+      },
+      "segments": [],
+      "source": null,
+      "model": null,
+      "durationSeconds": null
+    },
+    "analysis": {
+      "caseId": "CASE-101",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "evidenceSegments": {},
+      "timestamps": [],
+      "processingStatus": {
+        "stt": "failed",
+        "mediaAnalysis": "ok",
+        "watsonx": "unavailable"
+      },
+      "advisory": true,
+      "requiresHumanReview": true,
+      "model": null,
+      "mediaType": "video",
+      "mediaFile": "video.mp4",
+      "media": {
+        "fileName": "video.mp4",
+        "durationSeconds": 6.0,
+        "hasAudio": true,
+        "frameCount": 3,
+        "sceneChanges": []
+      },
+      "sceneSegments": [
+        {
+          "segmentId": 1,
+          "startSec": 0.0,
+          "endSec": 6.0,
+          "label": "scene 1",
+          "frameFiles": [
+            "frame_001.jpg",
+            "frame_002.jpg",
+            "frame_003.jpg"
+          ]
+        }
+      ],
+      "errors": [
+        {
+          "stage": "stt",
+          "code": "TIMEOUT",
+          "message": "Speech to Text did not answer in time"
+        }
+      ],
+      "warnings": []
+    },
+    "saved": {
+      "transcript": {
+        "status": "ok",
+        "caseId": "CASE-101",
+        "key": "cases/CASE-101/transcript.json"
+      },
+      "analysis": {
+        "status": "ok",
+        "caseId": "CASE-101",
+        "key": "cases/CASE-101/analysis.json"
+      }
+    }
+  }
+}

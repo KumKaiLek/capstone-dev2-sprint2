@@ -1,0 +1,481 @@
+[
+  {
+    "label": "V1_CASE-101",
+    "caseId": "CASE-101",
+    "overrides": {},
+    "runs": 5,
+    "severityIdentical": true,
+    "categoriesIdentical": true,
+    "timestampsIdentical": true,
+    "statusIdentical": true,
+    "summaryRulesPassed": true,
+    "summaryCheck": "rules passed on every run",
+    "distinctSummaryWordings": 1,
+    "caseIdLinkedEveryRun": true,
+    "values": [
+      {
+        "status": "ok",
+        "severity": "low",
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "low",
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "low",
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "low",
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "low",
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": []
+      }
+    ]
+  },
+  {
+    "label": "V2_CASE-102",
+    "caseId": "CASE-102",
+    "overrides": {},
+    "runs": 5,
+    "severityIdentical": true,
+    "categoriesIdentical": true,
+    "timestampsIdentical": true,
+    "statusIdentical": true,
+    "summaryRulesPassed": true,
+    "summaryCheck": "rules passed on every run",
+    "distinctSummaryWordings": 2,
+    "caseIdLinkedEveryRun": true,
+    "values": [
+      {
+        "status": "ok",
+        "severity": "high",
+        "categories": [
+          "violence"
+        ],
+        "timestamps": [
+          {
+            "start": 3.64,
+            "end": 9.7,
+            "reason": "segment 2 flagged by watsonx.ai (violence)",
+            "timestampStatus": "available"
+          }
+        ],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "high",
+        "categories": [
+          "violence"
+        ],
+        "timestamps": [
+          {
+            "start": 3.64,
+            "end": 9.7,
+            "reason": "segment 2 flagged by watsonx.ai (violence)",
+            "timestampStatus": "available"
+          }
+        ],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "high",
+        "categories": [
+          "violence"
+        ],
+        "timestamps": [
+          {
+            "start": 3.64,
+            "end": 9.7,
+            "reason": "segment 2 flagged by watsonx.ai (violence)",
+            "timestampStatus": "available"
+          }
+        ],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "high",
+        "categories": [
+          "violence"
+        ],
+        "timestamps": [
+          {
+            "start": 3.64,
+            "end": 9.7,
+            "reason": "segment 2 flagged by watsonx.ai (violence)",
+            "timestampStatus": "available"
+          }
+        ],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "high",
+        "categories": [
+          "violence"
+        ],
+        "timestamps": [
+          {
+            "start": 3.64,
+            "end": 9.7,
+            "reason": "segment 2 flagged by watsonx.ai (violence)",
+            "timestampStatus": "available"
+          }
+        ],
+        "errorCodes": []
+      }
+    ]
+  },
+  {
+    "label": "V3_CASE-103",
+    "caseId": "CASE-103",
+    "overrides": {},
+    "runs": 5,
+    "severityIdentical": true,
+    "categoriesIdentical": true,
+    "timestampsIdentical": true,
+    "statusIdentical": true,
+    "summaryRulesPassed": true,
+    "summaryCheck": "rules passed on every run",
+    "distinctSummaryWordings": 1,
+    "caseIdLinkedEveryRun": true,
+    "values": [
+      {
+        "status": "ok",
+        "severity": "medium",
+        "categories": [
+          "harassment"
+        ],
+        "timestamps": [
+          {
+            "start": 0.0,
+            "end": 11.54,
+            "reason": "segment 1 flagged by watsonx.ai (harassment)",
+            "timestampStatus": "available"
+          }
+        ],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "medium",
+        "categories": [
+          "harassment"
+        ],
+        "timestamps": [
+          {
+            "start": 0.0,
+            "end": 11.54,
+            "reason": "segment 1 flagged by watsonx.ai (harassment)",
+            "timestampStatus": "available"
+          }
+        ],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "medium",
+        "categories": [
+          "harassment"
+        ],
+        "timestamps": [
+          {
+            "start": 0.0,
+            "end": 11.54,
+            "reason": "segment 1 flagged by watsonx.ai (harassment)",
+            "timestampStatus": "available"
+          }
+        ],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "medium",
+        "categories": [
+          "harassment"
+        ],
+        "timestamps": [
+          {
+            "start": 0.0,
+            "end": 11.54,
+            "reason": "segment 1 flagged by watsonx.ai (harassment)",
+            "timestampStatus": "available"
+          }
+        ],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "medium",
+        "categories": [
+          "harassment"
+        ],
+        "timestamps": [
+          {
+            "start": 0.0,
+            "end": 11.54,
+            "reason": "segment 1 flagged by watsonx.ai (harassment)",
+            "timestampStatus": "available"
+          }
+        ],
+        "errorCodes": []
+      }
+    ]
+  },
+  {
+    "label": "V4_CASE-104",
+    "caseId": "CASE-104",
+    "overrides": {},
+    "runs": 5,
+    "severityIdentical": true,
+    "categoriesIdentical": true,
+    "timestampsIdentical": true,
+    "statusIdentical": true,
+    "summaryRulesPassed": true,
+    "summaryCheck": "rules passed on every run",
+    "distinctSummaryWordings": 1,
+    "caseIdLinkedEveryRun": true,
+    "values": [
+      {
+        "status": "ok",
+        "severity": "low",
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "low",
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "low",
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "low",
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": []
+      },
+      {
+        "status": "ok",
+        "severity": "low",
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": []
+      }
+    ]
+  },
+  {
+    "label": "V5_CASE-105_no_speech",
+    "caseId": "CASE-105",
+    "overrides": {},
+    "runs": 5,
+    "severityIdentical": true,
+    "categoriesIdentical": true,
+    "timestampsIdentical": true,
+    "statusIdentical": true,
+    "summaryRulesPassed": true,
+    "summaryCheck": "no summary on any run (correct for a failed stage)",
+    "distinctSummaryWordings": 1,
+    "caseIdLinkedEveryRun": true,
+    "values": [
+      {
+        "status": "partial",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "stt:EMPTY_TRANSCRIPT"
+        ]
+      },
+      {
+        "status": "partial",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "stt:EMPTY_TRANSCRIPT"
+        ]
+      },
+      {
+        "status": "partial",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "stt:EMPTY_TRANSCRIPT"
+        ]
+      },
+      {
+        "status": "partial",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "stt:EMPTY_TRANSCRIPT"
+        ]
+      },
+      {
+        "status": "partial",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "stt:EMPTY_TRANSCRIPT"
+        ]
+      }
+    ]
+  },
+  {
+    "label": "V6_CASE-106_missing_media",
+    "caseId": "CASE-106",
+    "overrides": {},
+    "runs": 5,
+    "severityIdentical": true,
+    "categoriesIdentical": true,
+    "timestampsIdentical": true,
+    "statusIdentical": true,
+    "summaryRulesPassed": true,
+    "summaryCheck": "no summary on any run (correct for a failed stage)",
+    "distinctSummaryWordings": 1,
+    "caseIdLinkedEveryRun": true,
+    "values": [
+      {
+        "status": "failed",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "mediaAnalysis:MEDIA_NOT_FOUND"
+        ]
+      },
+      {
+        "status": "failed",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "mediaAnalysis:MEDIA_NOT_FOUND"
+        ]
+      },
+      {
+        "status": "failed",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "mediaAnalysis:MEDIA_NOT_FOUND"
+        ]
+      },
+      {
+        "status": "failed",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "mediaAnalysis:MEDIA_NOT_FOUND"
+        ]
+      },
+      {
+        "status": "failed",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "mediaAnalysis:MEDIA_NOT_FOUND"
+        ]
+      }
+    ]
+  },
+  {
+    "label": "FORCED_stt_timeout_CASE-101",
+    "caseId": "CASE-101",
+    "overrides": {
+      "STT_TIMEOUT": "0.001"
+    },
+    "runs": 5,
+    "severityIdentical": true,
+    "categoriesIdentical": true,
+    "timestampsIdentical": true,
+    "statusIdentical": true,
+    "summaryRulesPassed": true,
+    "summaryCheck": "no summary on any run (correct for a failed stage)",
+    "distinctSummaryWordings": 1,
+    "caseIdLinkedEveryRun": true,
+    "values": [
+      {
+        "status": "partial",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "stt:TIMEOUT"
+        ]
+      },
+      {
+        "status": "partial",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "stt:TIMEOUT"
+        ]
+      },
+      {
+        "status": "partial",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "stt:TIMEOUT"
+        ]
+      },
+      {
+        "status": "partial",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "stt:TIMEOUT"
+        ]
+      },
+      {
+        "status": "partial",
+        "severity": null,
+        "categories": [],
+        "timestamps": [],
+        "errorCodes": [
+          "stt:TIMEOUT"
+        ]
+      }
+    ]
+  }
+]
