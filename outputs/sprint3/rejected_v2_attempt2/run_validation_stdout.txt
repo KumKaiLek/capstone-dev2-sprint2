@@ -1,0 +1,39 @@
+CASE-101 (V1 harmless)
+  expected severity='low' categories=[]
+  actual   severity='low' categories=[] status='ok'
+  transcript: 'this is a routine status update for the weekly team meeting everyone please review the agenda before friday'
+  timestamps: []
+
+CASE-102 (V2 harassment/threat)
+  expected severity='high' categories=['harassment', 'violence']
+  actual   severity='high' categories=['harassment', 'violence'] status='ok'
+  transcript: 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'
+  timestamps: [{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+
+CASE-103 (V3 one concerning line)
+  expected severity='medium or high' categories=['violence or harassment']
+  actual   severity='medium' categories=['harassment', 'violence'] status='ok'
+  transcript: "good morning everyone thanks for joining today's call if you do not finish this by tonight i will make sure you regret it let's move on to the next item on the agenda the quarterly budget review"
+  timestamps: [{'start': 0.0, 'end': 11.54, 'reason': 'segment 1 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+
+CASE-104 (V4 audio mild language)
+  expected severity='low' categories=[]
+  actual   severity='low' categories=[] status='ok'
+  transcript: 'this is so frustrating this whole plan is stupid and i am sick of dealing with it'
+  timestamps: []
+
+CASE-105 (V5 silence, no speech)
+  expected severity=None categories=[]
+  actual   severity=None categories=[] status='partial'
+  transcript: None
+  timestamps: []
+  errors: [{'stage': 'stt', 'code': 'EMPTY_TRANSCRIPT', 'message': 'STT returned no speech for this audio'}]
+
+CASE-106 (V6 missing media)
+  expected severity=None categories=[]
+  actual   severity=None categories=[] status='failed'
+  transcript: None
+  timestamps: []
+  errors: [{'stage': 'mediaAnalysis', 'code': 'MEDIA_NOT_FOUND', 'message': 'The media file missing.mp4 is not in the case folder'}]
+
+Saved 6 results to outputs/validation/. See docs/TEST_PLAN.md for the full expected values and docs/AI_VALIDATION_REPORT.md for the verdicts.

@@ -1,0 +1,77 @@
+{
+  "status": "partial",
+  "caseId": "CASE-105",
+  "mediaType": "video",
+  "transcript": {
+    "caseId": "CASE-105",
+    "transcript": null,
+    "confidence": null,
+    "status": "failed",
+    "error": {
+      "code": "EMPTY_TRANSCRIPT",
+      "message": "STT returned no speech for this audio"
+    },
+    "segments": [],
+    "source": null,
+    "model": null,
+    "durationSeconds": null
+  },
+  "analysis": {
+    "caseId": "CASE-105",
+    "severity": null,
+    "summary": null,
+    "categories": [],
+    "evidenceSegments": {},
+    "timestamps": [],
+    "processingStatus": {
+      "stt": "failed",
+      "mediaAnalysis": "ok",
+      "watsonx": "unavailable"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": null,
+    "mediaType": "video",
+    "mediaFile": "video.mp4",
+    "media": {
+      "fileName": "video.mp4",
+      "durationSeconds": 5.0,
+      "hasAudio": true,
+      "frameCount": 3,
+      "sceneChanges": []
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 5.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg",
+          "frame_003.jpg"
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "stage": "stt",
+        "code": "EMPTY_TRANSCRIPT",
+        "message": "STT returned no speech for this audio"
+      }
+    ],
+    "warnings": []
+  },
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-105",
+      "key": "cases/CASE-105/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-105",
+      "key": "cases/CASE-105/analysis.json"
+    }
+  }
+}

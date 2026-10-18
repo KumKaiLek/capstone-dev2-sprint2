@@ -1,0 +1,19 @@
+run 1: status=ok severity=low categories=[] timestamps=[]
+  summary: 'The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their annoyance.'
+  summary rules: sentences=1 (ok), length=115/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 2: status=ok severity=low categories=[] timestamps=[]
+  summary: 'The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their annoyance.'
+  summary rules: sentences=1 (ok), length=115/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 3: status=ok severity=low categories=[] timestamps=[]
+  summary: 'The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their annoyance.'
+  summary rules: sentences=1 (ok), length=115/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 4: status=ok severity=low categories=[] timestamps=[]
+  summary: 'The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their annoyance.'
+  summary rules: sentences=1 (ok), length=115/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 5: status=ok severity=low categories=[] timestamps=[]
+  summary: 'The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their annoyance.'
+  summary rules: sentences=1 (ok), length=115/1000 (ok), neutral wording flags=none, possible unverified details=none
+
+All 5 runs of CASE-104 matched exactly on severity, categories and timestamps.
+
+Summary wording was identical across all 5 runs.

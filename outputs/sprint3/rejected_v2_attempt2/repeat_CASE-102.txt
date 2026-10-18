@@ -1,0 +1,26 @@
+run 1: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: 'The speaker makes a direct threat of violence against a specific individual, stating they know where the person lives and will make them regret it. The speaker also insults the individual, calling them worthless and claiming everyone hates them.'
+  summary rules: sentences=2 (ok), length=245/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 2: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: 'The speaker makes a direct threat of violence against a specific individual, stating they know where the person lives and will make them regret it. The speaker also insults the individual, calling them worthless and claiming everyone hates them.'
+  summary rules: sentences=2 (ok), length=245/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 3: status=ok severity=high categories=['harassment', 'violence', 'self_harm'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence, self_harm)', 'timestampStatus': 'available'}]
+  summary: 'The speaker makes a death threat and says everyone hates the target, claiming to know their location.'
+  summary rules: sentences=1 (ok), length=101/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 4: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: 'The speaker makes a direct threat of violence against a specific individual, stating they know where the person lives and will make them regret it. The speaker also insults the individual, calling them worthless and claiming everyone hates them.'
+  summary rules: sentences=2 (ok), length=245/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 5: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: 'The speaker makes a death threat and says everyone hates the target, claiming to know their location.'
+  summary rules: sentences=1 (ok), length=101/1000 (ok), neutral wording flags=none, possible unverified details=none
+
+CASE-102 did NOT match on every run: 2 distinct results out of 5 runs.
+  run 1: {"categories": ["harassment", "violence"], "severity": "high", "timestamps": [{"end": 9.7, "reason": "segment 2 flagged by watsonx.ai (harassment, violence)", "start": 3.64, "timestampStatus": "available"}]}
+  run 2: {"categories": ["harassment", "violence"], "severity": "high", "timestamps": [{"end": 9.7, "reason": "segment 2 flagged by watsonx.ai (harassment, violence)", "start": 3.64, "timestampStatus": "available"}]}
+  run 3: {"categories": ["harassment", "violence", "self_harm"], "severity": "high", "timestamps": [{"end": 9.7, "reason": "segment 2 flagged by watsonx.ai (harassment, violence, self_harm)", "start": 3.64, "timestampStatus": "available"}]}
+  run 4: {"categories": ["harassment", "violence"], "severity": "high", "timestamps": [{"end": 9.7, "reason": "segment 2 flagged by watsonx.ai (harassment, violence)", "start": 3.64, "timestampStatus": "available"}]}
+  run 5: {"categories": ["harassment", "violence"], "severity": "high", "timestamps": [{"end": 9.7, "reason": "segment 2 flagged by watsonx.ai (harassment, violence)", "start": 3.64, "timestampStatus": "available"}]}
+
+Summary wording differed across runs: 2 distinct wordings out of 5 runs (not treated as a mismatch on its own, wording is not required to be identical).
+  word overlap with run 1's summary (approximate, not a semantic check): [100, 58, 100, 58]%
+  severity and/or categories did NOT match on every run either, so the differently worded summaries cannot be assumed to describe the same content without reading them.
