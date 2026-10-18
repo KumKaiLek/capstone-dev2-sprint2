@@ -12,8 +12,8 @@ from .schemas import (
 IAM_URL = "https://iam.cloud.ibm.com/identity/token"
 API_VERSION = "2025-02-11"
 TIMEOUT = 60  # seconds, overridable with WATSONX_TIMEOUT (IAM token call and chat call)
-# These are retried once, the same single retry as before; anything else fails at once
-RETRYABLE = ("MALFORMED_OUTPUT", "INVALID_OUTPUT")
+# Sprint 3: these are retried once, the same single retry as before; anything else fails at once
+RETRYABLE = ("MALFORMED_OUTPUT", "INVALID_OUTPUT", "INCOMPLETE_OUTPUT")
 
 CATEGORY_LINES = "\n".join(f"    {c} = {CATEGORY_DEFINITIONS[c]}" for c in CATEGORIES)
 SEGMENT_KEY = """
@@ -110,6 +110,9 @@ def call_chat(settings, token, messages, post=None):
         content = choice["message"]["content"]
     except (KeyError, IndexError, TypeError, ValueError):
         raise AnalysisError("MALFORMED_OUTPUT", "watsonx.ai response had no message content")
+    # Sprint 3: a reply cut off at max_tokens is never accepted, even if what came back parses
+    if choice.get("finish_reason") == "length":
+        raise AnalysisError("INCOMPLETE_OUTPUT", "watsonx.ai stopped at the token limit, so the output is incomplete")
     return content
 
 
