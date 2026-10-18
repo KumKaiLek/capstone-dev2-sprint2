@@ -1,6 +1,13 @@
 """Offline tests for run_repeat.py's summary rule checks (Card 1, "summary output behaviour
-checked"). No IBM call, no key needed. Run: python -m tests.test_run_repeat"""
+checked"), and run_repeatability.py's caseId linkage check. No IBM call, no key needed.
+Run: python -m tests.test_run_repeat"""
+import json
+import tempfile
+from pathlib import Path
+
 from run_repeat import check_summary_rules, count_sentences, neutral_wording_flags, unverified_detail_flags, word_overlap
+from run_repeatability import case_id_linkage, summary_ok
+from src.store import LocalCaseStore
 
 results = []
 
@@ -40,6 +47,28 @@ check("check_summary_rules catches an out of range sentence count, a flagged phr
 check("identical text has full word overlap", word_overlap("hello world", "hello world") == 1.0)
 check("unrelated text has no word overlap", word_overlap("hello world", "completely different text") == 0.0)
 check("partial overlap is between 0 and 1", 0 < word_overlap("the hello world test", "hello there") < 1)
+
+# Sprint 3, run_repeatability.py: the caseId linkage check and the summary rule wrapper
+
+base = Path(tempfile.mkdtemp())
+store = LocalCaseStore(base)
+folder = base / "cases" / "CASE-001"
+folder.mkdir(parents=True)
+(folder / "case.json").write_text(json.dumps({"caseId": "CASE-001"}))
+store.save("CASE-001", "transcript.json", {"caseId": "CASE-001"})
+store.save("CASE-001", "analysis.json", {"caseId": "CASE-001"})
+ids, linked = case_id_linkage(store, "CASE-001", {"caseId": "CASE-001"})
+check("caseId linkage passes when case.json, transcript.json, analysis.json and the result all match",
+      linked and set(ids) == {"result", "case.json", "transcript.json", "analysis.json"})
+(folder / "analysis.json").write_text(json.dumps({"caseId": "CASE-999"}))
+ids, linked = case_id_linkage(store, "CASE-001", {"caseId": "CASE-001"})
+check("caseId linkage fails when analysis.json names another case", not linked and ids["analysis.json"] == "CASE-999")
+(folder / "transcript.json").unlink()
+ids, linked = case_id_linkage(store, "CASE-001", {"caseId": "CASE-001"})
+check("caseId linkage fails when transcript.json is missing", not linked and ids["transcript.json"] == "<FILE_NOT_FOUND>")
+check("summary_ok is None for a run with no summary", summary_ok(None, T) is None)
+check("summary_ok passes a neutral 1 sentence summary", summary_ok("The speaker threatens the listener.", T)["passed"])
+check("summary_ok fails a summary with a decision phrase", not summary_ok("This should be removed.", T)["passed"])
 
 print(f"\n{sum(results)}/{len(results)} passed")
 raise SystemExit(0 if all(results) else 1)
