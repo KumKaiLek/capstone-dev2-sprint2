@@ -1,0 +1,19 @@
+run 1: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: "The speaker makes a death threat and claims that everyone hates the target, stating they know the target's location and will cause them harm."
+  summary rules: sentences=1 (ok), length=141/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 2: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: "The speaker makes a death threat and claims that everyone hates the target, stating they know the target's location and will cause them harm."
+  summary rules: sentences=1 (ok), length=141/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 3: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: "The speaker makes a death threat and claims that everyone hates the target, stating they know the target's location and will cause them harm."
+  summary rules: sentences=1 (ok), length=141/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 4: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: "The speaker makes a death threat and claims that everyone hates the target, stating they know the target's location and will cause them harm."
+  summary rules: sentences=1 (ok), length=141/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 5: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: "The speaker makes a death threat and claims that everyone hates the target, stating they know the target's location and will cause them harm."
+  summary rules: sentences=1 (ok), length=141/1000 (ok), neutral wording flags=none, possible unverified details=none
+
+All 5 runs of CASE-001 matched exactly on severity, categories and timestamps.
+
+Summary wording was identical across all 5 runs.

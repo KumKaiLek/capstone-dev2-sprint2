@@ -1,0 +1,19 @@
+run 1: status=ok severity=high categories=['violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (violence)', 'timestampStatus': 'available'}]
+  summary: 'The speaker makes a direct threat of violence against a specific individual, stating they know where the person lives and will cause them harm. The threat is explicit and includes a promise to make the target regret their existence.'
+  summary rules: sentences=2 (ok), length=232/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 2: status=ok severity=high categories=['violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (violence)', 'timestampStatus': 'available'}]
+  summary: 'The speaker makes a direct threat of violence against a specific individual, stating they know where the person lives and will cause them harm. The threat is explicit and includes a promise to make the target regret their existence.'
+  summary rules: sentences=2 (ok), length=232/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 3: status=ok severity=high categories=['violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (violence)', 'timestampStatus': 'available'}]
+  summary: 'The speaker makes a direct threat of violence against a specific individual, stating they know where the person lives and will cause them harm. The threat is explicit and includes a promise to make the target regret their existence.'
+  summary rules: sentences=2 (ok), length=232/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 4: status=ok severity=high categories=['violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (violence)', 'timestampStatus': 'available'}]
+  summary: 'The speaker makes a direct threat of violence against a specific individual, stating they know where the person lives and will cause them harm. The threat is explicit and includes a promise to make the target regret their existence.'
+  summary rules: sentences=2 (ok), length=232/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 5: status=ok severity=high categories=['violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (violence)', 'timestampStatus': 'available'}]
+  summary: 'The speaker makes a direct threat of violence against a specific individual, stating they know where the person lives and will cause them harm. The threat is explicit and includes a promise to make the target regret their existence.'
+  summary rules: sentences=2 (ok), length=232/1000 (ok), neutral wording flags=none, possible unverified details=none
+
+All 5 runs of CASE-102 matched exactly on severity, categories and timestamps.
+
+Summary wording was identical across all 5 runs.
