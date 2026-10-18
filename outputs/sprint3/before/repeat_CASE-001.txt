@@ -1,0 +1,21 @@
+run 1: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: 'The synthetic video contains a short segment where the speaker verbally abuses a target, making threats and stating that others hate the target. The threatening language and intent to cause harm are clear.'
+  summary rules: sentences=2 (ok), length=205/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 2: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: 'The synthetic video contains a short segment where the speaker verbally abuses a target, making threats and stating that others hate the target. The threatening language and intent to cause harm are clear.'
+  summary rules: sentences=2 (ok), length=205/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 3: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: 'The synthetic video contains a short segment where the speaker makes a direct threat of violence and expresses hatred toward an individual, including a claim of knowing their location.'
+  summary rules: sentences=1 (ok), length=184/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 4: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: 'The synthetic test script contains threats of violence and harassment directed at a specific individual, stating that the speaker knows where the target lives and will cause them harm.'
+  summary rules: sentences=1 (ok), length=184/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 5: status=ok severity=high categories=['harassment', 'violence'] timestamps=[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]
+  summary: 'The synthetic video contains a short segment where the speaker verbally abuses a target, making threats and stating that others hate them. The threatening language and intent to cause harm are clear.'
+  summary rules: sentences=2 (ok), length=199/1000 (ok), neutral wording flags=none, possible unverified details=none
+
+All 5 runs of CASE-001 matched exactly on severity, categories and timestamps.
+
+Summary wording differed across runs: 4 distinct wordings out of 5 runs (not treated as a mismatch on its own, wording is not required to be identical).
+  word overlap with run 1's summary (approximate, not a semantic check): [100, 35, 43, 96]%
+  severity and categories matched exactly on every run (the part of this that is actually verified, not guessed), so these summaries most likely describe the same content, just worded differently. Still worth a human skim, this is not proof.

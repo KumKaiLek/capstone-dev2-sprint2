@@ -1,0 +1,117 @@
+{
+  "status": "ok",
+  "caseId": "CASE-103",
+  "mediaType": "video",
+  "transcript": {
+    "caseId": "CASE-103",
+    "transcript": "good morning everyone thanks for joining today's call if you do not finish this by tonight i will make sure you regret it let's move on to the next item on the agenda the quarterly budget review",
+    "confidence": 0.96,
+    "status": "ok",
+    "error": null,
+    "segments": [
+      {
+        "startSec": 0.0,
+        "endSec": 11.54,
+        "text": "good morning everyone thanks for joining today's call if you do not finish this by tonight i will make sure you regret it let's move on to the next item on the agenda the quarterly budget review",
+        "confidence": 0.96,
+        "timestampStatus": "available",
+        "timestampReason": null
+      }
+    ],
+    "source": "video_audio.wav",
+    "model": "en-US_Multimedia",
+    "durationSeconds": 11.54
+  },
+  "analysis": {
+    "caseId": "CASE-103",
+    "severity": "medium",
+    "summary": "The speaker issues a vague threat to punish someone if they do not complete a task by a deadline, then transitions to discussing a quarterly budget review.",
+    "categories": [
+      "harassment"
+    ],
+    "evidenceSegments": {
+      "harassment": [
+        1
+      ]
+    },
+    "timestamps": [
+      {
+        "start": 0.0,
+        "end": 11.54,
+        "reason": "segment 1 flagged by watsonx.ai (harassment)",
+        "timestampStatus": "available"
+      }
+    ],
+    "processingStatus": {
+      "stt": "ok",
+      "mediaAnalysis": "ok",
+      "watsonx": "ok"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": "ibm/granite-4-h-small",
+    "mediaType": "video",
+    "mediaFile": "video.mp4",
+    "media": {
+      "fileName": "video.mp4",
+      "durationSeconds": 11.63,
+      "hasAudio": true,
+      "frameCount": 6,
+      "sceneChanges": [
+        4.0,
+        8.0
+      ]
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 4.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg"
+        ],
+        "transcriptText": "good morning everyone thanks for joining today's call if you do not finish this by tonight i will make sure you regret it let's move on to the next item on the agenda the quarterly budget review"
+      },
+      {
+        "segmentId": 2,
+        "startSec": 4.0,
+        "endSec": 8.0,
+        "label": "scene 2",
+        "frameFiles": [
+          "frame_003.jpg",
+          "frame_004.jpg"
+        ],
+        "transcriptText": "good morning everyone thanks for joining today's call if you do not finish this by tonight i will make sure you regret it let's move on to the next item on the agenda the quarterly budget review"
+      },
+      {
+        "segmentId": 3,
+        "startSec": 8.0,
+        "endSec": 11.63,
+        "label": "scene 3",
+        "frameFiles": [
+          "frame_005.jpg",
+          "frame_006.jpg"
+        ],
+        "transcriptText": "good morning everyone thanks for joining today's call if you do not finish this by tonight i will make sure you regret it let's move on to the next item on the agenda the quarterly budget review"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "category_dropped_no_evidence:other"
+    ]
+  },
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-103",
+      "key": "cases/CASE-103/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-103",
+      "key": "cases/CASE-103/analysis.json"
+    }
+  }
+}

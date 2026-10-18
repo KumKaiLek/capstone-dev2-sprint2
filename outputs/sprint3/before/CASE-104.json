@@ -1,0 +1,74 @@
+{
+  "status": "ok",
+  "caseId": "CASE-104",
+  "mediaType": "audio",
+  "transcript": {
+    "caseId": "CASE-104",
+    "transcript": "this is so frustrating this whole plan is stupid and i am sick of dealing with it",
+    "confidence": 0.95,
+    "status": "ok",
+    "error": null,
+    "segments": [
+      {
+        "startSec": 0.02,
+        "endSec": 4.28,
+        "text": "this is so frustrating this whole plan is stupid and i am sick of dealing with it",
+        "confidence": 0.95,
+        "timestampStatus": "available",
+        "timestampReason": null
+      }
+    ],
+    "source": "speech.wav",
+    "model": "en-US_Multimedia",
+    "durationSeconds": 4.28
+  },
+  "analysis": {
+    "caseId": "CASE-104",
+    "severity": "low",
+    "summary": "The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their annoyance.",
+    "categories": [
+      "other"
+    ],
+    "evidenceSegments": {
+      "other": [
+        1
+      ]
+    },
+    "timestamps": [
+      {
+        "start": 0.02,
+        "end": 4.28,
+        "reason": "segment 1 flagged by watsonx.ai (other)",
+        "timestampStatus": "available"
+      }
+    ],
+    "processingStatus": {
+      "stt": "ok",
+      "mediaAnalysis": "unavailable",
+      "watsonx": "ok"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": "ibm/granite-4-h-small",
+    "mediaType": "audio",
+    "mediaFile": "speech.wav",
+    "media": null,
+    "sceneSegments": [],
+    "errors": [],
+    "warnings": [
+      "audio_only_no_media_analysis"
+    ]
+  },
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-104",
+      "key": "cases/CASE-104/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-104",
+      "key": "cases/CASE-104/analysis.json"
+    }
+  }
+}

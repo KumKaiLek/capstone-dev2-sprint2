@@ -1,0 +1,60 @@
+===== test_validation
+PASS - category definitions and the evidenceSegments instruction are in the prompt when segments are given (D4)
+PASS - no segment instruction when no segments are given
+PASS - category definitions are always in the prompt, but not the evidenceSegments instruction without segments (D4)
+PASS - missing caseId handled
+PASS - missing transcript handled
+PASS - retry recovers from one bad output
+
+33/33 passed
+exit=0
+===== test_stt
+PASS - invalid JSON handled
+PASS - no speech handled
+PASS - key sent as basic auth, not in URL or headers
+PASS - key never appears in any output
+PASS - instance URL never appears in errors
+PASS - missing key handled (config error)
+
+22/22 passed
+exit=0
+===== test_media
+PASS - transcript segments without timing do not crash or get a guessed time
+PASS - payload built with analysis
+PASS - missing analysis result handled
+PASS - failed analysis state handled
+PASS - failed media result handled
+PASS - advisory flags always true
+
+15/15 passed
+exit=0
+===== test_store
+PASS - corrupt JSON gives CASE_DATA_INVALID
+PASS - write problem gives STORE_WRITE_FAILED and does not raise
+PASS - COS stub says NOT_IMPLEMENTED and never raises
+PASS - local store is the default
+PASS - CASE_STORE=cos gives the COS stub
+PASS - unknown store type gives a config error
+
+26/26 passed
+exit=0
+===== test_pipeline
+PASS - a mediaObjectKey with no cases/<id>/ prefix falls back to its basename (D2)
+PASS - fileName is used when there is no mediaObjectKey (D2)
+PASS - the older mediaObject is used when neither mediaObjectKey nor fileName is present (D2)
+PASS - contentType wins over mediaMimeType for the type hint (D2)
+PASS - mediaMimeType is used when there is no contentType (D2)
+PASS - nothing usable in case.json gives no reference and no error (D2)
+
+44/44 passed
+exit=0
+===== test_run_repeat
+PASS - a sentence-initial capital is not flagged on its own
+PASS - check_summary_rules reports sentence count, length and both flag lists
+PASS - check_summary_rules catches an out of range sentence count, a flagged phrase and unverified names together
+PASS - identical text has full word overlap
+PASS - unrelated text has no word overlap
+PASS - partial overlap is between 0 and 1
+
+14/14 passed
+exit=0

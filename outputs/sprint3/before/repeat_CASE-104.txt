@@ -1,0 +1,26 @@
+run 1: status=ok severity=low categories=['other'] timestamps=[{'start': 0.02, 'end': 4.28, 'reason': 'segment 1 flagged by watsonx.ai (other)', 'timestampStatus': 'available'}]
+  summary: 'The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their annoyance.'
+  summary rules: sentences=1 (ok), length=115/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 2: status=ok severity=low categories=[] timestamps=[]
+  summary: 'The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their annoyance.'
+  summary rules: sentences=1 (ok), length=115/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 3: status=ok severity=low categories=['other'] timestamps=[{'start': 0.02, 'end': 4.28, 'reason': 'segment 1 flagged by watsonx.ai (other)', 'timestampStatus': 'available'}]
+  summary: 'The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their negative feelings.'
+  summary rules: sentences=1 (ok), length=123/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 4: status=ok severity=low categories=['other'] timestamps=[{'start': 0.02, 'end': 4.28, 'reason': 'segment 1 flagged by watsonx.ai (other)', 'timestampStatus': 'available'}]
+  summary: 'The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their annoyance.'
+  summary rules: sentences=1 (ok), length=115/1000 (ok), neutral wording flags=none, possible unverified details=none
+run 5: status=ok severity=low categories=['other'] timestamps=[{'start': 0.02, 'end': 4.28, 'reason': 'segment 1 flagged by watsonx.ai (other)', 'timestampStatus': 'available'}]
+  summary: 'The speaker expresses frustration and dissatisfaction with a plan, using strong language to convey their negative feelings.'
+  summary rules: sentences=1 (ok), length=123/1000 (ok), neutral wording flags=none, possible unverified details=none
+
+CASE-104 did NOT match on every run: 2 distinct results out of 5 runs.
+  run 1: {"categories": ["other"], "severity": "low", "timestamps": [{"end": 4.28, "reason": "segment 1 flagged by watsonx.ai (other)", "start": 0.02, "timestampStatus": "available"}]}
+  run 2: {"categories": [], "severity": "low", "timestamps": []}
+  run 3: {"categories": ["other"], "severity": "low", "timestamps": [{"end": 4.28, "reason": "segment 1 flagged by watsonx.ai (other)", "start": 0.02, "timestampStatus": "available"}]}
+  run 4: {"categories": ["other"], "severity": "low", "timestamps": [{"end": 4.28, "reason": "segment 1 flagged by watsonx.ai (other)", "start": 0.02, "timestampStatus": "available"}]}
+  run 5: {"categories": ["other"], "severity": "low", "timestamps": [{"end": 4.28, "reason": "segment 1 flagged by watsonx.ai (other)", "start": 0.02, "timestampStatus": "available"}]}
+
+Summary wording differed across runs: 2 distinct wordings out of 5 runs (not treated as a mismatch on its own, wording is not required to be identical).
+  word overlap with run 1's summary (approximate, not a semantic check): [100, 85, 100, 85]%
+  severity and/or categories did NOT match on every run either, so the differently worded summaries cannot be assumed to describe the same content without reading them.
