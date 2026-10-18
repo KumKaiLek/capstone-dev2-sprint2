@@ -29,6 +29,7 @@ Return ONLY one JSON object, no prose, no code fences, with exactly these keys:
   "caseId": copy the caseId you are given, unchanged
   "severity": one of {SEVERITIES}
   "summary": 1 to 3 neutral sentences describing what the content contains
+    Describe only what is said. Do not assess the speaker's intent, motive or state of mind
   "categories": a list with values only from {CATEGORIES}, defined as:
 {CATEGORY_LINES}{SEGMENT_KEY if with_segments else ""}{EVIDENCE_KEY if with_segments else ""}
 Never include keys such as decision, action, verdict, remove or ban."""

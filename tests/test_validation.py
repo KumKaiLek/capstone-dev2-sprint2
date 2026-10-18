@@ -1,5 +1,6 @@
 """Offline tests: no IBM call, no key needed. Run: python -m tests.test_validation"""
 import json
+import src.analysis as analysis_mod
 from src.analysis import analyze
 from src.schemas import CATEGORIES
 
@@ -122,6 +123,37 @@ results.append("concerningSegments" not in seen["m"][0]["content"])
 print("PASS" if results[-1] else "FAIL", "- no segment instruction when no segments are given")
 results.append("evidenceSegments" not in seen["m"][0]["content"] and "self_harm" in seen["m"][0]["content"])
 print("PASS" if results[-1] else "FAIL", "- category definitions are always in the prompt, but not the evidenceSegments instruction without segments (D4)")
+
+# Sprint 3 refinement: other excludes untargeted mild frustration (V4), and the summary
+# describes content instead of judging the speaker's intent (CASE-001 baseline summaries).
+analyze(CASE, "t", {}, segments=[{"text": "hello"}], _chat_fn=spy)
+system_p = seen["m"][0]["content"]
+other_line = next(line for line in system_p.splitlines() if line.strip().startswith("other ="))
+results.append("NOT mild frustration" in other_line and "targets no person or group" in other_line)
+print("PASS" if results[-1] else "FAIL", "- other definition in the prompt excludes untargeted mild frustration or criticism")
+results.append("Do not assess the speaker's intent, motive or state of mind" in system_p)
+print("PASS" if results[-1] else "FAIL", "- the prompt tells the model to describe the content, not the speaker's state of mind")
+analyze(CASE, "t", {}, _chat_fn=spy)
+results.append("Do not assess the speaker's intent" in seen["m"][0]["content"] and "NOT mild frustration" in seen["m"][0]["content"])
+print("PASS" if results[-1] else "FAIL", "- both refinement lines are in the prompt without segments too")
+sent = {}
+
+
+class _Resp:
+    status_code = 200
+
+    def json(self):
+        return {"choices": [{"message": {"content": "{}"}, "finish_reason": "stop"}]}
+
+
+real_post = analysis_mod.requests.post
+analysis_mod.requests.post = lambda url, **kw: (sent.update(kw["json"]), _Resp())[1]
+try:
+    analysis_mod.call_chat({"url": "https://x.test", "model_id": "m", "project_id": "p"}, "tok", [])
+finally:
+    analysis_mod.requests.post = real_post
+results.append(sent.get("temperature") == 0)
+print("PASS" if results[-1] else "FAIL", "- the watsonx.ai request body still sends temperature 0")
 
 r = analyze("", "text", {}, _chat_fn=lambda m: "{}")
 results.append(r["error"]["code"] == "MISSING_INPUT"); print("PASS" if results[-1] else "FAIL", "- missing caseId handled")

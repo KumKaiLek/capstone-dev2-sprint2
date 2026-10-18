@@ -25,7 +25,10 @@ CATEGORY_DEFINITIONS = {
     "self_harm": "the speaker describes or encourages harming THEMSELVES",
     "sexual_content": "the speaker describes explicit sexual acts or sexualises a person",
     "misinformation": "the speaker states something false or misleading as if it were a verified fact",
-    "other": "concerning content that does not fit any category above",
+    # Sprint 3 refinement: V4 (mild frustration at a plan, no target) was labelled other in the
+    # Week 3 validation and in 4 of 5 baseline repeat runs, so other now says what it excludes.
+    "other": "concerning content that does not fit any category above. NOT mild frustration, complaints, "
+             "criticism or swearing that targets no person or group; return no category for those",
 }
 
 # Fields the model is allowed to return
