@@ -1,6 +1,6 @@
 # Defect log, Sprint 2 Week 3 stabilisation
 
-Each entry is one commit on `sprint2-week3-stabilisation`. Format: defect, cause, fix, before/after test.
+Each entry is one commit on `sprint2-week3-stabilisation` (D1 to D7) or `sprint3-ai-hardening` (D8 onward). Format: defect, cause, fix, before/after test.
 
 ## D1: Case ID only accepted CASE-001 style
 
@@ -75,6 +75,26 @@ Each entry is one commit on `sprint2-week3-stabilisation`. Format: defect, cause
 **Fix.** One line in `build_analysis_doc`: `"evidenceSegments": a.get("evidenceSegments", {})`, next to the existing `categories` line, so it is saved and defaults to `{}` when there is no analysis (the same pattern already used for `categories`).
 
 **Before/after test.** `tests/test_pipeline.py`, "happy path: evidenceSegments is saved in analysis.json ... (D7)" and "invalid segment index: no category survived, so evidenceSegments is empty too (D7)". Before the fix, `analysis.json` for the happy path scenario had no `evidenceSegments` key at all. After, it has `{"harassment": [2], "violence": [2]}`, matching the segment watsonx.ai actually flagged.
+
+## D8: Unusable Speech to Text word timings crashed transcribe (Sprint 3, `sprint3-ai-hardening`)
+
+**Defect.** `normalise` in `src/stt.py` read a segment's time as `float(stamps[0][1])` and `float(stamps[-1][2])`. A word timestamp that was not a number, or an entry with fewer than three items, raised `ValueError` or `IndexError` straight out of `transcribe()`, which is documented as never raising, and from there out of `run_case`. Shown by running the new `tests/test_stt.py` checks against the old `src/stt.py`: the module stopped with `ValueError: could not convert string to float: 'x'`, exit 1.
+
+**Cause.** Only a missing `timestamps` list was handled; the contents of the list were trusted.
+
+**Fix.** `_segment_times` returns `(None, None)` for timing that is missing, not numeric, too short, negative or ends before it starts, so the segment gets `startSec`/`endSec` null, `timestampStatus` "unavailable" and the reason "Speech to Text timing for this segment was unusable, so no time is given". Nothing is guessed or repaired. Separately, `run_case` now records any stage that raises as `UNEXPECTED_ERROR` instead of crashing (`src/pipeline.py` `_guarded`).
+
+**Before/after test.** `tests/test_stt.py`, the four "STT timing gives null times and unavailable" checks: the module crashed on the first one before the fix, and all 26 checks pass after. `tests/test_errors.py`, the two `UNEXPECTED_ERROR` checks.
+
+## D9: V2 loses harassment after the Sprint 3 prompt refinement (open)
+
+**Defect.** After the `other` definition was tightened and the describe-not-judge summary line was added (`docs/REFINEMENT_LOG.md` R2, R3), V2 (CASE-102, "you are worthless and everyone hates you i know where you live and i will make you regret it") returns `["violence"]` instead of the test plan's `["harassment", "violence"]`. Seen on 11 of 11 live runs: 1 `run_validation.py` run, 5 `run_repeat.py` runs and 5 `run_repeatability.py` runs. No `category_dropped_no_evidence` warning was raised, so the model left `harassment` out; the D4 evidence check did not remove it.
+
+**Cause.** Not established. CASE-001 is the same clip (`cmp` reports the files identical) with identical transcript segments and media context, and gives `["harassment", "violence"]` on 5 of 5 runs after the same change, so the output depends on the caseId text in the prompt as well as the content.
+
+**Fix.** None kept. Two one-line prompt fixes were tried and rejected because they added wrong categories (`self_harm`, `misinformation`) on some runs and made CASE-001 and CASE-102 unstable; both are recorded in `docs/REFINEMENT_LOG.md` with their outputs in `outputs/sprint3/rejected_v2_attempt1/` and `rejected_v2_attempt2/`.
+
+**Before/after test.** None yet, since it is not fixed. Evidence: `outputs/sprint3/before/CASE-102.json` (`["harassment", "violence"]`), `outputs/sprint3/after/CASE-102.json` and `repeat_CASE-102.txt` (`["violence"]`), `outputs/sprint3/repeatability/V2_CASE-102/run1.json` to `run5.json` (`["violence"]`).
 
 ## Summary behaviour check (Card 1, "summary output behaviour checked")
 
