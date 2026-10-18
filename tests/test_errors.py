@@ -141,6 +141,10 @@ def capture(url, **kwargs):
 
 with_env("WATSONX_TIMEOUT", "7.5", lambda: analyze("CASE-001", "t", {}, _settings=WATSONX_SETTINGS, _post_fn=capture))
 check("WATSONX_TIMEOUT is passed to both the IAM call and the chat call", seen["timeouts"] == [7.5, 7.5])
+seen["timeouts"] = []
+with_env("IAM_TIMEOUT", "30", lambda: with_env("WATSONX_TIMEOUT", "0.5", lambda: analyze(
+    "CASE-001", "t", {}, _settings=WATSONX_SETTINGS, _post_fn=capture)))
+check("IAM_TIMEOUT overrides the IAM call only, the chat call keeps WATSONX_TIMEOUT", seen["timeouts"] == [30.0, 0.5])
 
 real_post = stt_mod.requests.post
 stt_mod.requests.post = lambda *a, **k: seen.update(stt_timeout=k["timeout"]) or Resp(200, {"results": []})

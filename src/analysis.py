@@ -11,7 +11,7 @@ from .schemas import (
 
 IAM_URL = "https://iam.cloud.ibm.com/identity/token"
 API_VERSION = "2025-02-11"
-TIMEOUT = 60  # seconds, overridable with WATSONX_TIMEOUT (IAM token call and chat call)
+TIMEOUT = 60  # seconds, overridable with WATSONX_TIMEOUT (IAM token call and chat call) and IAM_TIMEOUT (token call only)
 # Sprint 3: these are retried once, the same single retry as before; anything else fails at once
 RETRYABLE = ("MALFORMED_OUTPUT", "INVALID_OUTPUT", "INCOMPLETE_OUTPUT")
 
@@ -51,7 +51,9 @@ def get_token(api_key, post=None):
             IAM_URL,
             headers={"Content-Type": "application/x-www-form-urlencoded"},
             data={"grant_type": "urn:ibm:params:oauth:grant-type:apikey", "apikey": api_key},
-            timeout=get_timeout("WATSONX_TIMEOUT", TIMEOUT),
+            # IAM_TIMEOUT, if set, overrides WATSONX_TIMEOUT for the token call only, so the chat
+            # call alone can be made to time out for real
+            timeout=get_timeout("IAM_TIMEOUT", get_timeout("WATSONX_TIMEOUT", TIMEOUT)),
         )
     except requests.Timeout:
         raise AnalysisError("TIMEOUT", "IBM IAM did not answer in time")
