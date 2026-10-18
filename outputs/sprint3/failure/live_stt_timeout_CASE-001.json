@@ -1,0 +1,89 @@
+{
+  "status": "partial",
+  "caseId": "CASE-001",
+  "mediaType": "video",
+  "transcript": {
+    "caseId": "CASE-001",
+    "transcript": null,
+    "confidence": null,
+    "status": "failed",
+    "error": {
+      "code": "TIMEOUT",
+      "message": "Speech to Text did not answer in time"
+    },
+    "segments": [],
+    "source": null,
+    "model": null,
+    "durationSeconds": null
+  },
+  "analysis": {
+    "caseId": "CASE-001",
+    "severity": null,
+    "summary": null,
+    "categories": [],
+    "evidenceSegments": {},
+    "timestamps": [],
+    "processingStatus": {
+      "stt": "failed",
+      "mediaAnalysis": "ok",
+      "watsonx": "unavailable"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": null,
+    "mediaType": "video",
+    "mediaFile": "video.mp4",
+    "media": {
+      "fileName": "video.mp4",
+      "durationSeconds": 9.77,
+      "hasAudio": true,
+      "frameCount": 5,
+      "sceneChanges": [
+        5.0
+      ]
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 5.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg",
+          "frame_003.jpg"
+        ]
+      },
+      {
+        "segmentId": 2,
+        "startSec": 5.0,
+        "endSec": 9.77,
+        "label": "scene 2",
+        "frameFiles": [
+          "frame_004.jpg",
+          "frame_005.jpg"
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "stage": "stt",
+        "code": "TIMEOUT",
+        "message": "Speech to Text did not answer in time"
+      }
+    ],
+    "warnings": []
+  },
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-001",
+      "key": "cases/CASE-001/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-001",
+      "key": "cases/CASE-001/analysis.json"
+    }
+  }
+}

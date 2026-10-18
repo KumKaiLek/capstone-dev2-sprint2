@@ -1,0 +1,14 @@
+CASE-004 stt_server_error: partial stt:STT_SERVICE_ERROR severity=None categories=[] timestamps=[]
+CASE-015 stt_timeout: partial stt:TIMEOUT severity=None categories=[] timestamps=[]
+CASE-016 watsonx_timeout: partial watsonx:TIMEOUT severity=None categories=[] timestamps=[]
+CASE-017 iam_timeout: partial watsonx:TIMEOUT severity=None categories=[] timestamps=[]
+CASE-018 watsonx_service_error: partial watsonx:SERVICE_ERROR severity=None categories=[] timestamps=[]
+CASE-019 truncated_output: partial watsonx:INCOMPLETE_OUTPUT severity=None categories=[] timestamps=[]
+CASE-020 truncated_but_parseable: partial watsonx:INCOMPLETE_OUTPUT severity=None categories=[] timestamps=[]
+CASE-005 malformed_watsonx_output: partial watsonx:MALFORMED_OUTPUT severity=None categories=[] timestamps=[]
+CASE-021 malformed_json: partial watsonx:MALFORMED_OUTPUT severity=None categories=[] timestamps=[]
+CASE-022 incomplete_json: partial watsonx:INVALID_OUTPUT severity=None categories=[] timestamps=[]
+CASE-023 missing_values: partial watsonx:INVALID_OUTPUT severity=None categories=[] timestamps=[]
+CASE-024 empty_values: partial watsonx:INVALID_OUTPUT severity=None categories=[] timestamps=[]
+
+Saved 12 scenario outputs to outputs/sprint3/failure/simulated/

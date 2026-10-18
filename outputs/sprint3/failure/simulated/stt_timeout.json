@@ -1,0 +1,105 @@
+{
+  "scenario": "stt_timeout",
+  "description": "Speech to Text does not answer in time",
+  "caseId": "CASE-015",
+  "services": {
+    "mediaAnalysis": "simulated",
+    "speechToText": "simulated",
+    "watsonx": "simulated"
+  },
+  "resultStatus": "partial",
+  "error": null,
+  "saved": {
+    "transcript": {
+      "status": "ok",
+      "caseId": "CASE-015",
+      "key": "cases/CASE-015/transcript.json"
+    },
+    "analysis": {
+      "status": "ok",
+      "caseId": "CASE-015",
+      "key": "cases/CASE-015/analysis.json"
+    }
+  },
+  "files": {
+    "case.json": {
+      "caseId": "CASE-015",
+      "submittedBy": "synthetic-seed",
+      "submittedAt": "2026-10-03T00:00:00Z",
+      "status": "Queued",
+      "severity": null,
+      "isTestCase": true,
+      "exposureMinutes": 0,
+      "synthetic": true,
+      "fileName": "video.mp4",
+      "mediaObjectKey": "cases/CASE-015/video.mp4",
+      "contentType": "video",
+      "mediaMimeType": "video/mp4"
+    },
+    "transcript.json": {
+      "caseId": "CASE-015",
+      "transcript": null,
+      "confidence": null,
+      "status": "failed",
+      "error": {
+        "code": "TIMEOUT",
+        "message": "Speech to Text did not answer in time"
+      },
+      "segments": [],
+      "source": null,
+      "model": null,
+      "durationSeconds": null
+    },
+    "analysis.json": {
+      "caseId": "CASE-015",
+      "severity": null,
+      "summary": null,
+      "categories": [],
+      "evidenceSegments": {},
+      "timestamps": [],
+      "processingStatus": {
+        "stt": "failed",
+        "mediaAnalysis": "ok",
+        "watsonx": "unavailable"
+      },
+      "advisory": true,
+      "requiresHumanReview": true,
+      "model": null,
+      "mediaType": "video",
+      "mediaFile": "video.mp4",
+      "media": {
+        "fileName": "video.mp4",
+        "durationSeconds": 10.0,
+        "hasAudio": true,
+        "frameCount": 5,
+        "sceneChanges": [
+          5.0
+        ]
+      },
+      "sceneSegments": [
+        {
+          "segmentId": 1,
+          "startSec": 0.0,
+          "endSec": 5.0,
+          "label": "scene 1",
+          "frameFiles": []
+        },
+        {
+          "segmentId": 2,
+          "startSec": 5.0,
+          "endSec": 10.0,
+          "label": "scene 2",
+          "frameFiles": []
+        }
+      ],
+      "errors": [
+        {
+          "stage": "stt",
+          "code": "TIMEOUT",
+          "message": "Speech to Text did not answer in time"
+        }
+      ],
+      "warnings": []
+    }
+  }
+}
