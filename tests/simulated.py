@@ -5,6 +5,8 @@ import json
 from functools import partial
 from pathlib import Path
 
+import requests
+
 from src.analysis import analyze
 from src.media import build_segments
 from src.pipeline import run_case
@@ -43,6 +45,8 @@ def stt_service(kind):
     def post(*args, **kwargs):
         if kind == "server_error":
             return Resp(500, {})
+        if kind == "timeout":
+            raise requests.Timeout("simulated")
         return Resp(200, watson_body(timestamps=(kind != "no_timestamps")))
     return partial(transcribe, _settings=STT_SETTINGS, _post_fn=post)
 
@@ -61,6 +65,52 @@ def chat_service(kind):
                            "categories": ["harassment", "violence"], "concerningSegments": flagged[kind],
                            "evidenceSegments": {"harassment": flagged[kind], "violence": flagged[kind]}})
     return partial(analyze, _chat_fn=chat)
+
+
+WATSONX_SETTINGS = {"api_key": "simulated-key", "project_id": "simulated-project",
+                    "url": "https://watsonx.example.test", "model_id": "simulated-model"}
+# Sprint 3 failure scenarios: the reply watsonx.ai's chat endpoint gives, as (HTTP status, content,
+# finish_reason). "{id}" is replaced by the caseId. These go through the real get_token, call_chat,
+# extract_json and validate_result, only the network is fake.
+WATSONX_REPLIES = {
+    "wx_service_error": (503, None, None),
+    "wx_truncated": (200, '{"caseId": "{id}", "severity": "high", "summary": "The speaker makes a thr', "length"),
+    # parses as JSON but was still cut off at the token limit, so it must not be accepted either
+    "wx_truncated_parseable": (200, '{"caseId": "{id}", "severity": "high", "summary": "x", "categories": []}', "length"),
+    "wx_malformed_json": (200, '{"caseId": "{id}", "severity": "high", "summary": "x",, "categories": [}', "stop"),
+    "wx_incomplete_json": (200, '{"caseId": "{id}", "severity": "high"}', "stop"),
+    "wx_missing_values": (200, '{"caseId": "{id}", "severity": null, "summary": null, "categories": null}', "stop"),
+    "wx_empty_values": (200, '{"caseId": "{id}", "severity": "", "summary": "", "categories": [], '
+                             '"concerningSegments": [], "evidenceSegments": {}}', "stop"),
+}
+
+
+def watsonx_network_service(kind, calls=None):
+    """analyze() with the real IAM and chat code and a fake network. calls, if given, counts the
+    chat calls, so a test can see the single retry happened."""
+    def post(url, **kwargs):
+        if "iam" in url:
+            return Resp(200, {"access_token": "simulated-token"})
+        if calls is not None:
+            calls.append(url)
+        if kind == "wx_timeout":
+            raise requests.Timeout("simulated")
+        if kind == "iam_timeout":
+            raise AssertionError("chat must not be called when the token call timed out")
+        status, content, finish = WATSONX_REPLIES[kind]
+        if status != 200:
+            return Resp(status, {})
+        case_id = kwargs["json"]["messages"][1]["content"].split("\n")[0].split(": ", 1)[1]
+        return Resp(200, {"choices": [{"message": {"content": content.replace("{id}", case_id)},
+                                       "finish_reason": finish}]})
+
+    def iam_timeout_post(url, **kwargs):
+        if "iam" in url:
+            raise requests.Timeout("simulated")
+        return post(url, **kwargs)
+
+    return partial(analyze, _settings=WATSONX_SETTINGS,
+                   _post_fn=iam_timeout_post if kind == "iam_timeout" else post)
 
 
 def media_service(has_audio=True):
@@ -168,6 +218,38 @@ SCENARIOS = {
         case_id="CASE-014", description="The older mediaObject field still works, kept for backward compatibility (D5)",
         legacy=True, legacy_media_object={"key": "cases/CASE-014/video.mp4", "contentType": "video/mp4"},
         files=["video.mp4"], stt="ok", chat="concerning"),
+    # Sprint 3 error handling: each must end in a defined failed state with nothing filled in
+    "stt_timeout": dict(case_id="CASE-015", description="Speech to Text does not answer in time",
+                        filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                        files=["video.mp4"], stt="timeout", chat="concerning"),
+    "watsonx_timeout": dict(case_id="CASE-016", description="watsonx.ai chat does not answer in time",
+                            filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                            files=["video.mp4"], stt="ok", chat="wx_timeout"),
+    "iam_timeout": dict(case_id="CASE-017", description="The IBM IAM token call does not answer in time",
+                        filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                        files=["video.mp4"], stt="ok", chat="iam_timeout"),
+    "watsonx_service_error": dict(case_id="CASE-018", description="watsonx.ai answers HTTP 503",
+                                  filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                                  files=["video.mp4"], stt="ok", chat="wx_service_error"),
+    "truncated_output": dict(case_id="CASE-019", description="watsonx.ai stops at the token limit mid JSON, twice",
+                             filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                             files=["video.mp4"], stt="ok", chat="wx_truncated"),
+    "truncated_but_parseable": dict(
+        case_id="CASE-020", description="watsonx.ai stops at the token limit but the text happens to parse, twice",
+        filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+        files=["video.mp4"], stt="ok", chat="wx_truncated_parseable"),
+    "malformed_json": dict(case_id="CASE-021", description="watsonx.ai answers with broken JSON, twice",
+                           filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                           files=["video.mp4"], stt="ok", chat="wx_malformed_json"),
+    "incomplete_json": dict(case_id="CASE-022", description="watsonx.ai JSON is missing summary and categories, twice",
+                            filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                            files=["video.mp4"], stt="ok", chat="wx_incomplete_json"),
+    "missing_values": dict(case_id="CASE-023", description="watsonx.ai JSON has null severity, summary and categories, twice",
+                           filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                           files=["video.mp4"], stt="ok", chat="wx_missing_values"),
+    "empty_values": dict(case_id="CASE-024", description="watsonx.ai JSON has empty severity and summary, twice",
+                         filename="video.mp4", content_type="video", media_mime_type="video/mp4",
+                         files=["video.mp4"], stt="ok", chat="wx_empty_values"),
     "uuid_case_id": dict(
         case_id="CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab",
         description="A Dev1 style CASE-<uuid> id works end to end, not just CASE-001 style (D1)",
@@ -211,7 +293,9 @@ def run_scenario(name, base_dir, work_dir, clip=None, real_media=False, live=Fal
         s["case_id"], LocalCaseStore(base_dir), work_dir=str(work_dir),
         _media_fn=media_fn,
         _stt_fn=None if use_live else stt_service(s["stt"]),
-        _analyze_fn=None if use_live else chat_service(s["chat"]),
+        _analyze_fn=None if use_live else (
+            watsonx_network_service(s["chat"]) if s["chat"] in WATSONX_REPLIES or s["chat"] in ("wx_timeout", "iam_timeout")
+            else chat_service(s["chat"])),
         _extract_audio_fn=extract_service)
     files = {n: json.loads((folder / n).read_text()) for n in ("case.json",) + GENERATED if (folder / n).is_file()}
     return {"scenario": name, "description": s["description"], "caseId": s["case_id"],
