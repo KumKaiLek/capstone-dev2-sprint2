@@ -65,6 +65,19 @@ def _default_post(url, params, headers, data, auth):
     return requests.post(url, params=params, headers=headers, data=data, auth=auth, timeout=TIMEOUT)
 
 
+def _segment_times(stamps):
+    """(start, end) of a segment from Watson's [word, start, end] word timestamps, or (None, None)
+    when they are missing or unusable (not numbers, too short, or end before start). Sprint 3:
+    before this, unusable timing raised out of transcribe(); it is never guessed or repaired."""
+    try:
+        start, end = float(stamps[0][1]), float(stamps[-1][2])
+    except (IndexError, TypeError, ValueError):
+        return None, None
+    if start < 0 or end < start:
+        return None, None
+    return round(start, 2), round(end, 2)
+
+
 def normalise(raw, model, source_name):
     """Turn a Watson STT response into the transcript contract."""
     try:
@@ -86,16 +99,21 @@ def normalise(raw, model, source_name):
         if not text:
             continue
         stamps = alt.get("timestamps") or []
-        start = round(float(stamps[0][1]), 2) if stamps else None
-        end = round(float(stamps[-1][2]), 2) if stamps else None
+        start, end = _segment_times(stamps)
         conf = alt.get("confidence")
         if conf is not None:
             confidences.append(float(conf))
         timed = start is not None and end is not None
+        if timed:
+            reason = None
+        elif stamps:
+            reason = "Speech to Text timing for this segment was unusable, so no time is given"
+        else:
+            reason = "Speech to Text gave no timing for this segment"
         segments.append({"startSec": start, "endSec": end, "text": text,
                          "confidence": round(float(conf), 2) if conf is not None else None,
                          "timestampStatus": "available" if timed else "unavailable",
-                         "timestampReason": None if timed else "Speech to Text gave no timing for this segment"})
+                         "timestampReason": reason})
 
     if not segments:
         raise SttError("EMPTY_TRANSCRIPT", "STT returned only empty text")

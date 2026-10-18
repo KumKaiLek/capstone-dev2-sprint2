@@ -60,6 +60,16 @@ no_stamps = {"results": [{"alternatives": [{"transcript": "no timing here ", "co
 seg = run(lambda *a, **k: Resp(200, no_stamps))["transcript"]["segments"][0]
 check("segment without timestamps has null times, unavailable status and a reason (never 0)",
       seg["startSec"] is None and seg["endSec"] is None and seg["timestampStatus"] == "unavailable" and bool(seg["timestampReason"]))
+# Sprint 3: unusable STT timing gives an unavailable segment, never a crash and never a guessed time
+for label, stamps in [("non-numeric", [["hi", "x", 1.0]]), ("too short", [["hi"]]),
+                      ("end before start", [["hi", 2.0, 2.5], ["there", 1.0, 1.5]]), ("negative start", [["hi", -1.0, 0.5]])]:
+    body = {"results": [{"alternatives": [{"transcript": "hi there ", "confidence": 0.8, "timestamps": stamps}]}]}
+    out = run(lambda *a, **k: Resp(200, body))
+    seg = out.get("transcript", {}).get("segments", [{}])[0]
+    check(f"{label} STT timing gives null times and unavailable, not a crash or a guessed time",
+          out["status"] == "ok" and seg.get("startSec") is None and seg.get("endSec") is None
+          and seg.get("timestampStatus") == "unavailable" and "unusable" in (seg.get("timestampReason") or "")
+          and out["transcript"]["durationSeconds"] is None)
 check("duration and source recorded", t.get("durationSeconds") == 1.6 and t.get("source") == "sample.wav")
 
 no_conf = {"results": [{"alternatives": [{"transcript": "hello there", "timestamps": [["hello", 0.0, 0.5], ["there", 0.5, 1.0]]}]}]}
