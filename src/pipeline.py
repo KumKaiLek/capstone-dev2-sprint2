@@ -179,6 +179,17 @@ def _extract_audio(media_path, out_dir):
         return None
 
 
+def _guarded(fn, *args, **kwargs):
+    """Calls a stage function. Sprint 3: a stage that raises instead of returning its error
+    envelope (a bug, like the Speech to Text timing crash fixed in this sprint) becomes an
+    UNEXPECTED_ERROR envelope, so the case still ends in a recorded state, never a crash."""
+    try:
+        return fn(*args, **kwargs)
+    except Exception as e:  # noqa: BLE001, deliberately broad, nothing may escape run_case
+        return {"status": "error", "error": {"code": "UNEXPECTED_ERROR",
+                                             "message": f"The stage raised {type(e).__name__} instead of returning an error"}}
+
+
 def run_case(case_id, store, work_dir="outputs/media", _media_fn=None, _stt_fn=None, _analyze_fn=None,
              _extract_audio_fn=None):
     """Never raises. Returns {"status": "error", "error": {...}} when the case cannot be run at all
@@ -235,7 +246,7 @@ def run_case(case_id, store, work_dir="outputs/media", _media_fn=None, _stt_fn=N
             audio_path = media_path
             warnings.append("audio_only_no_media_analysis")
         else:
-            media_result = media_fn(media_path, work_dir=case_dir)
+            media_result = _guarded(media_fn, media_path, work_dir=case_dir)
             if media_result.get("status") == "ok":
                 status["mediaAnalysis"] = "ok"
                 media = media_result["media"]
@@ -252,7 +263,7 @@ def run_case(case_id, store, work_dir="outputs/media", _media_fn=None, _stt_fn=N
                     warnings.append("audio_recovered_after_media_analysis_failed")
 
     if audio_path:
-        stt_result = stt_fn(audio_path)
+        stt_result = _guarded(stt_fn, audio_path)
         if stt_result.get("status") == "ok":
             status["stt"] = "ok"
             transcript = stt_result["transcript"]
@@ -267,7 +278,7 @@ def run_case(case_id, store, work_dir="outputs/media", _media_fn=None, _stt_fn=N
     if transcript is not None:
         context = media_context_for_ai(media) if media is not None else {
             "sourceType": kind or "unknown", "durationSeconds": transcript.get("durationSeconds")}
-        result = analyze_fn(case_id, transcript["text"], context, segments=transcript["segments"])
+        result = _guarded(analyze_fn, case_id, transcript["text"], context, segments=transcript["segments"])
         if result.get("status") == "ok":
             status["watsonx"] = "ok"
             analysis = result["result"]
