@@ -1,0 +1,5816 @@
+{
+  "meta": {
+    "runDate": "2026-10-25T07:26:02+00:00",
+    "gitCommit": "657feb8",
+    "mode": "controlled synthetic: real run_case and ffmpeg, simulated IBM network",
+    "python": "3.13.17",
+    "ffmpeg": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+    "rCaseRepeats": 5,
+    "scenarioRepeats": 3
+  },
+  "totals": {
+    "passed": 876,
+    "total": 876
+  },
+  "byGroup": {
+    "cases": {
+      "passed": 57,
+      "total": 57
+    },
+    "linkage": {
+      "passed": 138,
+      "total": 138
+    },
+    "failure": {
+      "passed": 213,
+      "total": 213
+    },
+    "summary": {
+      "passed": 102,
+      "total": 102
+    },
+    "transcript": {
+      "passed": 179,
+      "total": 179
+    },
+    "categories": {
+      "passed": 72,
+      "total": 72
+    },
+    "timestamps": {
+      "passed": 94,
+      "total": 94
+    },
+    "repeatability": {
+      "passed": 13,
+      "total": 13
+    },
+    "baseline": {
+      "passed": 8,
+      "total": 8
+    }
+  },
+  "baselineModules": [
+    {
+      "module": "test_contract",
+      "passed": 10,
+      "total": 10,
+      "exit": 0
+    },
+    {
+      "module": "test_errors",
+      "passed": 56,
+      "total": 56,
+      "exit": 0
+    },
+    {
+      "module": "test_validation",
+      "passed": 37,
+      "total": 37,
+      "exit": 0
+    },
+    {
+      "module": "test_stt",
+      "passed": 26,
+      "total": 26,
+      "exit": 0
+    },
+    {
+      "module": "test_media",
+      "passed": 15,
+      "total": 15,
+      "exit": 0
+    },
+    {
+      "module": "test_store",
+      "passed": 26,
+      "total": 26,
+      "exit": 0
+    },
+    {
+      "module": "test_pipeline",
+      "passed": 44,
+      "total": 44,
+      "exit": 0
+    },
+    {
+      "module": "test_run_repeat",
+      "passed": 20,
+      "total": 20,
+      "exit": 0
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario": "happy_path",
+      "caseId": "CASE-001",
+      "result": "ok",
+      "codes": [],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "ok"
+      }
+    },
+    {
+      "scenario": "missing_media",
+      "caseId": "CASE-002",
+      "result": "failed",
+      "codes": [
+        "mediaAnalysis:MEDIA_NOT_FOUND"
+      ],
+      "processingStatus": {
+        "stt": "unavailable",
+        "mediaAnalysis": "failed",
+        "watsonx": "unavailable"
+      }
+    },
+    {
+      "scenario": "invalid_media_type",
+      "caseId": "CASE-003",
+      "result": "failed",
+      "codes": [
+        "mediaAnalysis:INVALID_MEDIA_TYPE"
+      ],
+      "processingStatus": {
+        "stt": "unavailable",
+        "mediaAnalysis": "failed",
+        "watsonx": "unavailable"
+      }
+    },
+    {
+      "scenario": "stt_server_error",
+      "caseId": "CASE-004",
+      "result": "partial",
+      "codes": [
+        "stt:STT_SERVICE_ERROR"
+      ],
+      "processingStatus": {
+        "stt": "failed",
+        "mediaAnalysis": "ok",
+        "watsonx": "unavailable"
+      }
+    },
+    {
+      "scenario": "malformed_watsonx_output",
+      "caseId": "CASE-005",
+      "result": "partial",
+      "codes": [
+        "watsonx:MALFORMED_OUTPUT"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      }
+    },
+    {
+      "scenario": "no_timestamps",
+      "caseId": "CASE-006",
+      "result": "ok",
+      "codes": [],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "ok"
+      }
+    },
+    {
+      "scenario": "invalid_segment_index",
+      "caseId": "CASE-007",
+      "result": "ok",
+      "codes": [],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "ok"
+      }
+    },
+    {
+      "scenario": "case_id_mismatch",
+      "caseId": "CASE-008",
+      "result": "error",
+      "codes": [
+        "CASE_ID_MISMATCH"
+      ],
+      "processingStatus": null
+    },
+    {
+      "scenario": "audio_only",
+      "caseId": "CASE-009",
+      "result": "ok",
+      "codes": [],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "unavailable",
+        "watsonx": "ok"
+      }
+    },
+    {
+      "scenario": "media_analysis_failed_audio_recovered",
+      "caseId": "CASE-010",
+      "result": "partial",
+      "codes": [
+        "mediaAnalysis:MEDIA_UNREADABLE"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "failed",
+        "watsonx": "ok"
+      }
+    },
+    {
+      "scenario": "no_media_reference",
+      "caseId": "CASE-011",
+      "result": "failed",
+      "codes": [
+        "mediaAnalysis:MEDIA_REFERENCE_MISSING"
+      ],
+      "processingStatus": {
+        "stt": "unavailable",
+        "mediaAnalysis": "failed",
+        "watsonx": "unavailable"
+      }
+    },
+    {
+      "scenario": "media_key_wrong_case",
+      "caseId": "CASE-012",
+      "result": "failed",
+      "codes": [
+        "mediaAnalysis:MEDIA_KEY_WRONG_CASE"
+      ],
+      "processingStatus": {
+        "stt": "unavailable",
+        "mediaAnalysis": "failed",
+        "watsonx": "unavailable"
+      }
+    },
+    {
+      "scenario": "filename_with_spaces",
+      "caseId": "CASE-013",
+      "result": "ok",
+      "codes": [],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "ok"
+      }
+    },
+    {
+      "scenario": "legacy_media_object",
+      "caseId": "CASE-014",
+      "result": "ok",
+      "codes": [],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "ok"
+      }
+    },
+    {
+      "scenario": "stt_timeout",
+      "caseId": "CASE-015",
+      "result": "partial",
+      "codes": [
+        "stt:TIMEOUT"
+      ],
+      "processingStatus": {
+        "stt": "failed",
+        "mediaAnalysis": "ok",
+        "watsonx": "unavailable"
+      }
+    },
+    {
+      "scenario": "watsonx_timeout",
+      "caseId": "CASE-016",
+      "result": "partial",
+      "codes": [
+        "watsonx:TIMEOUT"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      }
+    },
+    {
+      "scenario": "iam_timeout",
+      "caseId": "CASE-017",
+      "result": "partial",
+      "codes": [
+        "watsonx:TIMEOUT"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      }
+    },
+    {
+      "scenario": "watsonx_service_error",
+      "caseId": "CASE-018",
+      "result": "partial",
+      "codes": [
+        "watsonx:SERVICE_ERROR"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      }
+    },
+    {
+      "scenario": "truncated_output",
+      "caseId": "CASE-019",
+      "result": "partial",
+      "codes": [
+        "watsonx:INCOMPLETE_OUTPUT"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      }
+    },
+    {
+      "scenario": "truncated_but_parseable",
+      "caseId": "CASE-020",
+      "result": "partial",
+      "codes": [
+        "watsonx:INCOMPLETE_OUTPUT"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      }
+    },
+    {
+      "scenario": "malformed_json",
+      "caseId": "CASE-021",
+      "result": "partial",
+      "codes": [
+        "watsonx:MALFORMED_OUTPUT"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      }
+    },
+    {
+      "scenario": "incomplete_json",
+      "caseId": "CASE-022",
+      "result": "partial",
+      "codes": [
+        "watsonx:INVALID_OUTPUT"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      }
+    },
+    {
+      "scenario": "missing_values",
+      "caseId": "CASE-023",
+      "result": "partial",
+      "codes": [
+        "watsonx:INVALID_OUTPUT"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      }
+    },
+    {
+      "scenario": "empty_values",
+      "caseId": "CASE-024",
+      "result": "partial",
+      "codes": [
+        "watsonx:INVALID_OUTPUT"
+      ],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "failed"
+      }
+    },
+    {
+      "scenario": "uuid_case_id",
+      "caseId": "CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab",
+      "result": "ok",
+      "codes": [],
+      "processingStatus": {
+        "stt": "ok",
+        "mediaAnalysis": "ok",
+        "watsonx": "ok"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "group": "cases",
+      "name": "R101 harmless video: ran to a defined state",
+      "passed": true,
+      "detail": "ok"
+    },
+    {
+      "group": "linkage",
+      "name": "R101: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "R101: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-R101', 'analysis.json': 'CASE-R101', 'case.json': 'CASE-R101'}"
+    },
+    {
+      "group": "linkage",
+      "name": "R101: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "R101: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R101: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "R101: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "R101: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R101: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R101: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R101: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R101: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R101: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R101: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R101: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R101: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R101: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R101: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 1, 'sentenceCountOk': True, 'length': 75, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "R101: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "R101: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "categories",
+      "name": "R101: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{}"
+    },
+    {
+      "group": "timestamps",
+      "name": "R101: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "R101: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 4.0, 'label': 'scene 1', 'frameFiles': ['frame_001.jpg', 'frame_002.jpg'], 'transcriptText': 'this is a routine status update for the weekly team meeting'}, {'segmentId': 2, 'startSec': 4.0, 'endSec': 8.0, 'label': 'scene 2', 'frameFiles': ['frame_003.jpg', 'frame_004.jpg'], 'transcriptText': 'everyone please review the agenda before friday'}]"
+    },
+    {
+      "group": "cases",
+      "name": "R101: processingStatus and error codes as expected",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'} []"
+    },
+    {
+      "group": "categories",
+      "name": "R101: severity and categories as expected",
+      "passed": true,
+      "detail": "low []"
+    },
+    {
+      "group": "timestamps",
+      "name": "R101: incident timestamps as expected",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "R101: media type recorded as video",
+      "passed": true,
+      "detail": "video"
+    },
+    {
+      "group": "transcript",
+      "name": "R101: transcript equals the spoken source text",
+      "passed": true,
+      "detail": "this is a routine status update for the weekly team meeting everyone please review the agenda before friday"
+    },
+    {
+      "group": "transcript",
+      "name": "R101: one segment per utterance with the measured times",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R101: mean confidence correct",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "R102 harassment and threat video: ran to a defined state",
+      "passed": true,
+      "detail": "ok"
+    },
+    {
+      "group": "linkage",
+      "name": "R102: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "R102: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-R102', 'analysis.json': 'CASE-R102', 'case.json': 'CASE-R102'}"
+    },
+    {
+      "group": "linkage",
+      "name": "R102: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "R102: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R102: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "R102: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "R102: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R102: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R102: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R102: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R102: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R102: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R102: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R102: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R102: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R102: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R102: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 2, 'sentenceCountOk': True, 'length': 121, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "R102: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "R102: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['harassment', 'violence']"
+    },
+    {
+      "group": "categories",
+      "name": "R102: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'violence': [2], 'harassment': [2]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "R102: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': 4.5, 'end': 7.6, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]"
+    },
+    {
+      "group": "timestamps",
+      "name": "R102: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 4.0, 'label': 'scene 1', 'frameFiles': ['frame_001.jpg', 'frame_002.jpg'], 'transcriptText': 'this is a synthetic test recording'}, {'segmentId': 2, 'startSec': 4.0, 'endSec': 8.0, 'label': 'scene 2', 'frameFiles': ['frame_003.jpg', 'frame_004.jpg'], 'transcriptText': 'you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "R102: processingStatus and error codes as expected",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'} []"
+    },
+    {
+      "group": "categories",
+      "name": "R102: severity and categories as expected",
+      "passed": true,
+      "detail": "high ['harassment', 'violence']"
+    },
+    {
+      "group": "timestamps",
+      "name": "R102: incident timestamps as expected",
+      "passed": true,
+      "detail": "[(4.5, 7.6, 'available')]"
+    },
+    {
+      "group": "cases",
+      "name": "R102: media type recorded as video",
+      "passed": true,
+      "detail": "video"
+    },
+    {
+      "group": "transcript",
+      "name": "R102: transcript equals the spoken source text",
+      "passed": true,
+      "detail": "this is a synthetic test recording you are worthless and everyone hates you i know where you live and i will make you regret it"
+    },
+    {
+      "group": "transcript",
+      "name": "R102: one segment per utterance with the measured times",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R102: mean confidence correct",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "R102: scene cut found at 4.0s from the real video",
+      "passed": true,
+      "detail": "{'fileName': 'clip.mp4', 'durationSeconds': 8.0, 'hasAudio': True, 'frameCount': 4, 'sceneChanges': [4.0]}"
+    },
+    {
+      "group": "cases",
+      "name": "R103 one concerning line in the middle of three: ran to a defined state",
+      "passed": true,
+      "detail": "ok"
+    },
+    {
+      "group": "linkage",
+      "name": "R103: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "R103: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-R103', 'analysis.json': 'CASE-R103', 'case.json': 'CASE-R103'}"
+    },
+    {
+      "group": "linkage",
+      "name": "R103: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "R103: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R103: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "R103: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "R103: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R103: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R103: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R103: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R103: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R103: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R103: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R103: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R103: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R103: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R103: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 2, 'sentenceCountOk': True, 'length': 106, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "R103: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "R103: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['violence']"
+    },
+    {
+      "group": "categories",
+      "name": "R103: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'violence': [2]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "R103: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': 4.6, 'end': 7.6, 'reason': 'segment 2 flagged by watsonx.ai (violence)', 'timestampStatus': 'available'}]"
+    },
+    {
+      "group": "timestamps",
+      "name": "R103: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 4.0, 'label': 'scene 1', 'frameFiles': ['frame_001.jpg', 'frame_002.jpg'], 'transcriptText': \"good morning everyone thanks for joining today's call\"}, {'segmentId': 2, 'startSec': 4.0, 'endSec': 8.0, 'label': 'scene 2', 'frameFiles': ['frame_003.jpg', 'frame_004.jpg'], 'transcriptText': 'if you do not finish this by tonight i will make sure you regret it'}, {'segmentId': 3, 'startSec': 8.0, 'endSec': 12.0, 'label': 'scene 3', 'frameFiles': ['frame_005.jpg', 'frame_006.jpg'], 'transcriptText': 'let us move on to the next item on the agenda'}]"
+    },
+    {
+      "group": "cases",
+      "name": "R103: processingStatus and error codes as expected",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'} []"
+    },
+    {
+      "group": "categories",
+      "name": "R103: severity and categories as expected",
+      "passed": true,
+      "detail": "medium ['violence']"
+    },
+    {
+      "group": "timestamps",
+      "name": "R103: incident timestamps as expected",
+      "passed": true,
+      "detail": "[(4.6, 7.6, 'available')]"
+    },
+    {
+      "group": "cases",
+      "name": "R103: media type recorded as video",
+      "passed": true,
+      "detail": "video"
+    },
+    {
+      "group": "transcript",
+      "name": "R103: transcript equals the spoken source text",
+      "passed": true,
+      "detail": "good morning everyone thanks for joining today's call if you do not finish this by tonight i will make sure you regret it let us move on to the next item on the agenda"
+    },
+    {
+      "group": "transcript",
+      "name": "R103: one segment per utterance with the measured times",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R103: mean confidence correct",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "R103: 3 scene segments, one utterance spoken in each",
+      "passed": true,
+      "detail": "[\"good morning everyone thanks for joining today's call\", 'if you do not finish this by tonight i will make sure you regret it', 'let us move on to the next item on the agenda']"
+    },
+    {
+      "group": "timestamps",
+      "name": "R103: the incident window is the flagged line only, not the whole clip",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "R104 audio only, mild language: ran to a defined state",
+      "passed": true,
+      "detail": "ok"
+    },
+    {
+      "group": "linkage",
+      "name": "R104: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "R104: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-R104', 'analysis.json': 'CASE-R104', 'case.json': 'CASE-R104'}"
+    },
+    {
+      "group": "linkage",
+      "name": "R104: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "R104: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R104: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'unavailable', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "R104: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "R104: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R104: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R104: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R104: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R104: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R104: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R104: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R104: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R104: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R104: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R104: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 1, 'sentenceCountOk': True, 'length': 75, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "R104: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "R104: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "categories",
+      "name": "R104: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{}"
+    },
+    {
+      "group": "timestamps",
+      "name": "R104: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "R104: processingStatus and error codes as expected",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'unavailable', 'watsonx': 'ok'} []"
+    },
+    {
+      "group": "categories",
+      "name": "R104: severity and categories as expected",
+      "passed": true,
+      "detail": "low []"
+    },
+    {
+      "group": "timestamps",
+      "name": "R104: incident timestamps as expected",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "R104: media type recorded as audio",
+      "passed": true,
+      "detail": "audio"
+    },
+    {
+      "group": "transcript",
+      "name": "R104: transcript equals the spoken source text",
+      "passed": true,
+      "detail": "this is so frustrating this whole plan is stupid and i am sick of dealing with it"
+    },
+    {
+      "group": "transcript",
+      "name": "R104: one segment per utterance with the measured times",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R104: mean confidence correct",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "R104: audio case warns it skipped media analysis",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "R105 silent audio track, no speech: ran to a defined state",
+      "passed": true,
+      "detail": "partial"
+    },
+    {
+      "group": "linkage",
+      "name": "R105: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "R105: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-R105', 'analysis.json': 'CASE-R105', 'case.json': 'CASE-R105'}"
+    },
+    {
+      "group": "linkage",
+      "name": "R105: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "R105: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R105: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'failed', 'mediaAnalysis': 'ok', 'watsonx': 'unavailable'}"
+    },
+    {
+      "group": "failure",
+      "name": "R105: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "R105: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R105: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R105: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R105: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R105: failed or unavailable Speech to Text leaves no transcript and no segments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R105: a failed Speech to Text stage records its error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R105: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "R105: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "R105: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "R105: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "R105: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 4.0, 'label': 'scene 1', 'frameFiles': ['frame_001.jpg', 'frame_002.jpg']}, {'segmentId': 2, 'startSec': 4.0, 'endSec': 8.0, 'label': 'scene 2', 'frameFiles': ['frame_003.jpg', 'frame_004.jpg']}]"
+    },
+    {
+      "group": "cases",
+      "name": "R105: processingStatus and error codes as expected",
+      "passed": true,
+      "detail": "{'stt': 'failed', 'mediaAnalysis': 'ok', 'watsonx': 'unavailable'} ['stt:EMPTY_TRANSCRIPT']"
+    },
+    {
+      "group": "categories",
+      "name": "R105: severity and categories as expected",
+      "passed": true,
+      "detail": "None []"
+    },
+    {
+      "group": "timestamps",
+      "name": "R105: incident timestamps as expected",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "R105: media type recorded as video",
+      "passed": true,
+      "detail": "video"
+    },
+    {
+      "group": "failure",
+      "name": "R105: watsonx.ai was not called with nothing to analyse",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "R106 media file missing: ran to a defined state",
+      "passed": true,
+      "detail": "failed"
+    },
+    {
+      "group": "linkage",
+      "name": "R106: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "R106: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-R106', 'analysis.json': 'CASE-R106', 'case.json': 'CASE-R106'}"
+    },
+    {
+      "group": "linkage",
+      "name": "R106: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "R106: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R106: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'unavailable', 'mediaAnalysis': 'failed', 'watsonx': 'unavailable'}"
+    },
+    {
+      "group": "failure",
+      "name": "R106: overall result follows the documented rule",
+      "passed": true,
+      "detail": "failed vs failed"
+    },
+    {
+      "group": "failure",
+      "name": "R106: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R106: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R106: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R106: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R106: failed or unavailable Speech to Text leaves no transcript and no segments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R106: a failed Speech to Text stage records its error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R106: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "R106: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "R106: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "R106: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "R106: processingStatus and error codes as expected",
+      "passed": true,
+      "detail": "{'stt': 'unavailable', 'mediaAnalysis': 'failed', 'watsonx': 'unavailable'} ['mediaAnalysis:MEDIA_NOT_FOUND']"
+    },
+    {
+      "group": "categories",
+      "name": "R106: severity and categories as expected",
+      "passed": true,
+      "detail": "None []"
+    },
+    {
+      "group": "timestamps",
+      "name": "R106: incident timestamps as expected",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "R106: media type recorded as video",
+      "passed": true,
+      "detail": "video"
+    },
+    {
+      "group": "failure",
+      "name": "R106: Speech to Text was not called",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R106: watsonx.ai was not called with nothing to analyse",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "R107 video with no audio track: ran to a defined state",
+      "passed": true,
+      "detail": "partial"
+    },
+    {
+      "group": "linkage",
+      "name": "R107: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "R107: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-R107', 'analysis.json': 'CASE-R107', 'case.json': 'CASE-R107'}"
+    },
+    {
+      "group": "linkage",
+      "name": "R107: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "R107: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R107: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'unavailable', 'mediaAnalysis': 'ok', 'watsonx': 'unavailable'}"
+    },
+    {
+      "group": "failure",
+      "name": "R107: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "R107: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R107: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R107: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R107: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R107: failed or unavailable Speech to Text leaves no transcript and no segments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R107: a failed Speech to Text stage records its error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R107: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "R107: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "R107: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "R107: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "R107: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 4.0, 'label': 'scene 1', 'frameFiles': ['frame_001.jpg', 'frame_002.jpg']}, {'segmentId': 2, 'startSec': 4.0, 'endSec': 8.0, 'label': 'scene 2', 'frameFiles': ['frame_003.jpg', 'frame_004.jpg']}]"
+    },
+    {
+      "group": "cases",
+      "name": "R107: processingStatus and error codes as expected",
+      "passed": true,
+      "detail": "{'stt': 'unavailable', 'mediaAnalysis': 'ok', 'watsonx': 'unavailable'} ['stt:NO_AUDIO_TRACK']"
+    },
+    {
+      "group": "categories",
+      "name": "R107: severity and categories as expected",
+      "passed": true,
+      "detail": "None []"
+    },
+    {
+      "group": "timestamps",
+      "name": "R107: incident timestamps as expected",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "R107: media type recorded as video",
+      "passed": true,
+      "detail": "video"
+    },
+    {
+      "group": "failure",
+      "name": "R107: Speech to Text was not called",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R107: watsonx.ai was not called with nothing to analyse",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "R108 uuid case id, file name with spaces: ran to a defined state",
+      "passed": true,
+      "detail": "ok"
+    },
+    {
+      "group": "linkage",
+      "name": "R108: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "R108: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab', 'analysis.json': 'CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab', 'case.json': 'CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab'}"
+    },
+    {
+      "group": "linkage",
+      "name": "R108: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "R108: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R108: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "R108: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "R108: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R108: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R108: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R108: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R108: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R108: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R108: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R108: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R108: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R108: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R108: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 2, 'sentenceCountOk': True, 'length': 121, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "R108: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "R108: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['harassment', 'violence']"
+    },
+    {
+      "group": "categories",
+      "name": "R108: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'violence': [2], 'harassment': [2]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "R108: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': 4.5, 'end': 7.6, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]"
+    },
+    {
+      "group": "timestamps",
+      "name": "R108: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 4.0, 'label': 'scene 1', 'frameFiles': ['frame_001.jpg', 'frame_002.jpg'], 'transcriptText': 'this is a synthetic test recording'}, {'segmentId': 2, 'startSec': 4.0, 'endSec': 8.0, 'label': 'scene 2', 'frameFiles': ['frame_003.jpg', 'frame_004.jpg'], 'transcriptText': 'you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "R108: processingStatus and error codes as expected",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'} []"
+    },
+    {
+      "group": "categories",
+      "name": "R108: severity and categories as expected",
+      "passed": true,
+      "detail": "high ['harassment', 'violence']"
+    },
+    {
+      "group": "timestamps",
+      "name": "R108: incident timestamps as expected",
+      "passed": true,
+      "detail": "[(4.5, 7.6, 'available')]"
+    },
+    {
+      "group": "cases",
+      "name": "R108: media type recorded as video",
+      "passed": true,
+      "detail": "video"
+    },
+    {
+      "group": "transcript",
+      "name": "R108: transcript equals the spoken source text",
+      "passed": true,
+      "detail": "this is a synthetic test recording you are worthless and everyone hates you i know where you live and i will make you regret it"
+    },
+    {
+      "group": "transcript",
+      "name": "R108: one segment per utterance with the measured times",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R108: mean confidence correct",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "R109 Speech to Text timing unusable: ran to a defined state",
+      "passed": true,
+      "detail": "ok"
+    },
+    {
+      "group": "linkage",
+      "name": "R109: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "R109: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-R109', 'analysis.json': 'CASE-R109', 'case.json': 'CASE-R109'}"
+    },
+    {
+      "group": "linkage",
+      "name": "R109: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "R109: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R109: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "R109: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "R109: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R109: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R109: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R109: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R109: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R109: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R109: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R109: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R109: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R109: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R109: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 2, 'sentenceCountOk': True, 'length': 121, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "R109: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "R109: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['harassment', 'violence']"
+    },
+    {
+      "group": "categories",
+      "name": "R109: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'violence': [2], 'harassment': [2]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "R109: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': None, 'end': None, 'reason': 'segment 2 was flagged but Speech to Text gave no timing for it', 'timestampStatus': 'unavailable'}]"
+    },
+    {
+      "group": "timestamps",
+      "name": "R109: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 4.0, 'label': 'scene 1', 'frameFiles': ['frame_001.jpg', 'frame_002.jpg'], 'transcriptText': ''}, {'segmentId': 2, 'startSec': 4.0, 'endSec': 8.0, 'label': 'scene 2', 'frameFiles': ['frame_003.jpg', 'frame_004.jpg'], 'transcriptText': ''}]"
+    },
+    {
+      "group": "cases",
+      "name": "R109: processingStatus and error codes as expected",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'} []"
+    },
+    {
+      "group": "categories",
+      "name": "R109: severity and categories as expected",
+      "passed": true,
+      "detail": "high ['harassment', 'violence']"
+    },
+    {
+      "group": "timestamps",
+      "name": "R109: incident timestamps as expected",
+      "passed": true,
+      "detail": "[(None, None, 'unavailable')]"
+    },
+    {
+      "group": "cases",
+      "name": "R109: media type recorded as video",
+      "passed": true,
+      "detail": "video"
+    },
+    {
+      "group": "timestamps",
+      "name": "R109: unusable timing gives null segment times and a reason, nothing guessed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "R110 Speech to Text times out: ran to a defined state",
+      "passed": true,
+      "detail": "partial"
+    },
+    {
+      "group": "linkage",
+      "name": "R110: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "R110: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-R110', 'analysis.json': 'CASE-R110', 'case.json': 'CASE-R110'}"
+    },
+    {
+      "group": "linkage",
+      "name": "R110: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "R110: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R110: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'failed', 'mediaAnalysis': 'ok', 'watsonx': 'unavailable'}"
+    },
+    {
+      "group": "failure",
+      "name": "R110: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "R110: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "R110: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R110: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R110: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R110: failed or unavailable Speech to Text leaves no transcript and no segments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "R110: a failed Speech to Text stage records its error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "R110: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "R110: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "R110: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "R110: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "R110: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 4.0, 'label': 'scene 1', 'frameFiles': ['frame_001.jpg', 'frame_002.jpg']}, {'segmentId': 2, 'startSec': 4.0, 'endSec': 8.0, 'label': 'scene 2', 'frameFiles': ['frame_003.jpg', 'frame_004.jpg']}]"
+    },
+    {
+      "group": "cases",
+      "name": "R110: processingStatus and error codes as expected",
+      "passed": true,
+      "detail": "{'stt': 'failed', 'mediaAnalysis': 'ok', 'watsonx': 'unavailable'} ['stt:TIMEOUT']"
+    },
+    {
+      "group": "categories",
+      "name": "R110: severity and categories as expected",
+      "passed": true,
+      "detail": "None []"
+    },
+    {
+      "group": "timestamps",
+      "name": "R110: incident timestamps as expected",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "R110: media type recorded as video",
+      "passed": true,
+      "detail": "video"
+    },
+    {
+      "group": "failure",
+      "name": "R110: watsonx.ai was not called with nothing to analyse",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "every simulated scenario has a documented expectation",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "cases",
+      "name": "scenario happy_path: ok ",
+      "passed": true,
+      "detail": "ok []"
+    },
+    {
+      "group": "linkage",
+      "name": "happy_path: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "happy_path: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-001', 'analysis.json': 'CASE-001', 'case.json': 'CASE-001'}"
+    },
+    {
+      "group": "linkage",
+      "name": "happy_path: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "happy_path: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "happy_path: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "happy_path: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "happy_path: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "happy_path: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "happy_path: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "happy_path: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "happy_path: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "happy_path: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "happy_path: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "happy_path: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "happy_path: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "happy_path: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "happy_path: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 1, 'sentenceCountOk': True, 'length': 35, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "happy_path: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "happy_path: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['harassment', 'violence']"
+    },
+    {
+      "group": "categories",
+      "name": "happy_path: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'harassment': [2], 'violence': [2]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "happy_path: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]"
+    },
+    {
+      "group": "timestamps",
+      "name": "happy_path: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario missing_media: failed ['mediaAnalysis:MEDIA_NOT_FOUND']",
+      "passed": true,
+      "detail": "failed ['mediaAnalysis:MEDIA_NOT_FOUND']"
+    },
+    {
+      "group": "linkage",
+      "name": "missing_media: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "missing_media: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-002', 'analysis.json': 'CASE-002', 'case.json': 'CASE-002'}"
+    },
+    {
+      "group": "linkage",
+      "name": "missing_media: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "missing_media: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "missing_media: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'unavailable', 'mediaAnalysis': 'failed', 'watsonx': 'unavailable'}"
+    },
+    {
+      "group": "failure",
+      "name": "missing_media: overall result follows the documented rule",
+      "passed": true,
+      "detail": "failed vs failed"
+    },
+    {
+      "group": "failure",
+      "name": "missing_media: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "missing_media: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "missing_media: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "missing_media: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "missing_media: failed or unavailable Speech to Text leaves no transcript and no segments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "missing_media: a failed Speech to Text stage records its error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "missing_media: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "missing_media: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "missing_media: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "missing_media: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario invalid_media_type: failed ['mediaAnalysis:INVALID_MEDIA_TYPE']",
+      "passed": true,
+      "detail": "failed ['mediaAnalysis:INVALID_MEDIA_TYPE']"
+    },
+    {
+      "group": "linkage",
+      "name": "invalid_media_type: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "invalid_media_type: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-003', 'analysis.json': 'CASE-003', 'case.json': 'CASE-003'}"
+    },
+    {
+      "group": "linkage",
+      "name": "invalid_media_type: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "invalid_media_type: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "invalid_media_type: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'unavailable', 'mediaAnalysis': 'failed', 'watsonx': 'unavailable'}"
+    },
+    {
+      "group": "failure",
+      "name": "invalid_media_type: overall result follows the documented rule",
+      "passed": true,
+      "detail": "failed vs failed"
+    },
+    {
+      "group": "failure",
+      "name": "invalid_media_type: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "invalid_media_type: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "invalid_media_type: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "invalid_media_type: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "invalid_media_type: failed or unavailable Speech to Text leaves no transcript and no segments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "invalid_media_type: a failed Speech to Text stage records its error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "invalid_media_type: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "invalid_media_type: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "invalid_media_type: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "invalid_media_type: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario stt_server_error: partial ['stt:STT_SERVICE_ERROR']",
+      "passed": true,
+      "detail": "partial ['stt:STT_SERVICE_ERROR']"
+    },
+    {
+      "group": "linkage",
+      "name": "stt_server_error: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "stt_server_error: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-004', 'analysis.json': 'CASE-004', 'case.json': 'CASE-004'}"
+    },
+    {
+      "group": "linkage",
+      "name": "stt_server_error: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "stt_server_error: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "stt_server_error: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'failed', 'mediaAnalysis': 'ok', 'watsonx': 'unavailable'}"
+    },
+    {
+      "group": "failure",
+      "name": "stt_server_error: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "stt_server_error: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "stt_server_error: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "stt_server_error: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "stt_server_error: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "stt_server_error: failed or unavailable Speech to Text leaves no transcript and no segments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "stt_server_error: a failed Speech to Text stage records its error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "stt_server_error: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "stt_server_error: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "stt_server_error: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "stt_server_error: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "stt_server_error: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': []}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': []}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario malformed_watsonx_output: partial ['watsonx:MALFORMED_OUTPUT']",
+      "passed": true,
+      "detail": "partial ['watsonx:MALFORMED_OUTPUT']"
+    },
+    {
+      "group": "linkage",
+      "name": "malformed_watsonx_output: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "malformed_watsonx_output: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-005', 'analysis.json': 'CASE-005', 'case.json': 'CASE-005'}"
+    },
+    {
+      "group": "linkage",
+      "name": "malformed_watsonx_output: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "malformed_watsonx_output: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "malformed_watsonx_output: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'failed'}"
+    },
+    {
+      "group": "failure",
+      "name": "malformed_watsonx_output: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "malformed_watsonx_output: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "malformed_watsonx_output: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "malformed_watsonx_output: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "malformed_watsonx_output: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_watsonx_output: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_watsonx_output: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_watsonx_output: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_watsonx_output: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_watsonx_output: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_watsonx_output: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "malformed_watsonx_output: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "malformed_watsonx_output: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "malformed_watsonx_output: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "malformed_watsonx_output: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "malformed_watsonx_output: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario no_timestamps: ok ",
+      "passed": true,
+      "detail": "ok []"
+    },
+    {
+      "group": "linkage",
+      "name": "no_timestamps: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "no_timestamps: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-006', 'analysis.json': 'CASE-006', 'case.json': 'CASE-006'}"
+    },
+    {
+      "group": "linkage",
+      "name": "no_timestamps: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "no_timestamps: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "no_timestamps: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "no_timestamps: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "no_timestamps: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "no_timestamps: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "no_timestamps: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "no_timestamps: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "no_timestamps: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "no_timestamps: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "no_timestamps: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "no_timestamps: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "no_timestamps: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "no_timestamps: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "no_timestamps: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 1, 'sentenceCountOk': True, 'length': 35, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "no_timestamps: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "no_timestamps: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['harassment', 'violence']"
+    },
+    {
+      "group": "categories",
+      "name": "no_timestamps: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'harassment': [1], 'violence': [1]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "no_timestamps: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': None, 'end': None, 'reason': 'segment 1 was flagged but Speech to Text gave no timing for it', 'timestampStatus': 'unavailable'}]"
+    },
+    {
+      "group": "timestamps",
+      "name": "no_timestamps: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': ''}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': ''}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario invalid_segment_index: ok ",
+      "passed": true,
+      "detail": "ok []"
+    },
+    {
+      "group": "linkage",
+      "name": "invalid_segment_index: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "invalid_segment_index: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-007', 'analysis.json': 'CASE-007', 'case.json': 'CASE-007'}"
+    },
+    {
+      "group": "linkage",
+      "name": "invalid_segment_index: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "invalid_segment_index: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "invalid_segment_index: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "invalid_segment_index: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "invalid_segment_index: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "invalid_segment_index: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "invalid_segment_index: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "invalid_segment_index: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "invalid_segment_index: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "invalid_segment_index: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "invalid_segment_index: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "invalid_segment_index: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "invalid_segment_index: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "invalid_segment_index: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "invalid_segment_index: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 1, 'sentenceCountOk': True, 'length': 35, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "invalid_segment_index: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "invalid_segment_index: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "categories",
+      "name": "invalid_segment_index: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{}"
+    },
+    {
+      "group": "timestamps",
+      "name": "invalid_segment_index: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': None, 'end': None, 'reason': 'watsonx.ai referred to segment 9, which is not in the transcript', 'timestampStatus': 'unavailable'}]"
+    },
+    {
+      "group": "timestamps",
+      "name": "invalid_segment_index: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario case_id_mismatch: error ",
+      "passed": true,
+      "detail": "error ['CASE_ID_MISMATCH']"
+    },
+    {
+      "group": "linkage",
+      "name": "case_id_mismatch: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "case_id_mismatch: a refused run wrote no transcript.json or analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "cases",
+      "name": "scenario audio_only: ok ",
+      "passed": true,
+      "detail": "ok []"
+    },
+    {
+      "group": "linkage",
+      "name": "audio_only: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "audio_only: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-009', 'analysis.json': 'CASE-009', 'case.json': 'CASE-009'}"
+    },
+    {
+      "group": "linkage",
+      "name": "audio_only: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "audio_only: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "audio_only: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'unavailable', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "audio_only: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "audio_only: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "audio_only: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "audio_only: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "audio_only: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "audio_only: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "audio_only: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "audio_only: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "audio_only: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "audio_only: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "audio_only: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "audio_only: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 1, 'sentenceCountOk': True, 'length': 35, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "audio_only: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "audio_only: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['harassment', 'violence']"
+    },
+    {
+      "group": "categories",
+      "name": "audio_only: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'harassment': [2], 'violence': [2]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "audio_only: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario media_analysis_failed_audio_recovered: partial ['mediaAnalysis:MEDIA_UNREADABLE']",
+      "passed": true,
+      "detail": "partial ['mediaAnalysis:MEDIA_UNREADABLE']"
+    },
+    {
+      "group": "linkage",
+      "name": "media_analysis_failed_audio_recovered: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "media_analysis_failed_audio_recovered: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-010', 'analysis.json': 'CASE-010', 'case.json': 'CASE-010'}"
+    },
+    {
+      "group": "linkage",
+      "name": "media_analysis_failed_audio_recovered: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "media_analysis_failed_audio_recovered: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "media_analysis_failed_audio_recovered: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'failed', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "media_analysis_failed_audio_recovered: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "media_analysis_failed_audio_recovered: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "media_analysis_failed_audio_recovered: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "media_analysis_failed_audio_recovered: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "media_analysis_failed_audio_recovered: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "media_analysis_failed_audio_recovered: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "media_analysis_failed_audio_recovered: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "media_analysis_failed_audio_recovered: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "media_analysis_failed_audio_recovered: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "media_analysis_failed_audio_recovered: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "media_analysis_failed_audio_recovered: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "media_analysis_failed_audio_recovered: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 1, 'sentenceCountOk': True, 'length': 35, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "media_analysis_failed_audio_recovered: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "media_analysis_failed_audio_recovered: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['harassment', 'violence']"
+    },
+    {
+      "group": "categories",
+      "name": "media_analysis_failed_audio_recovered: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'harassment': [2], 'violence': [2]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "media_analysis_failed_audio_recovered: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario no_media_reference: failed ['mediaAnalysis:MEDIA_REFERENCE_MISSING']",
+      "passed": true,
+      "detail": "failed ['mediaAnalysis:MEDIA_REFERENCE_MISSING']"
+    },
+    {
+      "group": "linkage",
+      "name": "no_media_reference: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "no_media_reference: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-011', 'analysis.json': 'CASE-011', 'case.json': 'CASE-011'}"
+    },
+    {
+      "group": "linkage",
+      "name": "no_media_reference: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "no_media_reference: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "no_media_reference: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'unavailable', 'mediaAnalysis': 'failed', 'watsonx': 'unavailable'}"
+    },
+    {
+      "group": "failure",
+      "name": "no_media_reference: overall result follows the documented rule",
+      "passed": true,
+      "detail": "failed vs failed"
+    },
+    {
+      "group": "failure",
+      "name": "no_media_reference: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "no_media_reference: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "no_media_reference: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "no_media_reference: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "no_media_reference: failed or unavailable Speech to Text leaves no transcript and no segments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "no_media_reference: a failed Speech to Text stage records its error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "no_media_reference: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "no_media_reference: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "no_media_reference: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "no_media_reference: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario media_key_wrong_case: failed ['mediaAnalysis:MEDIA_KEY_WRONG_CASE']",
+      "passed": true,
+      "detail": "failed ['mediaAnalysis:MEDIA_KEY_WRONG_CASE']"
+    },
+    {
+      "group": "linkage",
+      "name": "media_key_wrong_case: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "media_key_wrong_case: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-012', 'analysis.json': 'CASE-012', 'case.json': 'CASE-012'}"
+    },
+    {
+      "group": "linkage",
+      "name": "media_key_wrong_case: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "{'CASE-999'}"
+    },
+    {
+      "group": "linkage",
+      "name": "media_key_wrong_case: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "media_key_wrong_case: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'unavailable', 'mediaAnalysis': 'failed', 'watsonx': 'unavailable'}"
+    },
+    {
+      "group": "failure",
+      "name": "media_key_wrong_case: overall result follows the documented rule",
+      "passed": true,
+      "detail": "failed vs failed"
+    },
+    {
+      "group": "failure",
+      "name": "media_key_wrong_case: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "media_key_wrong_case: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "media_key_wrong_case: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "media_key_wrong_case: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "media_key_wrong_case: failed or unavailable Speech to Text leaves no transcript and no segments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "media_key_wrong_case: a failed Speech to Text stage records its error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "media_key_wrong_case: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "media_key_wrong_case: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "media_key_wrong_case: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "media_key_wrong_case: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario filename_with_spaces: ok ",
+      "passed": true,
+      "detail": "ok []"
+    },
+    {
+      "group": "linkage",
+      "name": "filename_with_spaces: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "filename_with_spaces: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-013', 'analysis.json': 'CASE-013', 'case.json': 'CASE-013'}"
+    },
+    {
+      "group": "linkage",
+      "name": "filename_with_spaces: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "filename_with_spaces: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "filename_with_spaces: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "filename_with_spaces: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "filename_with_spaces: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "filename_with_spaces: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "filename_with_spaces: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "filename_with_spaces: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "filename_with_spaces: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "filename_with_spaces: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "filename_with_spaces: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "filename_with_spaces: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "filename_with_spaces: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "filename_with_spaces: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "filename_with_spaces: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 1, 'sentenceCountOk': True, 'length': 35, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "filename_with_spaces: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "filename_with_spaces: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['harassment', 'violence']"
+    },
+    {
+      "group": "categories",
+      "name": "filename_with_spaces: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'harassment': [2], 'violence': [2]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "filename_with_spaces: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]"
+    },
+    {
+      "group": "timestamps",
+      "name": "filename_with_spaces: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario legacy_media_object: ok ",
+      "passed": true,
+      "detail": "ok []"
+    },
+    {
+      "group": "linkage",
+      "name": "legacy_media_object: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "legacy_media_object: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-014', 'analysis.json': 'CASE-014', 'case.json': 'CASE-014'}"
+    },
+    {
+      "group": "linkage",
+      "name": "legacy_media_object: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "legacy_media_object: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "legacy_media_object: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "legacy_media_object: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "legacy_media_object: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "legacy_media_object: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "legacy_media_object: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "legacy_media_object: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "legacy_media_object: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "legacy_media_object: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "legacy_media_object: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "legacy_media_object: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "legacy_media_object: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "legacy_media_object: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "legacy_media_object: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 1, 'sentenceCountOk': True, 'length': 35, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "legacy_media_object: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "legacy_media_object: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['harassment', 'violence']"
+    },
+    {
+      "group": "categories",
+      "name": "legacy_media_object: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'harassment': [2], 'violence': [2]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "legacy_media_object: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]"
+    },
+    {
+      "group": "timestamps",
+      "name": "legacy_media_object: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario stt_timeout: partial ['stt:TIMEOUT']",
+      "passed": true,
+      "detail": "partial ['stt:TIMEOUT']"
+    },
+    {
+      "group": "linkage",
+      "name": "stt_timeout: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "stt_timeout: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-015', 'analysis.json': 'CASE-015', 'case.json': 'CASE-015'}"
+    },
+    {
+      "group": "linkage",
+      "name": "stt_timeout: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "stt_timeout: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "stt_timeout: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'failed', 'mediaAnalysis': 'ok', 'watsonx': 'unavailable'}"
+    },
+    {
+      "group": "failure",
+      "name": "stt_timeout: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "stt_timeout: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "stt_timeout: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "stt_timeout: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "stt_timeout: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "stt_timeout: failed or unavailable Speech to Text leaves no transcript and no segments",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "stt_timeout: a failed Speech to Text stage records its error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "stt_timeout: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "stt_timeout: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "stt_timeout: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "stt_timeout: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "stt_timeout: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': []}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': []}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario watsonx_timeout: partial ['watsonx:TIMEOUT']",
+      "passed": true,
+      "detail": "partial ['watsonx:TIMEOUT']"
+    },
+    {
+      "group": "linkage",
+      "name": "watsonx_timeout: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "watsonx_timeout: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-016', 'analysis.json': 'CASE-016', 'case.json': 'CASE-016'}"
+    },
+    {
+      "group": "linkage",
+      "name": "watsonx_timeout: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "watsonx_timeout: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "watsonx_timeout: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'failed'}"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx_timeout: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx_timeout: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "watsonx_timeout: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "watsonx_timeout: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "watsonx_timeout: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_timeout: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_timeout: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_timeout: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_timeout: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_timeout: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_timeout: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "watsonx_timeout: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "watsonx_timeout: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "watsonx_timeout: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "watsonx_timeout: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "watsonx_timeout: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario iam_timeout: partial ['watsonx:TIMEOUT']",
+      "passed": true,
+      "detail": "partial ['watsonx:TIMEOUT']"
+    },
+    {
+      "group": "linkage",
+      "name": "iam_timeout: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "iam_timeout: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-017', 'analysis.json': 'CASE-017', 'case.json': 'CASE-017'}"
+    },
+    {
+      "group": "linkage",
+      "name": "iam_timeout: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "iam_timeout: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "iam_timeout: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'failed'}"
+    },
+    {
+      "group": "failure",
+      "name": "iam_timeout: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "iam_timeout: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "iam_timeout: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "iam_timeout: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "iam_timeout: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "iam_timeout: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "iam_timeout: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "iam_timeout: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "iam_timeout: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "iam_timeout: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "iam_timeout: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "iam_timeout: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "iam_timeout: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "iam_timeout: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "iam_timeout: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "iam_timeout: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario watsonx_service_error: partial ['watsonx:SERVICE_ERROR']",
+      "passed": true,
+      "detail": "partial ['watsonx:SERVICE_ERROR']"
+    },
+    {
+      "group": "linkage",
+      "name": "watsonx_service_error: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "watsonx_service_error: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-018', 'analysis.json': 'CASE-018', 'case.json': 'CASE-018'}"
+    },
+    {
+      "group": "linkage",
+      "name": "watsonx_service_error: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "watsonx_service_error: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "watsonx_service_error: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'failed'}"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx_service_error: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx_service_error: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "watsonx_service_error: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "watsonx_service_error: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "watsonx_service_error: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_service_error: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_service_error: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_service_error: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_service_error: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_service_error: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "watsonx_service_error: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "watsonx_service_error: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "watsonx_service_error: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "watsonx_service_error: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "watsonx_service_error: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "watsonx_service_error: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario truncated_output: partial ['watsonx:INCOMPLETE_OUTPUT']",
+      "passed": true,
+      "detail": "partial ['watsonx:INCOMPLETE_OUTPUT']"
+    },
+    {
+      "group": "linkage",
+      "name": "truncated_output: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "truncated_output: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-019', 'analysis.json': 'CASE-019', 'case.json': 'CASE-019'}"
+    },
+    {
+      "group": "linkage",
+      "name": "truncated_output: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "truncated_output: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "truncated_output: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'failed'}"
+    },
+    {
+      "group": "failure",
+      "name": "truncated_output: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "truncated_output: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "truncated_output: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "truncated_output: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "truncated_output: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_output: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_output: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_output: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_output: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_output: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_output: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "truncated_output: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "truncated_output: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "truncated_output: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "truncated_output: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "truncated_output: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario truncated_but_parseable: partial ['watsonx:INCOMPLETE_OUTPUT']",
+      "passed": true,
+      "detail": "partial ['watsonx:INCOMPLETE_OUTPUT']"
+    },
+    {
+      "group": "linkage",
+      "name": "truncated_but_parseable: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "truncated_but_parseable: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-020', 'analysis.json': 'CASE-020', 'case.json': 'CASE-020'}"
+    },
+    {
+      "group": "linkage",
+      "name": "truncated_but_parseable: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "truncated_but_parseable: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "truncated_but_parseable: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'failed'}"
+    },
+    {
+      "group": "failure",
+      "name": "truncated_but_parseable: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "truncated_but_parseable: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "truncated_but_parseable: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "truncated_but_parseable: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "truncated_but_parseable: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_but_parseable: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_but_parseable: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_but_parseable: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_but_parseable: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_but_parseable: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "truncated_but_parseable: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "truncated_but_parseable: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "truncated_but_parseable: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "truncated_but_parseable: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "truncated_but_parseable: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "truncated_but_parseable: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario malformed_json: partial ['watsonx:MALFORMED_OUTPUT']",
+      "passed": true,
+      "detail": "partial ['watsonx:MALFORMED_OUTPUT']"
+    },
+    {
+      "group": "linkage",
+      "name": "malformed_json: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "malformed_json: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-021', 'analysis.json': 'CASE-021', 'case.json': 'CASE-021'}"
+    },
+    {
+      "group": "linkage",
+      "name": "malformed_json: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "malformed_json: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "malformed_json: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'failed'}"
+    },
+    {
+      "group": "failure",
+      "name": "malformed_json: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "malformed_json: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "malformed_json: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "malformed_json: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "malformed_json: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_json: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_json: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_json: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_json: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_json: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "malformed_json: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "malformed_json: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "malformed_json: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "malformed_json: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "malformed_json: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "malformed_json: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario incomplete_json: partial ['watsonx:INVALID_OUTPUT']",
+      "passed": true,
+      "detail": "partial ['watsonx:INVALID_OUTPUT']"
+    },
+    {
+      "group": "linkage",
+      "name": "incomplete_json: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "incomplete_json: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-022', 'analysis.json': 'CASE-022', 'case.json': 'CASE-022'}"
+    },
+    {
+      "group": "linkage",
+      "name": "incomplete_json: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "incomplete_json: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "incomplete_json: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'failed'}"
+    },
+    {
+      "group": "failure",
+      "name": "incomplete_json: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "incomplete_json: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "incomplete_json: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "incomplete_json: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "incomplete_json: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "incomplete_json: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "incomplete_json: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "incomplete_json: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "incomplete_json: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "incomplete_json: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "incomplete_json: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "incomplete_json: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "incomplete_json: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "incomplete_json: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "incomplete_json: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "incomplete_json: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario missing_values: partial ['watsonx:INVALID_OUTPUT']",
+      "passed": true,
+      "detail": "partial ['watsonx:INVALID_OUTPUT']"
+    },
+    {
+      "group": "linkage",
+      "name": "missing_values: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "missing_values: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-023', 'analysis.json': 'CASE-023', 'case.json': 'CASE-023'}"
+    },
+    {
+      "group": "linkage",
+      "name": "missing_values: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "missing_values: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "missing_values: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'failed'}"
+    },
+    {
+      "group": "failure",
+      "name": "missing_values: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "missing_values: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "missing_values: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "missing_values: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "missing_values: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "missing_values: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "missing_values: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "missing_values: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "missing_values: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "missing_values: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "missing_values: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "missing_values: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "missing_values: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "missing_values: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "missing_values: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "missing_values: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario empty_values: partial ['watsonx:INVALID_OUTPUT']",
+      "passed": true,
+      "detail": "partial ['watsonx:INVALID_OUTPUT']"
+    },
+    {
+      "group": "linkage",
+      "name": "empty_values: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "empty_values: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-024', 'analysis.json': 'CASE-024', 'case.json': 'CASE-024'}"
+    },
+    {
+      "group": "linkage",
+      "name": "empty_values: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "empty_values: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "empty_values: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'failed'}"
+    },
+    {
+      "group": "failure",
+      "name": "empty_values: overall result follows the documented rule",
+      "passed": true,
+      "detail": "partial vs partial"
+    },
+    {
+      "group": "failure",
+      "name": "empty_values: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "empty_values: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "empty_values: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "empty_values: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "empty_values: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "empty_values: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "empty_values: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "empty_values: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "empty_values: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "empty_values: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "empty_values: failed watsonx stage gives no severity and no summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "empty_values: failed watsonx stage gives no categories and no evidence",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "empty_values: failed watsonx stage gives no timestamps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "timestamps",
+      "name": "empty_values: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "timestamps",
+      "name": "empty_values: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "cases",
+      "name": "scenario uuid_case_id: ok ",
+      "passed": true,
+      "detail": "ok []"
+    },
+    {
+      "group": "linkage",
+      "name": "uuid_case_id: case.json left unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "linkage",
+      "name": "uuid_case_id: caseId identical in case.json, transcript.json and analysis.json",
+      "passed": true,
+      "detail": "{'transcript.json': 'CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab', 'analysis.json': 'CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab', 'case.json': 'CASE-3b9a4f2e-1c3d-4b5a-8f2e-1234567890ab'}"
+    },
+    {
+      "group": "linkage",
+      "name": "uuid_case_id: no other caseId appears in the saved files",
+      "passed": true,
+      "detail": "set()"
+    },
+    {
+      "group": "linkage",
+      "name": "uuid_case_id: caseId is a valid case id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "uuid_case_id: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values",
+      "passed": true,
+      "detail": "{'stt': 'ok', 'mediaAnalysis': 'ok', 'watsonx': 'ok'}"
+    },
+    {
+      "group": "failure",
+      "name": "uuid_case_id: overall result follows the documented rule",
+      "passed": true,
+      "detail": "ok vs ok"
+    },
+    {
+      "group": "failure",
+      "name": "uuid_case_id: every failed stage has an errors entry with stage, code and message",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "uuid_case_id: no key, token, URL or project id in any saved file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "uuid_case_id: advisory and requiresHumanReview are true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "uuid_case_id: no moderation decision field anywhere in analysis.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "uuid_case_id: transcript present with segments, status ok, no error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "uuid_case_id: segment text joins to the transcript",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "uuid_case_id: segments carry the full contract fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "uuid_case_id: confidence is a number from 0 to 1 or null",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "uuid_case_id: durationSeconds equals the last measured end",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "transcript",
+      "name": "uuid_case_id: timed segments are available, untimed ones say why",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "summary",
+      "name": "uuid_case_id: summary is 1 to 3 sentences within the limit with no decision wording",
+      "passed": true,
+      "detail": "{'sentenceCount': 1, 'sentenceCountOk': True, 'length': 35, 'lengthOk': True, 'neutralWordingFlags': [], 'possibleUnverifiedDetails': []}"
+    },
+    {
+      "group": "categories",
+      "name": "uuid_case_id: severity is one of the contract values",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "categories",
+      "name": "uuid_case_id: categories are valid, unique and in the fixed order",
+      "passed": true,
+      "detail": "['harassment', 'violence']"
+    },
+    {
+      "group": "categories",
+      "name": "uuid_case_id: every category has evidence inside the transcript and nothing else does",
+      "passed": true,
+      "detail": "{'harassment': [2], 'violence': [2]}"
+    },
+    {
+      "group": "timestamps",
+      "name": "uuid_case_id: every incident timestamp is a measured segment time inside the clip, or null with a reason",
+      "passed": true,
+      "detail": "[{'start': 3.64, 'end': 9.7, 'reason': 'segment 2 flagged by watsonx.ai (harassment, violence)', 'timestampStatus': 'available'}]"
+    },
+    {
+      "group": "timestamps",
+      "name": "uuid_case_id: scene segments are contiguous from 0 to the clip duration with sequential ids",
+      "passed": true,
+      "detail": "[{'segmentId': 1, 'startSec': 0.0, 'endSec': 5.0, 'label': 'scene 1', 'frameFiles': [], 'transcriptText': 'this is a synthetic test recording synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}, {'segmentId': 2, 'startSec': 5.0, 'endSec': 10.0, 'label': 'scene 2', 'frameFiles': [], 'transcriptText': 'synthetic test script you are worthless and everyone hates you i know where you live and i will make you regret it'}]"
+    },
+    {
+      "group": "repeatability",
+      "name": "R101: identical status, transcript.json and analysis.json over 5 interleaved runs",
+      "passed": true,
+      "detail": "1 distinct"
+    },
+    {
+      "group": "repeatability",
+      "name": "R102: identical status, transcript.json and analysis.json over 5 interleaved runs",
+      "passed": true,
+      "detail": "1 distinct"
+    },
+    {
+      "group": "repeatability",
+      "name": "R103: identical status, transcript.json and analysis.json over 5 interleaved runs",
+      "passed": true,
+      "detail": "1 distinct"
+    },
+    {
+      "group": "repeatability",
+      "name": "R104: identical status, transcript.json and analysis.json over 5 interleaved runs",
+      "passed": true,
+      "detail": "1 distinct"
+    },
+    {
+      "group": "repeatability",
+      "name": "R105: identical status, transcript.json and analysis.json over 5 interleaved runs",
+      "passed": true,
+      "detail": "1 distinct"
+    },
+    {
+      "group": "repeatability",
+      "name": "R106: identical status, transcript.json and analysis.json over 5 interleaved runs",
+      "passed": true,
+      "detail": "1 distinct"
+    },
+    {
+      "group": "repeatability",
+      "name": "R107: identical status, transcript.json and analysis.json over 5 interleaved runs",
+      "passed": true,
+      "detail": "1 distinct"
+    },
+    {
+      "group": "repeatability",
+      "name": "R108: identical status, transcript.json and analysis.json over 5 interleaved runs",
+      "passed": true,
+      "detail": "1 distinct"
+    },
+    {
+      "group": "repeatability",
+      "name": "R109: identical status, transcript.json and analysis.json over 5 interleaved runs",
+      "passed": true,
+      "detail": "1 distinct"
+    },
+    {
+      "group": "repeatability",
+      "name": "R110: identical status, transcript.json and analysis.json over 5 interleaved runs",
+      "passed": true,
+      "detail": "1 distinct"
+    },
+    {
+      "group": "repeatability",
+      "name": "all 25 simulated scenarios give identical output over 3 runs",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "group": "repeatability",
+      "name": "the model returning categories in a different order gives the same analysis.json content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "repeatability",
+      "name": "categories are in the fixed order whichever order the model used",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 401 -> AUTH_FAILED",
+      "passed": true,
+      "detail": "{'code': 'AUTH_FAILED', 'message': 'Speech to Text returned HTTP 401 (check STT_API_KEY and STT_URL)'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 401: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 403 -> AUTH_FAILED",
+      "passed": true,
+      "detail": "{'code': 'AUTH_FAILED', 'message': 'Speech to Text returned HTTP 403 (check STT_API_KEY and STT_URL)'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 403: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 400 -> INVALID_INPUT",
+      "passed": true,
+      "detail": "{'code': 'INVALID_INPUT', 'message': 'Speech to Text rejected the audio (HTTP 400, check the format)'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 400: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 429 -> STT_SERVICE_ERROR",
+      "passed": true,
+      "detail": "{'code': 'STT_SERVICE_ERROR', 'message': 'Speech to Text returned HTTP 429'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 429: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 500 -> STT_SERVICE_ERROR",
+      "passed": true,
+      "detail": "{'code': 'STT_SERVICE_ERROR', 'message': 'Speech to Text returned HTTP 500'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 500: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 503 -> STT_SERVICE_ERROR",
+      "passed": true,
+      "detail": "{'code': 'STT_SERVICE_ERROR', 'message': 'Speech to Text returned HTTP 503'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text HTTP 503: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text timeout -> TIMEOUT",
+      "passed": true,
+      "detail": "{'code': 'TIMEOUT', 'message': 'Speech to Text did not answer in time'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text timeout: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text read timeout -> TIMEOUT",
+      "passed": true,
+      "detail": "{'code': 'TIMEOUT', 'message': 'Speech to Text did not answer in time'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text read timeout: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text connect timeout -> TIMEOUT",
+      "passed": true,
+      "detail": "{'code': 'TIMEOUT', 'message': 'Speech to Text did not answer in time'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text connect timeout: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text connection error -> NETWORK_ERROR",
+      "passed": true,
+      "detail": "{'code': 'NETWORK_ERROR', 'message': 'Could not reach Speech to Text: ConnectionError'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text connection error: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text TLS error -> NETWORK_ERROR",
+      "passed": true,
+      "detail": "{'code': 'NETWORK_ERROR', 'message': 'Could not reach Speech to Text: SSLError'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text TLS error: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text no results field -> MALFORMED_RESPONSE",
+      "passed": true,
+      "detail": "{'code': 'MALFORMED_RESPONSE', 'message': 'STT response had no results field'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text no results field: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text results not a list -> MALFORMED_RESPONSE",
+      "passed": true,
+      "detail": "{'code': 'MALFORMED_RESPONSE', 'message': 'STT results was not a list'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text results not a list: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text result without alternatives -> MALFORMED_RESPONSE",
+      "passed": true,
+      "detail": "{'code': 'MALFORMED_RESPONSE', 'message': 'STT result had no usable alternative'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text result without alternatives: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text not JSON -> MALFORMED_RESPONSE",
+      "passed": true,
+      "detail": "{'code': 'MALFORMED_RESPONSE', 'message': 'STT response was not valid JSON'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text not JSON: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text no speech -> EMPTY_TRANSCRIPT",
+      "passed": true,
+      "detail": "{'code': 'EMPTY_TRANSCRIPT', 'message': 'STT returned no speech for this audio'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text no speech: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text whitespace only -> EMPTY_TRANSCRIPT",
+      "passed": true,
+      "detail": "{'code': 'EMPTY_TRANSCRIPT', 'message': 'STT returned only empty text'}"
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text whitespace only: nothing sensitive in the error",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text empty file rejected before any call",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text wrong type rejected before any call",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "Speech to Text missing path and missing file give MISSING_INPUT and FILE_NOT_FOUND",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai happy path",
+      "passed": true,
+      "detail": "[] chatCalls=1"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai IAM HTTP 401 -> AUTH_FAILED, chat never called",
+      "passed": true,
+      "detail": "{'code': 'AUTH_FAILED', 'message': 'IAM token request failed with HTTP 401'} chatCalls=0"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai IAM HTTP 500 -> AUTH_FAILED, chat never called",
+      "passed": true,
+      "detail": "{'code': 'AUTH_FAILED', 'message': 'IAM token request failed with HTTP 500'} chatCalls=0"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai IAM timeout -> TIMEOUT, chat never called",
+      "passed": true,
+      "detail": "{'code': 'TIMEOUT', 'message': 'IBM IAM did not answer in time'} chatCalls=0"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai IAM connection error -> NETWORK_ERROR, chat never called",
+      "passed": true,
+      "detail": "{'code': 'NETWORK_ERROR', 'message': 'Could not reach IBM IAM: ConnectionError'} chatCalls=0"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai chat HTTP 401 -> AUTH_OR_PROJECT_ACCESS, no retry",
+      "passed": true,
+      "detail": "{'code': 'AUTH_OR_PROJECT_ACCESS', 'message': 'watsonx.ai returned HTTP 401 (check key, project ID, collaborator access)'} chatCalls=1"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai chat HTTP 403 -> AUTH_OR_PROJECT_ACCESS, no retry",
+      "passed": true,
+      "detail": "{'code': 'AUTH_OR_PROJECT_ACCESS', 'message': 'watsonx.ai returned HTTP 403 (check key, project ID, collaborator access)'} chatCalls=1"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai chat HTTP 429 -> SERVICE_ERROR, no retry",
+      "passed": true,
+      "detail": "{'code': 'SERVICE_ERROR', 'message': 'watsonx.ai returned HTTP 429'} chatCalls=1"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai chat HTTP 500 -> SERVICE_ERROR, no retry",
+      "passed": true,
+      "detail": "{'code': 'SERVICE_ERROR', 'message': 'watsonx.ai returned HTTP 500'} chatCalls=1"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai chat HTTP 503 -> SERVICE_ERROR, no retry",
+      "passed": true,
+      "detail": "{'code': 'SERVICE_ERROR', 'message': 'watsonx.ai returned HTTP 503'} chatCalls=1"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai chat timeout -> TIMEOUT, no retry",
+      "passed": true,
+      "detail": "{'code': 'TIMEOUT', 'message': 'watsonx.ai did not answer in time'} chatCalls=1"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai chat connection error -> NETWORK_ERROR, no retry",
+      "passed": true,
+      "detail": "{'code': 'NETWORK_ERROR', 'message': 'Could not reach watsonx.ai: ConnectionError'} chatCalls=1"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai no choices -> MALFORMED_OUTPUT after one retry",
+      "passed": true,
+      "detail": "{'code': 'MALFORMED_OUTPUT', 'message': 'watsonx.ai response had no message content'} chatCalls=2"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai prose instead of JSON -> MALFORMED_OUTPUT after one retry",
+      "passed": true,
+      "detail": "{'code': 'MALFORMED_OUTPUT', 'message': 'Model output was not valid JSON'} chatCalls=2"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai cut off at the token limit -> INCOMPLETE_OUTPUT after one retry",
+      "passed": true,
+      "detail": "{'code': 'INCOMPLETE_OUTPUT', 'message': 'watsonx.ai stopped at the token limit, so the output is incomplete'} chatCalls=2"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai cut off but parseable is still refused",
+      "passed": true,
+      "detail": "{'code': 'INCOMPLETE_OUTPUT', 'message': 'watsonx.ai stopped at the token limit, so the output is incomplete'} chatCalls=2"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai cut off once then complete recovers",
+      "passed": true,
+      "detail": "['succeeded_on_retry'] chatCalls=2"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai bad JSON once then good recovers",
+      "passed": true,
+      "detail": "['succeeded_on_retry'] chatCalls=2"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai invalid severity twice -> INVALID_OUTPUT",
+      "passed": true,
+      "detail": "{'code': 'INVALID_OUTPUT', 'message': \"severity must be one of ['low', 'medium', 'high']\"} chatCalls=2"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai wrong caseId -> INVALID_OUTPUT",
+      "passed": true,
+      "detail": "{'code': 'INVALID_OUTPUT', 'message': 'caseId missing or does not match the input caseId'} chatCalls=2"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai null and empty values -> INVALID_OUTPUT",
+      "passed": true,
+      "detail": "{'code': 'INVALID_OUTPUT', 'message': \"severity must be one of ['low', 'medium', 'high']; summary must be a non-empty string; categories must be a list (empty if nothing applies)\"} chatCalls=2"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai missing keys -> INVALID_OUTPUT",
+      "passed": true,
+      "detail": "{'code': 'INVALID_OUTPUT', 'message': 'summary must be a non-empty string; categories must be a list (empty if nothing applies)'} chatCalls=2"
+    },
+    {
+      "group": "failure",
+      "name": "analysis with an empty transcript or no caseId gives MISSING_INPUT without any call",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "missing watsonx key -> CONFIG_ERROR with no network call",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "WATSONX_TIMEOUT=0 -> CONFIG_ERROR and no chat call",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "STT_TIMEOUT=0 -> CONFIG_ERROR and no Speech to Text call",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "WATSONX_TIMEOUT=-5 -> CONFIG_ERROR and no chat call",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "STT_TIMEOUT=-5 -> CONFIG_ERROR and no Speech to Text call",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "WATSONX_TIMEOUT=soon -> CONFIG_ERROR and no chat call",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "STT_TIMEOUT=soon -> CONFIG_ERROR and no Speech to Text call",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "IAM_TIMEOUT applies to the token call only, WATSONX_TIMEOUT to the chat call",
+      "passed": true,
+      "detail": "{'https://iam.cloud.ibm.com/identity/token': 3.0, 'https://watsonx.example.test/ml/v1/text/chat?version=2025-02-11': 7.0}"
+    },
+    {
+      "group": "failure",
+      "name": "watsonx.ai request is temperature 0, max_tokens 800 and carries the bearer token, never the API key",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "group": "failure",
+      "name": "a Speech to Text stage that raises is recorded as UNEXPECTED_ERROR and the case still ends in a defined state",
+      "passed": true,
+      "detail": "[{'stage': 'stt', 'code': 'UNEXPECTED_ERROR', 'message': 'The stage raised RuntimeError instead of returning an error'}]"
+    },
+    {
+      "group": "failure",
+      "name": "a watsonx.ai stage that raises is recorded as UNEXPECTED_ERROR and the case still ends in a defined state",
+      "passed": true,
+      "detail": "[{'stage': 'watsonx', 'code': 'UNEXPECTED_ERROR', 'message': 'The stage raised RuntimeError instead of returning an error'}]"
+    },
+    {
+      "group": "baseline",
+      "name": "tests.test_contract: 10/10 passed, exit 0",
+      "passed": true,
+      "detail": "10/10 passed"
+    },
+    {
+      "group": "baseline",
+      "name": "tests.test_errors: 56/56 passed, exit 0",
+      "passed": true,
+      "detail": "56/56 passed"
+    },
+    {
+      "group": "baseline",
+      "name": "tests.test_validation: 37/37 passed, exit 0",
+      "passed": true,
+      "detail": "37/37 passed"
+    },
+    {
+      "group": "baseline",
+      "name": "tests.test_stt: 26/26 passed, exit 0",
+      "passed": true,
+      "detail": "26/26 passed"
+    },
+    {
+      "group": "baseline",
+      "name": "tests.test_media: 15/15 passed, exit 0",
+      "passed": true,
+      "detail": "15/15 passed"
+    },
+    {
+      "group": "baseline",
+      "name": "tests.test_store: 26/26 passed, exit 0",
+      "passed": true,
+      "detail": "26/26 passed"
+    },
+    {
+      "group": "baseline",
+      "name": "tests.test_pipeline: 44/44 passed, exit 0",
+      "passed": true,
+      "detail": "44/44 passed"
+    },
+    {
+      "group": "baseline",
+      "name": "tests.test_run_repeat: 20/20 passed, exit 0",
+      "passed": true,
+      "detail": "20/20 passed"
+    }
+  ],
+  "edgeCaseProbes": [
+    {
+      "id": "EC-01",
+      "title": "STT word timing entry with too few fields",
+      "classification": "handled",
+      "observed": "startSec=None endSec=None status=unavailable"
+    },
+    {
+      "id": "EC-02",
+      "title": "STT word timing that is not a number",
+      "classification": "handled",
+      "observed": "startSec=None endSec=None status=unavailable"
+    },
+    {
+      "id": "EC-03",
+      "title": "STT word timing with a negative start or an end before the start",
+      "classification": "handled",
+      "observed": "negative start: startSec=None endSec=None status=unavailable; end before start: startSec=None endSec=None status=unavailable"
+    },
+    {
+      "id": "EC-04",
+      "title": "Scene matching given transcript segments with null times",
+      "classification": "handled",
+      "observed": "['', '']"
+    },
+    {
+      "id": "EC-05",
+      "title": "STT confidence that is not a number",
+      "classification": "defect",
+      "observed": "transcribe() raised ValueError instead of returning an error; run_case ends partial with ['stt:UNEXPECTED_ERROR'], severity None, summary None"
+    },
+    {
+      "id": "EC-06",
+      "title": "IAM answers HTTP 200 with a body that is not a token response",
+      "classification": "defect",
+      "observed": "non-JSON 200: analyze() raised ValueError; run_case ends partial with ['watsonx:UNEXPECTED_ERROR'], severity None, summary None | 200 without access_token: analyze() raised KeyError; run_case ends partial with ['watsonx:UNEXPECTED_ERROR'], severity None, summary None"
+    },
+    {
+      "id": "EC-07",
+      "title": "Model returns severity in upper case",
+      "classification": "limitation",
+      "observed": "error INVALID_OUTPUT: strict match, no case normalising"
+    },
+    {
+      "id": "EC-08",
+      "title": "Summary length boundary",
+      "classification": "handled",
+      "observed": "1000 -> ok, 1001 -> error"
+    },
+    {
+      "id": "EC-09",
+      "title": "Prompt injection in the transcript: wrong caseId and decision-like keys",
+      "classification": "handled",
+      "observed": "obeyed injected caseId -> error INVALID_OUTPUT; decision keys -> ['stripped_decision_field:Decision', 'stripped_decision_field:action', 'dropped_unexpected_field:moderation_decision'] leaked=[]"
+    },
+    {
+      "id": "EC-10",
+      "title": "concerningSegments with booleans, floats, strings, zero or negative numbers",
+      "classification": "handled",
+      "observed": "[True]->error, [1.5]->error, ['2']->error, [0]->ok, [-1]->ok (zero, negative and out of range numbers become unavailable timestamps in the pipeline)"
+    },
+    {
+      "id": "EC-11",
+      "title": "evidenceSegments of the wrong type, out of range, or containing a boolean",
+      "classification": "handled",
+      "observed": "string evidence -> []; bad and boolean evidence -> ['harassment'] {'harassment': [2]}"
+    },
+    {
+      "id": "EC-12",
+      "title": "Duplicate flagged segments, and high severity with no segment flagged",
+      "classification": "handled",
+      "observed": "duplicate segment numbers -> 1 timestamp; high severity with nothing flagged -> unavailable"
+    },
+    {
+      "id": "EC-13",
+      "title": "case.json that is not usable JSON, a list, or has no string caseId",
+      "classification": "handled",
+      "observed": "not JSON->CASE_DATA_INVALID, a list->CASE_DATA_INVALID, no caseId->CASE_DATA_INVALID, caseId a number->CASE_DATA_INVALID"
+    },
+    {
+      "id": "EC-14",
+      "title": "Path traversal and malformed case ids",
+      "classification": "handled",
+      "observed": "9 bad ids tried, accepted: []"
+    },
+    {
+      "id": "EC-15",
+      "title": "mediaObjectKey that tries to climb out of the case folder",
+      "classification": "handled",
+      "observed": "['MEDIA_NOT_FOUND'], only the last path part is ever used"
+    },
+    {
+      "id": "EC-16",
+      "title": "Empty video file and a text file renamed .mp4",
+      "classification": "handled",
+      "observed": "empty video -> ['INVALID_INPUT']; text file named .mp4 -> ['MEDIA_UNREADABLE']"
+    },
+    {
+      "id": "EC-17",
+      "title": "Upper case media extension",
+      "classification": "handled",
+      "observed": "upper case extension -> ok"
+    },
+    {
+      "id": "EC-18",
+      "title": "The bundled samples/speech.aiff used as case media",
+      "classification": "limitation",
+      "observed": "['INVALID_MEDIA_TYPE']: .aiff (the format of samples/speech.aiff) is refused; convert it to .wav with ffmpeg first"
+    },
+    {
+      "id": "EC-19",
+      "title": "Scene text for speech beyond the clip end and for speech across a scene cut",
+      "classification": "limitation",
+      "observed": "speech after the clip ends is dropped from every scene segment (True); an utterance across a cut appears in 2 scene segments. Scene text is context only, incident timestamps do not use it"
+    },
+    {
+      "id": "EC-20",
+      "title": "Re-running a case that already has a good result",
+      "classification": "limitation",
+      "observed": "a second run replaces both files (ok then failed); a failed re-run overwrites an earlier good result and nothing is versioned"
+    },
+    {
+      "id": "EC-21",
+      "title": "Very long transcript",
+      "classification": "limitation",
+      "observed": "a 100070 character prompt is built and sent unchanged; there is no input length guard against the model context limit (not tested against the live service)"
+    },
+    {
+      "id": "EC-24",
+      "title": "Model lists categories in a different order: byte level difference in analysis.json",
+      "classification": "defect",
+      "observed": "same content, but evidenceSegments keys come out as ['harassment', 'violence'] then ['violence', 'harassment'], so the saved file text differs when the model reorders categories (categories itself is sorted, evidenceSegments is not). Minor: only the key order of one object"
+    },
+    {
+      "id": "EC-22",
+      "title": "Output depends on the caseId text in the prompt (D9, E5 in the repeatability report)",
+      "classification": "limitation",
+      "observed": "cannot be shown offline; seen live only: same clip gave [harassment, violence] under CASE-001 and [violence] under CASE-102 on 11 of 11 runs"
+    },
+    {
+      "id": "EC-23",
+      "title": "Two files written one after the other, and two runs of one case at the same time",
+      "classification": "limitation",
+      "observed": "not tested; a reader can see a new transcript.json with an old analysis.json, and concurrent runs of the same case overwrite each other"
+    }
+  ]
+}

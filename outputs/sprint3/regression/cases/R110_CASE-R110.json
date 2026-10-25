@@ -1,0 +1,75 @@
+{
+  "caseId": "CASE-R110",
+  "resultStatus": "partial",
+  "transcript.json": {
+    "caseId": "CASE-R110",
+    "transcript": null,
+    "confidence": null,
+    "status": "failed",
+    "error": {
+      "code": "TIMEOUT",
+      "message": "Speech to Text did not answer in time"
+    },
+    "segments": [],
+    "source": null,
+    "model": null,
+    "durationSeconds": null
+  },
+  "analysis.json": {
+    "caseId": "CASE-R110",
+    "severity": null,
+    "summary": null,
+    "categories": [],
+    "evidenceSegments": {},
+    "timestamps": [],
+    "processingStatus": {
+      "stt": "failed",
+      "mediaAnalysis": "ok",
+      "watsonx": "unavailable"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": null,
+    "mediaType": "video",
+    "mediaFile": "clip.mp4",
+    "media": {
+      "fileName": "clip.mp4",
+      "durationSeconds": 8.0,
+      "hasAudio": true,
+      "frameCount": 4,
+      "sceneChanges": [
+        4.0
+      ]
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 4.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg"
+        ]
+      },
+      {
+        "segmentId": 2,
+        "startSec": 4.0,
+        "endSec": 8.0,
+        "label": "scene 2",
+        "frameFiles": [
+          "frame_003.jpg",
+          "frame_004.jpg"
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "stage": "stt",
+        "code": "TIMEOUT",
+        "message": "Speech to Text did not answer in time"
+      }
+    ],
+    "warnings": []
+  }
+}

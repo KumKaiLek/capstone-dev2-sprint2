@@ -1,0 +1,85 @@
+{
+  "caseId": "CASE-R101",
+  "resultStatus": "ok",
+  "transcript.json": {
+    "caseId": "CASE-R101",
+    "transcript": "this is a routine status update for the weekly team meeting everyone please review the agenda before friday",
+    "confidence": 0.95,
+    "status": "ok",
+    "error": null,
+    "segments": [
+      {
+        "startSec": 0.3,
+        "endSec": 3.6,
+        "text": "this is a routine status update for the weekly team meeting",
+        "confidence": 0.96,
+        "timestampStatus": "available",
+        "timestampReason": null
+      },
+      {
+        "startSec": 4.4,
+        "endSec": 7.2,
+        "text": "everyone please review the agenda before friday",
+        "confidence": 0.95,
+        "timestampStatus": "available",
+        "timestampReason": null
+      }
+    ],
+    "source": "clip_audio.wav",
+    "model": "en-US_Multimedia",
+    "durationSeconds": 7.2
+  },
+  "analysis.json": {
+    "caseId": "CASE-R101",
+    "severity": "low",
+    "summary": "The recording is a neutral message with nothing concerning in what is said.",
+    "categories": [],
+    "evidenceSegments": {},
+    "timestamps": [],
+    "processingStatus": {
+      "stt": "ok",
+      "mediaAnalysis": "ok",
+      "watsonx": "ok"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": "simulated-model",
+    "mediaType": "video",
+    "mediaFile": "clip.mp4",
+    "media": {
+      "fileName": "clip.mp4",
+      "durationSeconds": 8.0,
+      "hasAudio": true,
+      "frameCount": 4,
+      "sceneChanges": [
+        4.0
+      ]
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 4.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg"
+        ],
+        "transcriptText": "this is a routine status update for the weekly team meeting"
+      },
+      {
+        "segmentId": 2,
+        "startSec": 4.0,
+        "endSec": 8.0,
+        "label": "scene 2",
+        "frameFiles": [
+          "frame_003.jpg",
+          "frame_004.jpg"
+        ],
+        "transcriptText": "everyone please review the agenda before friday"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  }
+}

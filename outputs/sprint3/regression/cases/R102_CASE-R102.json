@@ -1,0 +1,102 @@
+{
+  "caseId": "CASE-R102",
+  "resultStatus": "ok",
+  "transcript.json": {
+    "caseId": "CASE-R102",
+    "transcript": "this is a synthetic test recording you are worthless and everyone hates you i know where you live and i will make you regret it",
+    "confidence": 0.95,
+    "status": "ok",
+    "error": null,
+    "segments": [
+      {
+        "startSec": 0.3,
+        "endSec": 3.5,
+        "text": "this is a synthetic test recording",
+        "confidence": 0.96,
+        "timestampStatus": "available",
+        "timestampReason": null
+      },
+      {
+        "startSec": 4.5,
+        "endSec": 7.6,
+        "text": "you are worthless and everyone hates you i know where you live and i will make you regret it",
+        "confidence": 0.93,
+        "timestampStatus": "available",
+        "timestampReason": null
+      }
+    ],
+    "source": "clip_audio.wav",
+    "model": "en-US_Multimedia",
+    "durationSeconds": 7.6
+  },
+  "analysis.json": {
+    "caseId": "CASE-R102",
+    "severity": "high",
+    "summary": "The recording contains content that relates to harassment and violence. It is described here without judging the speaker.",
+    "categories": [
+      "harassment",
+      "violence"
+    ],
+    "evidenceSegments": {
+      "violence": [
+        2
+      ],
+      "harassment": [
+        2
+      ]
+    },
+    "timestamps": [
+      {
+        "start": 4.5,
+        "end": 7.6,
+        "reason": "segment 2 flagged by watsonx.ai (harassment, violence)",
+        "timestampStatus": "available"
+      }
+    ],
+    "processingStatus": {
+      "stt": "ok",
+      "mediaAnalysis": "ok",
+      "watsonx": "ok"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": "simulated-model",
+    "mediaType": "video",
+    "mediaFile": "clip.mp4",
+    "media": {
+      "fileName": "clip.mp4",
+      "durationSeconds": 8.0,
+      "hasAudio": true,
+      "frameCount": 4,
+      "sceneChanges": [
+        4.0
+      ]
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 4.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg"
+        ],
+        "transcriptText": "this is a synthetic test recording"
+      },
+      {
+        "segmentId": 2,
+        "startSec": 4.0,
+        "endSec": 8.0,
+        "label": "scene 2",
+        "frameFiles": [
+          "frame_003.jpg",
+          "frame_004.jpg"
+        ],
+        "transcriptText": "you are worthless and everyone hates you i know where you live and i will make you regret it"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  }
+}

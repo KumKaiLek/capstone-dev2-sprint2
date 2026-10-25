@@ -1,0 +1,75 @@
+{
+  "caseId": "CASE-R107",
+  "resultStatus": "partial",
+  "transcript.json": {
+    "caseId": "CASE-R107",
+    "transcript": null,
+    "confidence": null,
+    "status": "unavailable",
+    "error": {
+      "code": "NO_AUDIO_TRACK",
+      "message": "The video has no audio track, so there is nothing to transcribe"
+    },
+    "segments": [],
+    "source": null,
+    "model": null,
+    "durationSeconds": null
+  },
+  "analysis.json": {
+    "caseId": "CASE-R107",
+    "severity": null,
+    "summary": null,
+    "categories": [],
+    "evidenceSegments": {},
+    "timestamps": [],
+    "processingStatus": {
+      "stt": "unavailable",
+      "mediaAnalysis": "ok",
+      "watsonx": "unavailable"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": null,
+    "mediaType": "video",
+    "mediaFile": "mute.mp4",
+    "media": {
+      "fileName": "mute.mp4",
+      "durationSeconds": 8.0,
+      "hasAudio": false,
+      "frameCount": 4,
+      "sceneChanges": [
+        4.0
+      ]
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 4.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg"
+        ]
+      },
+      {
+        "segmentId": 2,
+        "startSec": 4.0,
+        "endSec": 8.0,
+        "label": "scene 2",
+        "frameFiles": [
+          "frame_003.jpg",
+          "frame_004.jpg"
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "stage": "stt",
+        "code": "NO_AUDIO_TRACK",
+        "message": "The video has no audio track, so there is nothing to transcribe"
+      }
+    ],
+    "warnings": []
+  }
+}

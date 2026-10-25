@@ -1,0 +1,48 @@
+{
+  "caseId": "CASE-R104",
+  "resultStatus": "ok",
+  "transcript.json": {
+    "caseId": "CASE-R104",
+    "transcript": "this is so frustrating this whole plan is stupid and i am sick of dealing with it",
+    "confidence": 0.9,
+    "status": "ok",
+    "error": null,
+    "segments": [
+      {
+        "startSec": 0.2,
+        "endSec": 4.1,
+        "text": "this is so frustrating this whole plan is stupid and i am sick of dealing with it",
+        "confidence": 0.9,
+        "timestampStatus": "available",
+        "timestampReason": null
+      }
+    ],
+    "source": "speech.wav",
+    "model": "en-US_Multimedia",
+    "durationSeconds": 4.1
+  },
+  "analysis.json": {
+    "caseId": "CASE-R104",
+    "severity": "low",
+    "summary": "The recording is a neutral message with nothing concerning in what is said.",
+    "categories": [],
+    "evidenceSegments": {},
+    "timestamps": [],
+    "processingStatus": {
+      "stt": "ok",
+      "mediaAnalysis": "unavailable",
+      "watsonx": "ok"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": "simulated-model",
+    "mediaType": "audio",
+    "mediaFile": "speech.wav",
+    "media": null,
+    "sceneSegments": [],
+    "errors": [],
+    "warnings": [
+      "audio_only_no_media_analysis"
+    ]
+  }
+}

@@ -1,0 +1,904 @@
+PASS [cases] R101 harmless video: ran to a defined state 
+PASS [linkage] R101: case.json left unchanged 
+PASS [linkage] R101: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] R101: no other caseId appears in the saved files 
+PASS [linkage] R101: caseId is a valid case id 
+PASS [failure] R101: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] R101: overall result follows the documented rule 
+PASS [failure] R101: every failed stage has an errors entry with stage, code and message 
+PASS [failure] R101: no key, token, URL or project id in any saved file 
+PASS [summary] R101: advisory and requiresHumanReview are true 
+PASS [summary] R101: no moderation decision field anywhere in analysis.json 
+PASS [transcript] R101: transcript present with segments, status ok, no error 
+PASS [transcript] R101: segment text joins to the transcript 
+PASS [transcript] R101: segments carry the full contract fields 
+PASS [transcript] R101: confidence is a number from 0 to 1 or null 
+PASS [transcript] R101: durationSeconds equals the last measured end 
+PASS [transcript] R101: timed segments are available, untimed ones say why 
+PASS [summary] R101: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] R101: severity is one of the contract values 
+PASS [categories] R101: categories are valid, unique and in the fixed order 
+PASS [categories] R101: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] R101: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] R101: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] R101: processingStatus and error codes as expected 
+PASS [categories] R101: severity and categories as expected 
+PASS [timestamps] R101: incident timestamps as expected 
+PASS [cases] R101: media type recorded as video 
+PASS [transcript] R101: transcript equals the spoken source text 
+PASS [transcript] R101: one segment per utterance with the measured times 
+PASS [transcript] R101: mean confidence correct 
+PASS [cases] R102 harassment and threat video: ran to a defined state 
+PASS [linkage] R102: case.json left unchanged 
+PASS [linkage] R102: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] R102: no other caseId appears in the saved files 
+PASS [linkage] R102: caseId is a valid case id 
+PASS [failure] R102: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] R102: overall result follows the documented rule 
+PASS [failure] R102: every failed stage has an errors entry with stage, code and message 
+PASS [failure] R102: no key, token, URL or project id in any saved file 
+PASS [summary] R102: advisory and requiresHumanReview are true 
+PASS [summary] R102: no moderation decision field anywhere in analysis.json 
+PASS [transcript] R102: transcript present with segments, status ok, no error 
+PASS [transcript] R102: segment text joins to the transcript 
+PASS [transcript] R102: segments carry the full contract fields 
+PASS [transcript] R102: confidence is a number from 0 to 1 or null 
+PASS [transcript] R102: durationSeconds equals the last measured end 
+PASS [transcript] R102: timed segments are available, untimed ones say why 
+PASS [summary] R102: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] R102: severity is one of the contract values 
+PASS [categories] R102: categories are valid, unique and in the fixed order 
+PASS [categories] R102: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] R102: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] R102: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] R102: processingStatus and error codes as expected 
+PASS [categories] R102: severity and categories as expected 
+PASS [timestamps] R102: incident timestamps as expected 
+PASS [cases] R102: media type recorded as video 
+PASS [transcript] R102: transcript equals the spoken source text 
+PASS [transcript] R102: one segment per utterance with the measured times 
+PASS [transcript] R102: mean confidence correct 
+PASS [timestamps] R102: scene cut found at 4.0s from the real video 
+PASS [cases] R103 one concerning line in the middle of three: ran to a defined state 
+PASS [linkage] R103: case.json left unchanged 
+PASS [linkage] R103: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] R103: no other caseId appears in the saved files 
+PASS [linkage] R103: caseId is a valid case id 
+PASS [failure] R103: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] R103: overall result follows the documented rule 
+PASS [failure] R103: every failed stage has an errors entry with stage, code and message 
+PASS [failure] R103: no key, token, URL or project id in any saved file 
+PASS [summary] R103: advisory and requiresHumanReview are true 
+PASS [summary] R103: no moderation decision field anywhere in analysis.json 
+PASS [transcript] R103: transcript present with segments, status ok, no error 
+PASS [transcript] R103: segment text joins to the transcript 
+PASS [transcript] R103: segments carry the full contract fields 
+PASS [transcript] R103: confidence is a number from 0 to 1 or null 
+PASS [transcript] R103: durationSeconds equals the last measured end 
+PASS [transcript] R103: timed segments are available, untimed ones say why 
+PASS [summary] R103: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] R103: severity is one of the contract values 
+PASS [categories] R103: categories are valid, unique and in the fixed order 
+PASS [categories] R103: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] R103: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] R103: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] R103: processingStatus and error codes as expected 
+PASS [categories] R103: severity and categories as expected 
+PASS [timestamps] R103: incident timestamps as expected 
+PASS [cases] R103: media type recorded as video 
+PASS [transcript] R103: transcript equals the spoken source text 
+PASS [transcript] R103: one segment per utterance with the measured times 
+PASS [transcript] R103: mean confidence correct 
+PASS [timestamps] R103: 3 scene segments, one utterance spoken in each 
+PASS [timestamps] R103: the incident window is the flagged line only, not the whole clip 
+PASS [cases] R104 audio only, mild language: ran to a defined state 
+PASS [linkage] R104: case.json left unchanged 
+PASS [linkage] R104: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] R104: no other caseId appears in the saved files 
+PASS [linkage] R104: caseId is a valid case id 
+PASS [failure] R104: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] R104: overall result follows the documented rule 
+PASS [failure] R104: every failed stage has an errors entry with stage, code and message 
+PASS [failure] R104: no key, token, URL or project id in any saved file 
+PASS [summary] R104: advisory and requiresHumanReview are true 
+PASS [summary] R104: no moderation decision field anywhere in analysis.json 
+PASS [transcript] R104: transcript present with segments, status ok, no error 
+PASS [transcript] R104: segment text joins to the transcript 
+PASS [transcript] R104: segments carry the full contract fields 
+PASS [transcript] R104: confidence is a number from 0 to 1 or null 
+PASS [transcript] R104: durationSeconds equals the last measured end 
+PASS [transcript] R104: timed segments are available, untimed ones say why 
+PASS [summary] R104: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] R104: severity is one of the contract values 
+PASS [categories] R104: categories are valid, unique and in the fixed order 
+PASS [categories] R104: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] R104: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [cases] R104: processingStatus and error codes as expected 
+PASS [categories] R104: severity and categories as expected 
+PASS [timestamps] R104: incident timestamps as expected 
+PASS [cases] R104: media type recorded as audio 
+PASS [transcript] R104: transcript equals the spoken source text 
+PASS [transcript] R104: one segment per utterance with the measured times 
+PASS [transcript] R104: mean confidence correct 
+PASS [cases] R104: audio case warns it skipped media analysis 
+PASS [cases] R105 silent audio track, no speech: ran to a defined state 
+PASS [linkage] R105: case.json left unchanged 
+PASS [linkage] R105: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] R105: no other caseId appears in the saved files 
+PASS [linkage] R105: caseId is a valid case id 
+PASS [failure] R105: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] R105: overall result follows the documented rule 
+PASS [failure] R105: every failed stage has an errors entry with stage, code and message 
+PASS [failure] R105: no key, token, URL or project id in any saved file 
+PASS [summary] R105: advisory and requiresHumanReview are true 
+PASS [summary] R105: no moderation decision field anywhere in analysis.json 
+PASS [transcript] R105: failed or unavailable Speech to Text leaves no transcript and no segments 
+PASS [transcript] R105: a failed Speech to Text stage records its error 
+PASS [summary] R105: failed watsonx stage gives no severity and no summary 
+PASS [categories] R105: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] R105: failed watsonx stage gives no timestamps 
+PASS [timestamps] R105: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] R105: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] R105: processingStatus and error codes as expected 
+PASS [categories] R105: severity and categories as expected 
+PASS [timestamps] R105: incident timestamps as expected 
+PASS [cases] R105: media type recorded as video 
+PASS [failure] R105: watsonx.ai was not called with nothing to analyse 
+PASS [cases] R106 media file missing: ran to a defined state 
+PASS [linkage] R106: case.json left unchanged 
+PASS [linkage] R106: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] R106: no other caseId appears in the saved files 
+PASS [linkage] R106: caseId is a valid case id 
+PASS [failure] R106: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] R106: overall result follows the documented rule 
+PASS [failure] R106: every failed stage has an errors entry with stage, code and message 
+PASS [failure] R106: no key, token, URL or project id in any saved file 
+PASS [summary] R106: advisory and requiresHumanReview are true 
+PASS [summary] R106: no moderation decision field anywhere in analysis.json 
+PASS [transcript] R106: failed or unavailable Speech to Text leaves no transcript and no segments 
+PASS [transcript] R106: a failed Speech to Text stage records its error 
+PASS [summary] R106: failed watsonx stage gives no severity and no summary 
+PASS [categories] R106: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] R106: failed watsonx stage gives no timestamps 
+PASS [timestamps] R106: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [cases] R106: processingStatus and error codes as expected 
+PASS [categories] R106: severity and categories as expected 
+PASS [timestamps] R106: incident timestamps as expected 
+PASS [cases] R106: media type recorded as video 
+PASS [failure] R106: Speech to Text was not called 
+PASS [failure] R106: watsonx.ai was not called with nothing to analyse 
+PASS [cases] R107 video with no audio track: ran to a defined state 
+PASS [linkage] R107: case.json left unchanged 
+PASS [linkage] R107: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] R107: no other caseId appears in the saved files 
+PASS [linkage] R107: caseId is a valid case id 
+PASS [failure] R107: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] R107: overall result follows the documented rule 
+PASS [failure] R107: every failed stage has an errors entry with stage, code and message 
+PASS [failure] R107: no key, token, URL or project id in any saved file 
+PASS [summary] R107: advisory and requiresHumanReview are true 
+PASS [summary] R107: no moderation decision field anywhere in analysis.json 
+PASS [transcript] R107: failed or unavailable Speech to Text leaves no transcript and no segments 
+PASS [transcript] R107: a failed Speech to Text stage records its error 
+PASS [summary] R107: failed watsonx stage gives no severity and no summary 
+PASS [categories] R107: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] R107: failed watsonx stage gives no timestamps 
+PASS [timestamps] R107: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] R107: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] R107: processingStatus and error codes as expected 
+PASS [categories] R107: severity and categories as expected 
+PASS [timestamps] R107: incident timestamps as expected 
+PASS [cases] R107: media type recorded as video 
+PASS [failure] R107: Speech to Text was not called 
+PASS [failure] R107: watsonx.ai was not called with nothing to analyse 
+PASS [cases] R108 uuid case id, file name with spaces: ran to a defined state 
+PASS [linkage] R108: case.json left unchanged 
+PASS [linkage] R108: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] R108: no other caseId appears in the saved files 
+PASS [linkage] R108: caseId is a valid case id 
+PASS [failure] R108: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] R108: overall result follows the documented rule 
+PASS [failure] R108: every failed stage has an errors entry with stage, code and message 
+PASS [failure] R108: no key, token, URL or project id in any saved file 
+PASS [summary] R108: advisory and requiresHumanReview are true 
+PASS [summary] R108: no moderation decision field anywhere in analysis.json 
+PASS [transcript] R108: transcript present with segments, status ok, no error 
+PASS [transcript] R108: segment text joins to the transcript 
+PASS [transcript] R108: segments carry the full contract fields 
+PASS [transcript] R108: confidence is a number from 0 to 1 or null 
+PASS [transcript] R108: durationSeconds equals the last measured end 
+PASS [transcript] R108: timed segments are available, untimed ones say why 
+PASS [summary] R108: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] R108: severity is one of the contract values 
+PASS [categories] R108: categories are valid, unique and in the fixed order 
+PASS [categories] R108: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] R108: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] R108: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] R108: processingStatus and error codes as expected 
+PASS [categories] R108: severity and categories as expected 
+PASS [timestamps] R108: incident timestamps as expected 
+PASS [cases] R108: media type recorded as video 
+PASS [transcript] R108: transcript equals the spoken source text 
+PASS [transcript] R108: one segment per utterance with the measured times 
+PASS [transcript] R108: mean confidence correct 
+PASS [cases] R109 Speech to Text timing unusable: ran to a defined state 
+PASS [linkage] R109: case.json left unchanged 
+PASS [linkage] R109: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] R109: no other caseId appears in the saved files 
+PASS [linkage] R109: caseId is a valid case id 
+PASS [failure] R109: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] R109: overall result follows the documented rule 
+PASS [failure] R109: every failed stage has an errors entry with stage, code and message 
+PASS [failure] R109: no key, token, URL or project id in any saved file 
+PASS [summary] R109: advisory and requiresHumanReview are true 
+PASS [summary] R109: no moderation decision field anywhere in analysis.json 
+PASS [transcript] R109: transcript present with segments, status ok, no error 
+PASS [transcript] R109: segment text joins to the transcript 
+PASS [transcript] R109: segments carry the full contract fields 
+PASS [transcript] R109: confidence is a number from 0 to 1 or null 
+PASS [transcript] R109: durationSeconds equals the last measured end 
+PASS [transcript] R109: timed segments are available, untimed ones say why 
+PASS [summary] R109: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] R109: severity is one of the contract values 
+PASS [categories] R109: categories are valid, unique and in the fixed order 
+PASS [categories] R109: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] R109: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] R109: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] R109: processingStatus and error codes as expected 
+PASS [categories] R109: severity and categories as expected 
+PASS [timestamps] R109: incident timestamps as expected 
+PASS [cases] R109: media type recorded as video 
+PASS [timestamps] R109: unusable timing gives null segment times and a reason, nothing guessed 
+PASS [cases] R110 Speech to Text times out: ran to a defined state 
+PASS [linkage] R110: case.json left unchanged 
+PASS [linkage] R110: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] R110: no other caseId appears in the saved files 
+PASS [linkage] R110: caseId is a valid case id 
+PASS [failure] R110: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] R110: overall result follows the documented rule 
+PASS [failure] R110: every failed stage has an errors entry with stage, code and message 
+PASS [failure] R110: no key, token, URL or project id in any saved file 
+PASS [summary] R110: advisory and requiresHumanReview are true 
+PASS [summary] R110: no moderation decision field anywhere in analysis.json 
+PASS [transcript] R110: failed or unavailable Speech to Text leaves no transcript and no segments 
+PASS [transcript] R110: a failed Speech to Text stage records its error 
+PASS [summary] R110: failed watsonx stage gives no severity and no summary 
+PASS [categories] R110: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] R110: failed watsonx stage gives no timestamps 
+PASS [timestamps] R110: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] R110: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] R110: processingStatus and error codes as expected 
+PASS [categories] R110: severity and categories as expected 
+PASS [timestamps] R110: incident timestamps as expected 
+PASS [cases] R110: media type recorded as video 
+PASS [failure] R110: watsonx.ai was not called with nothing to analyse 
+PASS [cases] every simulated scenario has a documented expectation 
+PASS [cases] scenario happy_path: ok  
+PASS [linkage] happy_path: case.json left unchanged 
+PASS [linkage] happy_path: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] happy_path: no other caseId appears in the saved files 
+PASS [linkage] happy_path: caseId is a valid case id 
+PASS [failure] happy_path: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] happy_path: overall result follows the documented rule 
+PASS [failure] happy_path: every failed stage has an errors entry with stage, code and message 
+PASS [failure] happy_path: no key, token, URL or project id in any saved file 
+PASS [summary] happy_path: advisory and requiresHumanReview are true 
+PASS [summary] happy_path: no moderation decision field anywhere in analysis.json 
+PASS [transcript] happy_path: transcript present with segments, status ok, no error 
+PASS [transcript] happy_path: segment text joins to the transcript 
+PASS [transcript] happy_path: segments carry the full contract fields 
+PASS [transcript] happy_path: confidence is a number from 0 to 1 or null 
+PASS [transcript] happy_path: durationSeconds equals the last measured end 
+PASS [transcript] happy_path: timed segments are available, untimed ones say why 
+PASS [summary] happy_path: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] happy_path: severity is one of the contract values 
+PASS [categories] happy_path: categories are valid, unique and in the fixed order 
+PASS [categories] happy_path: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] happy_path: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] happy_path: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario missing_media: failed ['mediaAnalysis:MEDIA_NOT_FOUND'] 
+PASS [linkage] missing_media: case.json left unchanged 
+PASS [linkage] missing_media: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] missing_media: no other caseId appears in the saved files 
+PASS [linkage] missing_media: caseId is a valid case id 
+PASS [failure] missing_media: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] missing_media: overall result follows the documented rule 
+PASS [failure] missing_media: every failed stage has an errors entry with stage, code and message 
+PASS [failure] missing_media: no key, token, URL or project id in any saved file 
+PASS [summary] missing_media: advisory and requiresHumanReview are true 
+PASS [summary] missing_media: no moderation decision field anywhere in analysis.json 
+PASS [transcript] missing_media: failed or unavailable Speech to Text leaves no transcript and no segments 
+PASS [transcript] missing_media: a failed Speech to Text stage records its error 
+PASS [summary] missing_media: failed watsonx stage gives no severity and no summary 
+PASS [categories] missing_media: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] missing_media: failed watsonx stage gives no timestamps 
+PASS [timestamps] missing_media: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [cases] scenario invalid_media_type: failed ['mediaAnalysis:INVALID_MEDIA_TYPE'] 
+PASS [linkage] invalid_media_type: case.json left unchanged 
+PASS [linkage] invalid_media_type: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] invalid_media_type: no other caseId appears in the saved files 
+PASS [linkage] invalid_media_type: caseId is a valid case id 
+PASS [failure] invalid_media_type: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] invalid_media_type: overall result follows the documented rule 
+PASS [failure] invalid_media_type: every failed stage has an errors entry with stage, code and message 
+PASS [failure] invalid_media_type: no key, token, URL or project id in any saved file 
+PASS [summary] invalid_media_type: advisory and requiresHumanReview are true 
+PASS [summary] invalid_media_type: no moderation decision field anywhere in analysis.json 
+PASS [transcript] invalid_media_type: failed or unavailable Speech to Text leaves no transcript and no segments 
+PASS [transcript] invalid_media_type: a failed Speech to Text stage records its error 
+PASS [summary] invalid_media_type: failed watsonx stage gives no severity and no summary 
+PASS [categories] invalid_media_type: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] invalid_media_type: failed watsonx stage gives no timestamps 
+PASS [timestamps] invalid_media_type: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [cases] scenario stt_server_error: partial ['stt:STT_SERVICE_ERROR'] 
+PASS [linkage] stt_server_error: case.json left unchanged 
+PASS [linkage] stt_server_error: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] stt_server_error: no other caseId appears in the saved files 
+PASS [linkage] stt_server_error: caseId is a valid case id 
+PASS [failure] stt_server_error: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] stt_server_error: overall result follows the documented rule 
+PASS [failure] stt_server_error: every failed stage has an errors entry with stage, code and message 
+PASS [failure] stt_server_error: no key, token, URL or project id in any saved file 
+PASS [summary] stt_server_error: advisory and requiresHumanReview are true 
+PASS [summary] stt_server_error: no moderation decision field anywhere in analysis.json 
+PASS [transcript] stt_server_error: failed or unavailable Speech to Text leaves no transcript and no segments 
+PASS [transcript] stt_server_error: a failed Speech to Text stage records its error 
+PASS [summary] stt_server_error: failed watsonx stage gives no severity and no summary 
+PASS [categories] stt_server_error: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] stt_server_error: failed watsonx stage gives no timestamps 
+PASS [timestamps] stt_server_error: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] stt_server_error: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario malformed_watsonx_output: partial ['watsonx:MALFORMED_OUTPUT'] 
+PASS [linkage] malformed_watsonx_output: case.json left unchanged 
+PASS [linkage] malformed_watsonx_output: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] malformed_watsonx_output: no other caseId appears in the saved files 
+PASS [linkage] malformed_watsonx_output: caseId is a valid case id 
+PASS [failure] malformed_watsonx_output: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] malformed_watsonx_output: overall result follows the documented rule 
+PASS [failure] malformed_watsonx_output: every failed stage has an errors entry with stage, code and message 
+PASS [failure] malformed_watsonx_output: no key, token, URL or project id in any saved file 
+PASS [summary] malformed_watsonx_output: advisory and requiresHumanReview are true 
+PASS [summary] malformed_watsonx_output: no moderation decision field anywhere in analysis.json 
+PASS [transcript] malformed_watsonx_output: transcript present with segments, status ok, no error 
+PASS [transcript] malformed_watsonx_output: segment text joins to the transcript 
+PASS [transcript] malformed_watsonx_output: segments carry the full contract fields 
+PASS [transcript] malformed_watsonx_output: confidence is a number from 0 to 1 or null 
+PASS [transcript] malformed_watsonx_output: durationSeconds equals the last measured end 
+PASS [transcript] malformed_watsonx_output: timed segments are available, untimed ones say why 
+PASS [summary] malformed_watsonx_output: failed watsonx stage gives no severity and no summary 
+PASS [categories] malformed_watsonx_output: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] malformed_watsonx_output: failed watsonx stage gives no timestamps 
+PASS [timestamps] malformed_watsonx_output: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] malformed_watsonx_output: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario no_timestamps: ok  
+PASS [linkage] no_timestamps: case.json left unchanged 
+PASS [linkage] no_timestamps: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] no_timestamps: no other caseId appears in the saved files 
+PASS [linkage] no_timestamps: caseId is a valid case id 
+PASS [failure] no_timestamps: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] no_timestamps: overall result follows the documented rule 
+PASS [failure] no_timestamps: every failed stage has an errors entry with stage, code and message 
+PASS [failure] no_timestamps: no key, token, URL or project id in any saved file 
+PASS [summary] no_timestamps: advisory and requiresHumanReview are true 
+PASS [summary] no_timestamps: no moderation decision field anywhere in analysis.json 
+PASS [transcript] no_timestamps: transcript present with segments, status ok, no error 
+PASS [transcript] no_timestamps: segment text joins to the transcript 
+PASS [transcript] no_timestamps: segments carry the full contract fields 
+PASS [transcript] no_timestamps: confidence is a number from 0 to 1 or null 
+PASS [transcript] no_timestamps: durationSeconds equals the last measured end 
+PASS [transcript] no_timestamps: timed segments are available, untimed ones say why 
+PASS [summary] no_timestamps: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] no_timestamps: severity is one of the contract values 
+PASS [categories] no_timestamps: categories are valid, unique and in the fixed order 
+PASS [categories] no_timestamps: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] no_timestamps: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] no_timestamps: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario invalid_segment_index: ok  
+PASS [linkage] invalid_segment_index: case.json left unchanged 
+PASS [linkage] invalid_segment_index: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] invalid_segment_index: no other caseId appears in the saved files 
+PASS [linkage] invalid_segment_index: caseId is a valid case id 
+PASS [failure] invalid_segment_index: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] invalid_segment_index: overall result follows the documented rule 
+PASS [failure] invalid_segment_index: every failed stage has an errors entry with stage, code and message 
+PASS [failure] invalid_segment_index: no key, token, URL or project id in any saved file 
+PASS [summary] invalid_segment_index: advisory and requiresHumanReview are true 
+PASS [summary] invalid_segment_index: no moderation decision field anywhere in analysis.json 
+PASS [transcript] invalid_segment_index: transcript present with segments, status ok, no error 
+PASS [transcript] invalid_segment_index: segment text joins to the transcript 
+PASS [transcript] invalid_segment_index: segments carry the full contract fields 
+PASS [transcript] invalid_segment_index: confidence is a number from 0 to 1 or null 
+PASS [transcript] invalid_segment_index: durationSeconds equals the last measured end 
+PASS [transcript] invalid_segment_index: timed segments are available, untimed ones say why 
+PASS [summary] invalid_segment_index: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] invalid_segment_index: severity is one of the contract values 
+PASS [categories] invalid_segment_index: categories are valid, unique and in the fixed order 
+PASS [categories] invalid_segment_index: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] invalid_segment_index: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] invalid_segment_index: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario case_id_mismatch: error  
+PASS [linkage] case_id_mismatch: case.json left unchanged 
+PASS [linkage] case_id_mismatch: a refused run wrote no transcript.json or analysis.json 
+PASS [cases] scenario audio_only: ok  
+PASS [linkage] audio_only: case.json left unchanged 
+PASS [linkage] audio_only: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] audio_only: no other caseId appears in the saved files 
+PASS [linkage] audio_only: caseId is a valid case id 
+PASS [failure] audio_only: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] audio_only: overall result follows the documented rule 
+PASS [failure] audio_only: every failed stage has an errors entry with stage, code and message 
+PASS [failure] audio_only: no key, token, URL or project id in any saved file 
+PASS [summary] audio_only: advisory and requiresHumanReview are true 
+PASS [summary] audio_only: no moderation decision field anywhere in analysis.json 
+PASS [transcript] audio_only: transcript present with segments, status ok, no error 
+PASS [transcript] audio_only: segment text joins to the transcript 
+PASS [transcript] audio_only: segments carry the full contract fields 
+PASS [transcript] audio_only: confidence is a number from 0 to 1 or null 
+PASS [transcript] audio_only: durationSeconds equals the last measured end 
+PASS [transcript] audio_only: timed segments are available, untimed ones say why 
+PASS [summary] audio_only: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] audio_only: severity is one of the contract values 
+PASS [categories] audio_only: categories are valid, unique and in the fixed order 
+PASS [categories] audio_only: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] audio_only: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [cases] scenario media_analysis_failed_audio_recovered: partial ['mediaAnalysis:MEDIA_UNREADABLE'] 
+PASS [linkage] media_analysis_failed_audio_recovered: case.json left unchanged 
+PASS [linkage] media_analysis_failed_audio_recovered: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] media_analysis_failed_audio_recovered: no other caseId appears in the saved files 
+PASS [linkage] media_analysis_failed_audio_recovered: caseId is a valid case id 
+PASS [failure] media_analysis_failed_audio_recovered: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] media_analysis_failed_audio_recovered: overall result follows the documented rule 
+PASS [failure] media_analysis_failed_audio_recovered: every failed stage has an errors entry with stage, code and message 
+PASS [failure] media_analysis_failed_audio_recovered: no key, token, URL or project id in any saved file 
+PASS [summary] media_analysis_failed_audio_recovered: advisory and requiresHumanReview are true 
+PASS [summary] media_analysis_failed_audio_recovered: no moderation decision field anywhere in analysis.json 
+PASS [transcript] media_analysis_failed_audio_recovered: transcript present with segments, status ok, no error 
+PASS [transcript] media_analysis_failed_audio_recovered: segment text joins to the transcript 
+PASS [transcript] media_analysis_failed_audio_recovered: segments carry the full contract fields 
+PASS [transcript] media_analysis_failed_audio_recovered: confidence is a number from 0 to 1 or null 
+PASS [transcript] media_analysis_failed_audio_recovered: durationSeconds equals the last measured end 
+PASS [transcript] media_analysis_failed_audio_recovered: timed segments are available, untimed ones say why 
+PASS [summary] media_analysis_failed_audio_recovered: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] media_analysis_failed_audio_recovered: severity is one of the contract values 
+PASS [categories] media_analysis_failed_audio_recovered: categories are valid, unique and in the fixed order 
+PASS [categories] media_analysis_failed_audio_recovered: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] media_analysis_failed_audio_recovered: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [cases] scenario no_media_reference: failed ['mediaAnalysis:MEDIA_REFERENCE_MISSING'] 
+PASS [linkage] no_media_reference: case.json left unchanged 
+PASS [linkage] no_media_reference: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] no_media_reference: no other caseId appears in the saved files 
+PASS [linkage] no_media_reference: caseId is a valid case id 
+PASS [failure] no_media_reference: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] no_media_reference: overall result follows the documented rule 
+PASS [failure] no_media_reference: every failed stage has an errors entry with stage, code and message 
+PASS [failure] no_media_reference: no key, token, URL or project id in any saved file 
+PASS [summary] no_media_reference: advisory and requiresHumanReview are true 
+PASS [summary] no_media_reference: no moderation decision field anywhere in analysis.json 
+PASS [transcript] no_media_reference: failed or unavailable Speech to Text leaves no transcript and no segments 
+PASS [transcript] no_media_reference: a failed Speech to Text stage records its error 
+PASS [summary] no_media_reference: failed watsonx stage gives no severity and no summary 
+PASS [categories] no_media_reference: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] no_media_reference: failed watsonx stage gives no timestamps 
+PASS [timestamps] no_media_reference: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [cases] scenario media_key_wrong_case: failed ['mediaAnalysis:MEDIA_KEY_WRONG_CASE'] 
+PASS [linkage] media_key_wrong_case: case.json left unchanged 
+PASS [linkage] media_key_wrong_case: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] media_key_wrong_case: no other caseId appears in the saved files 
+PASS [linkage] media_key_wrong_case: caseId is a valid case id 
+PASS [failure] media_key_wrong_case: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] media_key_wrong_case: overall result follows the documented rule 
+PASS [failure] media_key_wrong_case: every failed stage has an errors entry with stage, code and message 
+PASS [failure] media_key_wrong_case: no key, token, URL or project id in any saved file 
+PASS [summary] media_key_wrong_case: advisory and requiresHumanReview are true 
+PASS [summary] media_key_wrong_case: no moderation decision field anywhere in analysis.json 
+PASS [transcript] media_key_wrong_case: failed or unavailable Speech to Text leaves no transcript and no segments 
+PASS [transcript] media_key_wrong_case: a failed Speech to Text stage records its error 
+PASS [summary] media_key_wrong_case: failed watsonx stage gives no severity and no summary 
+PASS [categories] media_key_wrong_case: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] media_key_wrong_case: failed watsonx stage gives no timestamps 
+PASS [timestamps] media_key_wrong_case: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [cases] scenario filename_with_spaces: ok  
+PASS [linkage] filename_with_spaces: case.json left unchanged 
+PASS [linkage] filename_with_spaces: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] filename_with_spaces: no other caseId appears in the saved files 
+PASS [linkage] filename_with_spaces: caseId is a valid case id 
+PASS [failure] filename_with_spaces: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] filename_with_spaces: overall result follows the documented rule 
+PASS [failure] filename_with_spaces: every failed stage has an errors entry with stage, code and message 
+PASS [failure] filename_with_spaces: no key, token, URL or project id in any saved file 
+PASS [summary] filename_with_spaces: advisory and requiresHumanReview are true 
+PASS [summary] filename_with_spaces: no moderation decision field anywhere in analysis.json 
+PASS [transcript] filename_with_spaces: transcript present with segments, status ok, no error 
+PASS [transcript] filename_with_spaces: segment text joins to the transcript 
+PASS [transcript] filename_with_spaces: segments carry the full contract fields 
+PASS [transcript] filename_with_spaces: confidence is a number from 0 to 1 or null 
+PASS [transcript] filename_with_spaces: durationSeconds equals the last measured end 
+PASS [transcript] filename_with_spaces: timed segments are available, untimed ones say why 
+PASS [summary] filename_with_spaces: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] filename_with_spaces: severity is one of the contract values 
+PASS [categories] filename_with_spaces: categories are valid, unique and in the fixed order 
+PASS [categories] filename_with_spaces: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] filename_with_spaces: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] filename_with_spaces: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario legacy_media_object: ok  
+PASS [linkage] legacy_media_object: case.json left unchanged 
+PASS [linkage] legacy_media_object: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] legacy_media_object: no other caseId appears in the saved files 
+PASS [linkage] legacy_media_object: caseId is a valid case id 
+PASS [failure] legacy_media_object: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] legacy_media_object: overall result follows the documented rule 
+PASS [failure] legacy_media_object: every failed stage has an errors entry with stage, code and message 
+PASS [failure] legacy_media_object: no key, token, URL or project id in any saved file 
+PASS [summary] legacy_media_object: advisory and requiresHumanReview are true 
+PASS [summary] legacy_media_object: no moderation decision field anywhere in analysis.json 
+PASS [transcript] legacy_media_object: transcript present with segments, status ok, no error 
+PASS [transcript] legacy_media_object: segment text joins to the transcript 
+PASS [transcript] legacy_media_object: segments carry the full contract fields 
+PASS [transcript] legacy_media_object: confidence is a number from 0 to 1 or null 
+PASS [transcript] legacy_media_object: durationSeconds equals the last measured end 
+PASS [transcript] legacy_media_object: timed segments are available, untimed ones say why 
+PASS [summary] legacy_media_object: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] legacy_media_object: severity is one of the contract values 
+PASS [categories] legacy_media_object: categories are valid, unique and in the fixed order 
+PASS [categories] legacy_media_object: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] legacy_media_object: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] legacy_media_object: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario stt_timeout: partial ['stt:TIMEOUT'] 
+PASS [linkage] stt_timeout: case.json left unchanged 
+PASS [linkage] stt_timeout: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] stt_timeout: no other caseId appears in the saved files 
+PASS [linkage] stt_timeout: caseId is a valid case id 
+PASS [failure] stt_timeout: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] stt_timeout: overall result follows the documented rule 
+PASS [failure] stt_timeout: every failed stage has an errors entry with stage, code and message 
+PASS [failure] stt_timeout: no key, token, URL or project id in any saved file 
+PASS [summary] stt_timeout: advisory and requiresHumanReview are true 
+PASS [summary] stt_timeout: no moderation decision field anywhere in analysis.json 
+PASS [transcript] stt_timeout: failed or unavailable Speech to Text leaves no transcript and no segments 
+PASS [transcript] stt_timeout: a failed Speech to Text stage records its error 
+PASS [summary] stt_timeout: failed watsonx stage gives no severity and no summary 
+PASS [categories] stt_timeout: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] stt_timeout: failed watsonx stage gives no timestamps 
+PASS [timestamps] stt_timeout: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] stt_timeout: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario watsonx_timeout: partial ['watsonx:TIMEOUT'] 
+PASS [linkage] watsonx_timeout: case.json left unchanged 
+PASS [linkage] watsonx_timeout: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] watsonx_timeout: no other caseId appears in the saved files 
+PASS [linkage] watsonx_timeout: caseId is a valid case id 
+PASS [failure] watsonx_timeout: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] watsonx_timeout: overall result follows the documented rule 
+PASS [failure] watsonx_timeout: every failed stage has an errors entry with stage, code and message 
+PASS [failure] watsonx_timeout: no key, token, URL or project id in any saved file 
+PASS [summary] watsonx_timeout: advisory and requiresHumanReview are true 
+PASS [summary] watsonx_timeout: no moderation decision field anywhere in analysis.json 
+PASS [transcript] watsonx_timeout: transcript present with segments, status ok, no error 
+PASS [transcript] watsonx_timeout: segment text joins to the transcript 
+PASS [transcript] watsonx_timeout: segments carry the full contract fields 
+PASS [transcript] watsonx_timeout: confidence is a number from 0 to 1 or null 
+PASS [transcript] watsonx_timeout: durationSeconds equals the last measured end 
+PASS [transcript] watsonx_timeout: timed segments are available, untimed ones say why 
+PASS [summary] watsonx_timeout: failed watsonx stage gives no severity and no summary 
+PASS [categories] watsonx_timeout: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] watsonx_timeout: failed watsonx stage gives no timestamps 
+PASS [timestamps] watsonx_timeout: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] watsonx_timeout: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario iam_timeout: partial ['watsonx:TIMEOUT'] 
+PASS [linkage] iam_timeout: case.json left unchanged 
+PASS [linkage] iam_timeout: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] iam_timeout: no other caseId appears in the saved files 
+PASS [linkage] iam_timeout: caseId is a valid case id 
+PASS [failure] iam_timeout: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] iam_timeout: overall result follows the documented rule 
+PASS [failure] iam_timeout: every failed stage has an errors entry with stage, code and message 
+PASS [failure] iam_timeout: no key, token, URL or project id in any saved file 
+PASS [summary] iam_timeout: advisory and requiresHumanReview are true 
+PASS [summary] iam_timeout: no moderation decision field anywhere in analysis.json 
+PASS [transcript] iam_timeout: transcript present with segments, status ok, no error 
+PASS [transcript] iam_timeout: segment text joins to the transcript 
+PASS [transcript] iam_timeout: segments carry the full contract fields 
+PASS [transcript] iam_timeout: confidence is a number from 0 to 1 or null 
+PASS [transcript] iam_timeout: durationSeconds equals the last measured end 
+PASS [transcript] iam_timeout: timed segments are available, untimed ones say why 
+PASS [summary] iam_timeout: failed watsonx stage gives no severity and no summary 
+PASS [categories] iam_timeout: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] iam_timeout: failed watsonx stage gives no timestamps 
+PASS [timestamps] iam_timeout: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] iam_timeout: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario watsonx_service_error: partial ['watsonx:SERVICE_ERROR'] 
+PASS [linkage] watsonx_service_error: case.json left unchanged 
+PASS [linkage] watsonx_service_error: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] watsonx_service_error: no other caseId appears in the saved files 
+PASS [linkage] watsonx_service_error: caseId is a valid case id 
+PASS [failure] watsonx_service_error: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] watsonx_service_error: overall result follows the documented rule 
+PASS [failure] watsonx_service_error: every failed stage has an errors entry with stage, code and message 
+PASS [failure] watsonx_service_error: no key, token, URL or project id in any saved file 
+PASS [summary] watsonx_service_error: advisory and requiresHumanReview are true 
+PASS [summary] watsonx_service_error: no moderation decision field anywhere in analysis.json 
+PASS [transcript] watsonx_service_error: transcript present with segments, status ok, no error 
+PASS [transcript] watsonx_service_error: segment text joins to the transcript 
+PASS [transcript] watsonx_service_error: segments carry the full contract fields 
+PASS [transcript] watsonx_service_error: confidence is a number from 0 to 1 or null 
+PASS [transcript] watsonx_service_error: durationSeconds equals the last measured end 
+PASS [transcript] watsonx_service_error: timed segments are available, untimed ones say why 
+PASS [summary] watsonx_service_error: failed watsonx stage gives no severity and no summary 
+PASS [categories] watsonx_service_error: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] watsonx_service_error: failed watsonx stage gives no timestamps 
+PASS [timestamps] watsonx_service_error: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] watsonx_service_error: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario truncated_output: partial ['watsonx:INCOMPLETE_OUTPUT'] 
+PASS [linkage] truncated_output: case.json left unchanged 
+PASS [linkage] truncated_output: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] truncated_output: no other caseId appears in the saved files 
+PASS [linkage] truncated_output: caseId is a valid case id 
+PASS [failure] truncated_output: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] truncated_output: overall result follows the documented rule 
+PASS [failure] truncated_output: every failed stage has an errors entry with stage, code and message 
+PASS [failure] truncated_output: no key, token, URL or project id in any saved file 
+PASS [summary] truncated_output: advisory and requiresHumanReview are true 
+PASS [summary] truncated_output: no moderation decision field anywhere in analysis.json 
+PASS [transcript] truncated_output: transcript present with segments, status ok, no error 
+PASS [transcript] truncated_output: segment text joins to the transcript 
+PASS [transcript] truncated_output: segments carry the full contract fields 
+PASS [transcript] truncated_output: confidence is a number from 0 to 1 or null 
+PASS [transcript] truncated_output: durationSeconds equals the last measured end 
+PASS [transcript] truncated_output: timed segments are available, untimed ones say why 
+PASS [summary] truncated_output: failed watsonx stage gives no severity and no summary 
+PASS [categories] truncated_output: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] truncated_output: failed watsonx stage gives no timestamps 
+PASS [timestamps] truncated_output: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] truncated_output: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario truncated_but_parseable: partial ['watsonx:INCOMPLETE_OUTPUT'] 
+PASS [linkage] truncated_but_parseable: case.json left unchanged 
+PASS [linkage] truncated_but_parseable: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] truncated_but_parseable: no other caseId appears in the saved files 
+PASS [linkage] truncated_but_parseable: caseId is a valid case id 
+PASS [failure] truncated_but_parseable: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] truncated_but_parseable: overall result follows the documented rule 
+PASS [failure] truncated_but_parseable: every failed stage has an errors entry with stage, code and message 
+PASS [failure] truncated_but_parseable: no key, token, URL or project id in any saved file 
+PASS [summary] truncated_but_parseable: advisory and requiresHumanReview are true 
+PASS [summary] truncated_but_parseable: no moderation decision field anywhere in analysis.json 
+PASS [transcript] truncated_but_parseable: transcript present with segments, status ok, no error 
+PASS [transcript] truncated_but_parseable: segment text joins to the transcript 
+PASS [transcript] truncated_but_parseable: segments carry the full contract fields 
+PASS [transcript] truncated_but_parseable: confidence is a number from 0 to 1 or null 
+PASS [transcript] truncated_but_parseable: durationSeconds equals the last measured end 
+PASS [transcript] truncated_but_parseable: timed segments are available, untimed ones say why 
+PASS [summary] truncated_but_parseable: failed watsonx stage gives no severity and no summary 
+PASS [categories] truncated_but_parseable: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] truncated_but_parseable: failed watsonx stage gives no timestamps 
+PASS [timestamps] truncated_but_parseable: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] truncated_but_parseable: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario malformed_json: partial ['watsonx:MALFORMED_OUTPUT'] 
+PASS [linkage] malformed_json: case.json left unchanged 
+PASS [linkage] malformed_json: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] malformed_json: no other caseId appears in the saved files 
+PASS [linkage] malformed_json: caseId is a valid case id 
+PASS [failure] malformed_json: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] malformed_json: overall result follows the documented rule 
+PASS [failure] malformed_json: every failed stage has an errors entry with stage, code and message 
+PASS [failure] malformed_json: no key, token, URL or project id in any saved file 
+PASS [summary] malformed_json: advisory and requiresHumanReview are true 
+PASS [summary] malformed_json: no moderation decision field anywhere in analysis.json 
+PASS [transcript] malformed_json: transcript present with segments, status ok, no error 
+PASS [transcript] malformed_json: segment text joins to the transcript 
+PASS [transcript] malformed_json: segments carry the full contract fields 
+PASS [transcript] malformed_json: confidence is a number from 0 to 1 or null 
+PASS [transcript] malformed_json: durationSeconds equals the last measured end 
+PASS [transcript] malformed_json: timed segments are available, untimed ones say why 
+PASS [summary] malformed_json: failed watsonx stage gives no severity and no summary 
+PASS [categories] malformed_json: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] malformed_json: failed watsonx stage gives no timestamps 
+PASS [timestamps] malformed_json: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] malformed_json: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario incomplete_json: partial ['watsonx:INVALID_OUTPUT'] 
+PASS [linkage] incomplete_json: case.json left unchanged 
+PASS [linkage] incomplete_json: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] incomplete_json: no other caseId appears in the saved files 
+PASS [linkage] incomplete_json: caseId is a valid case id 
+PASS [failure] incomplete_json: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] incomplete_json: overall result follows the documented rule 
+PASS [failure] incomplete_json: every failed stage has an errors entry with stage, code and message 
+PASS [failure] incomplete_json: no key, token, URL or project id in any saved file 
+PASS [summary] incomplete_json: advisory and requiresHumanReview are true 
+PASS [summary] incomplete_json: no moderation decision field anywhere in analysis.json 
+PASS [transcript] incomplete_json: transcript present with segments, status ok, no error 
+PASS [transcript] incomplete_json: segment text joins to the transcript 
+PASS [transcript] incomplete_json: segments carry the full contract fields 
+PASS [transcript] incomplete_json: confidence is a number from 0 to 1 or null 
+PASS [transcript] incomplete_json: durationSeconds equals the last measured end 
+PASS [transcript] incomplete_json: timed segments are available, untimed ones say why 
+PASS [summary] incomplete_json: failed watsonx stage gives no severity and no summary 
+PASS [categories] incomplete_json: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] incomplete_json: failed watsonx stage gives no timestamps 
+PASS [timestamps] incomplete_json: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] incomplete_json: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario missing_values: partial ['watsonx:INVALID_OUTPUT'] 
+PASS [linkage] missing_values: case.json left unchanged 
+PASS [linkage] missing_values: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] missing_values: no other caseId appears in the saved files 
+PASS [linkage] missing_values: caseId is a valid case id 
+PASS [failure] missing_values: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] missing_values: overall result follows the documented rule 
+PASS [failure] missing_values: every failed stage has an errors entry with stage, code and message 
+PASS [failure] missing_values: no key, token, URL or project id in any saved file 
+PASS [summary] missing_values: advisory and requiresHumanReview are true 
+PASS [summary] missing_values: no moderation decision field anywhere in analysis.json 
+PASS [transcript] missing_values: transcript present with segments, status ok, no error 
+PASS [transcript] missing_values: segment text joins to the transcript 
+PASS [transcript] missing_values: segments carry the full contract fields 
+PASS [transcript] missing_values: confidence is a number from 0 to 1 or null 
+PASS [transcript] missing_values: durationSeconds equals the last measured end 
+PASS [transcript] missing_values: timed segments are available, untimed ones say why 
+PASS [summary] missing_values: failed watsonx stage gives no severity and no summary 
+PASS [categories] missing_values: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] missing_values: failed watsonx stage gives no timestamps 
+PASS [timestamps] missing_values: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] missing_values: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario empty_values: partial ['watsonx:INVALID_OUTPUT'] 
+PASS [linkage] empty_values: case.json left unchanged 
+PASS [linkage] empty_values: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] empty_values: no other caseId appears in the saved files 
+PASS [linkage] empty_values: caseId is a valid case id 
+PASS [failure] empty_values: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] empty_values: overall result follows the documented rule 
+PASS [failure] empty_values: every failed stage has an errors entry with stage, code and message 
+PASS [failure] empty_values: no key, token, URL or project id in any saved file 
+PASS [summary] empty_values: advisory and requiresHumanReview are true 
+PASS [summary] empty_values: no moderation decision field anywhere in analysis.json 
+PASS [transcript] empty_values: transcript present with segments, status ok, no error 
+PASS [transcript] empty_values: segment text joins to the transcript 
+PASS [transcript] empty_values: segments carry the full contract fields 
+PASS [transcript] empty_values: confidence is a number from 0 to 1 or null 
+PASS [transcript] empty_values: durationSeconds equals the last measured end 
+PASS [transcript] empty_values: timed segments are available, untimed ones say why 
+PASS [summary] empty_values: failed watsonx stage gives no severity and no summary 
+PASS [categories] empty_values: failed watsonx stage gives no categories and no evidence 
+PASS [timestamps] empty_values: failed watsonx stage gives no timestamps 
+PASS [timestamps] empty_values: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] empty_values: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [cases] scenario uuid_case_id: ok  
+PASS [linkage] uuid_case_id: case.json left unchanged 
+PASS [linkage] uuid_case_id: caseId identical in case.json, transcript.json and analysis.json 
+PASS [linkage] uuid_case_id: no other caseId appears in the saved files 
+PASS [linkage] uuid_case_id: caseId is a valid case id 
+PASS [failure] uuid_case_id: processingStatus has exactly stt, mediaAnalysis, watsonx with defined values 
+PASS [failure] uuid_case_id: overall result follows the documented rule 
+PASS [failure] uuid_case_id: every failed stage has an errors entry with stage, code and message 
+PASS [failure] uuid_case_id: no key, token, URL or project id in any saved file 
+PASS [summary] uuid_case_id: advisory and requiresHumanReview are true 
+PASS [summary] uuid_case_id: no moderation decision field anywhere in analysis.json 
+PASS [transcript] uuid_case_id: transcript present with segments, status ok, no error 
+PASS [transcript] uuid_case_id: segment text joins to the transcript 
+PASS [transcript] uuid_case_id: segments carry the full contract fields 
+PASS [transcript] uuid_case_id: confidence is a number from 0 to 1 or null 
+PASS [transcript] uuid_case_id: durationSeconds equals the last measured end 
+PASS [transcript] uuid_case_id: timed segments are available, untimed ones say why 
+PASS [summary] uuid_case_id: summary is 1 to 3 sentences within the limit with no decision wording 
+PASS [categories] uuid_case_id: severity is one of the contract values 
+PASS [categories] uuid_case_id: categories are valid, unique and in the fixed order 
+PASS [categories] uuid_case_id: every category has evidence inside the transcript and nothing else does 
+PASS [timestamps] uuid_case_id: every incident timestamp is a measured segment time inside the clip, or null with a reason 
+PASS [timestamps] uuid_case_id: scene segments are contiguous from 0 to the clip duration with sequential ids 
+PASS [repeatability] R101: identical status, transcript.json and analysis.json over 5 interleaved runs 
+PASS [repeatability] R102: identical status, transcript.json and analysis.json over 5 interleaved runs 
+PASS [repeatability] R103: identical status, transcript.json and analysis.json over 5 interleaved runs 
+PASS [repeatability] R104: identical status, transcript.json and analysis.json over 5 interleaved runs 
+PASS [repeatability] R105: identical status, transcript.json and analysis.json over 5 interleaved runs 
+PASS [repeatability] R106: identical status, transcript.json and analysis.json over 5 interleaved runs 
+PASS [repeatability] R107: identical status, transcript.json and analysis.json over 5 interleaved runs 
+PASS [repeatability] R108: identical status, transcript.json and analysis.json over 5 interleaved runs 
+PASS [repeatability] R109: identical status, transcript.json and analysis.json over 5 interleaved runs 
+PASS [repeatability] R110: identical status, transcript.json and analysis.json over 5 interleaved runs 
+PASS [repeatability] all 25 simulated scenarios give identical output over 3 runs 
+PASS [repeatability] the model returning categories in a different order gives the same analysis.json content 
+PASS [repeatability] categories are in the fixed order whichever order the model used 
+PASS [failure] Speech to Text HTTP 401 -> AUTH_FAILED 
+PASS [failure] Speech to Text HTTP 401: nothing sensitive in the error 
+PASS [failure] Speech to Text HTTP 403 -> AUTH_FAILED 
+PASS [failure] Speech to Text HTTP 403: nothing sensitive in the error 
+PASS [failure] Speech to Text HTTP 400 -> INVALID_INPUT 
+PASS [failure] Speech to Text HTTP 400: nothing sensitive in the error 
+PASS [failure] Speech to Text HTTP 429 -> STT_SERVICE_ERROR 
+PASS [failure] Speech to Text HTTP 429: nothing sensitive in the error 
+PASS [failure] Speech to Text HTTP 500 -> STT_SERVICE_ERROR 
+PASS [failure] Speech to Text HTTP 500: nothing sensitive in the error 
+PASS [failure] Speech to Text HTTP 503 -> STT_SERVICE_ERROR 
+PASS [failure] Speech to Text HTTP 503: nothing sensitive in the error 
+PASS [failure] Speech to Text timeout -> TIMEOUT 
+PASS [failure] Speech to Text timeout: nothing sensitive in the error 
+PASS [failure] Speech to Text read timeout -> TIMEOUT 
+PASS [failure] Speech to Text read timeout: nothing sensitive in the error 
+PASS [failure] Speech to Text connect timeout -> TIMEOUT 
+PASS [failure] Speech to Text connect timeout: nothing sensitive in the error 
+PASS [failure] Speech to Text connection error -> NETWORK_ERROR 
+PASS [failure] Speech to Text connection error: nothing sensitive in the error 
+PASS [failure] Speech to Text TLS error -> NETWORK_ERROR 
+PASS [failure] Speech to Text TLS error: nothing sensitive in the error 
+PASS [failure] Speech to Text no results field -> MALFORMED_RESPONSE 
+PASS [failure] Speech to Text no results field: nothing sensitive in the error 
+PASS [failure] Speech to Text results not a list -> MALFORMED_RESPONSE 
+PASS [failure] Speech to Text results not a list: nothing sensitive in the error 
+PASS [failure] Speech to Text result without alternatives -> MALFORMED_RESPONSE 
+PASS [failure] Speech to Text result without alternatives: nothing sensitive in the error 
+PASS [failure] Speech to Text not JSON -> MALFORMED_RESPONSE 
+PASS [failure] Speech to Text not JSON: nothing sensitive in the error 
+PASS [failure] Speech to Text no speech -> EMPTY_TRANSCRIPT 
+PASS [failure] Speech to Text no speech: nothing sensitive in the error 
+PASS [failure] Speech to Text whitespace only -> EMPTY_TRANSCRIPT 
+PASS [failure] Speech to Text whitespace only: nothing sensitive in the error 
+PASS [failure] Speech to Text empty file rejected before any call 
+PASS [failure] Speech to Text wrong type rejected before any call 
+PASS [failure] Speech to Text missing path and missing file give MISSING_INPUT and FILE_NOT_FOUND 
+PASS [failure] watsonx.ai happy path 
+PASS [failure] watsonx.ai IAM HTTP 401 -> AUTH_FAILED, chat never called 
+PASS [failure] watsonx.ai IAM HTTP 500 -> AUTH_FAILED, chat never called 
+PASS [failure] watsonx.ai IAM timeout -> TIMEOUT, chat never called 
+PASS [failure] watsonx.ai IAM connection error -> NETWORK_ERROR, chat never called 
+PASS [failure] watsonx.ai chat HTTP 401 -> AUTH_OR_PROJECT_ACCESS, no retry 
+PASS [failure] watsonx.ai chat HTTP 403 -> AUTH_OR_PROJECT_ACCESS, no retry 
+PASS [failure] watsonx.ai chat HTTP 429 -> SERVICE_ERROR, no retry 
+PASS [failure] watsonx.ai chat HTTP 500 -> SERVICE_ERROR, no retry 
+PASS [failure] watsonx.ai chat HTTP 503 -> SERVICE_ERROR, no retry 
+PASS [failure] watsonx.ai chat timeout -> TIMEOUT, no retry 
+PASS [failure] watsonx.ai chat connection error -> NETWORK_ERROR, no retry 
+PASS [failure] watsonx.ai no choices -> MALFORMED_OUTPUT after one retry 
+PASS [failure] watsonx.ai prose instead of JSON -> MALFORMED_OUTPUT after one retry 
+PASS [failure] watsonx.ai cut off at the token limit -> INCOMPLETE_OUTPUT after one retry 
+PASS [failure] watsonx.ai cut off but parseable is still refused 
+PASS [failure] watsonx.ai cut off once then complete recovers 
+PASS [failure] watsonx.ai bad JSON once then good recovers 
+PASS [failure] watsonx.ai invalid severity twice -> INVALID_OUTPUT 
+PASS [failure] watsonx.ai wrong caseId -> INVALID_OUTPUT 
+PASS [failure] watsonx.ai null and empty values -> INVALID_OUTPUT 
+PASS [failure] watsonx.ai missing keys -> INVALID_OUTPUT 
+PASS [failure] analysis with an empty transcript or no caseId gives MISSING_INPUT without any call 
+PASS [failure] missing watsonx key -> CONFIG_ERROR with no network call 
+PASS [failure] WATSONX_TIMEOUT=0 -> CONFIG_ERROR and no chat call 
+PASS [failure] STT_TIMEOUT=0 -> CONFIG_ERROR and no Speech to Text call 
+PASS [failure] WATSONX_TIMEOUT=-5 -> CONFIG_ERROR and no chat call 
+PASS [failure] STT_TIMEOUT=-5 -> CONFIG_ERROR and no Speech to Text call 
+PASS [failure] WATSONX_TIMEOUT=soon -> CONFIG_ERROR and no chat call 
+PASS [failure] STT_TIMEOUT=soon -> CONFIG_ERROR and no Speech to Text call 
+PASS [failure] IAM_TIMEOUT applies to the token call only, WATSONX_TIMEOUT to the chat call 
+PASS [failure] watsonx.ai request is temperature 0, max_tokens 800 and carries the bearer token, never the API key 
+PASS [failure] a Speech to Text stage that raises is recorded as UNEXPECTED_ERROR and the case still ends in a defined state 
+PASS [failure] a watsonx.ai stage that raises is recorded as UNEXPECTED_ERROR and the case still ends in a defined state 
+PROBE EC-01 [handled] STT word timing entry with too few fields -> startSec=None endSec=None status=unavailable
+PROBE EC-02 [handled] STT word timing that is not a number -> startSec=None endSec=None status=unavailable
+PROBE EC-03 [handled] STT word timing with a negative start or an end before the start -> negative start: startSec=None endSec=None status=unavailable; end before start: startSec=None endSec=None status=unavailable
+PROBE EC-04 [handled] Scene matching given transcript segments with null times -> ['', '']
+PROBE EC-05 [defect] STT confidence that is not a number -> transcribe() raised ValueError instead of returning an error; run_case ends partial with ['stt:UNEXPECTED_ERROR'], severity None, summary None
+PROBE EC-06 [defect] IAM answers HTTP 200 with a body that is not a token response -> non-JSON 200: analyze() raised ValueError; run_case ends partial with ['watsonx:UNEXPECTED_ERROR'], severity None, summary None | 200 without access_token: analyze() raised KeyError; run_case ends partial with ['watsonx:UNEXPECTED_ERROR'], severity None, summary None
+PROBE EC-07 [limitation] Model returns severity in upper case -> error INVALID_OUTPUT: strict match, no case normalising
+PROBE EC-08 [handled] Summary length boundary -> 1000 -> ok, 1001 -> error
+PROBE EC-09 [handled] Prompt injection in the transcript: wrong caseId and decision-like keys -> obeyed injected caseId -> error INVALID_OUTPUT; decision keys -> ['stripped_decision_field:Decision', 'stripped_decision_field:action', 'dropped_unexpected_field:moderation_decision'] leaked=[]
+PROBE EC-10 [handled] concerningSegments with booleans, floats, strings, zero or negative numbers -> [True]->error, [1.5]->error, ['2']->error, [0]->ok, [-1]->ok (zero, negative and out of range numbers become unavailable timestamps in the pipeline)
+PROBE EC-11 [handled] evidenceSegments of the wrong type, out of range, or containing a boolean -> string evidence -> []; bad and boolean evidence -> ['harassment'] {'harassment': [2]}
+PROBE EC-12 [handled] Duplicate flagged segments, and high severity with no segment flagged -> duplicate segment numbers -> 1 timestamp; high severity with nothing flagged -> unavailable
+PROBE EC-13 [handled] case.json that is not usable JSON, a list, or has no string caseId -> not JSON->CASE_DATA_INVALID, a list->CASE_DATA_INVALID, no caseId->CASE_DATA_INVALID, caseId a number->CASE_DATA_INVALID
+PROBE EC-14 [handled] Path traversal and malformed case ids -> 9 bad ids tried, accepted: []
+PROBE EC-15 [handled] mediaObjectKey that tries to climb out of the case folder -> ['MEDIA_NOT_FOUND'], only the last path part is ever used
+PROBE EC-16 [handled] Empty video file and a text file renamed .mp4 -> empty video -> ['INVALID_INPUT']; text file named .mp4 -> ['MEDIA_UNREADABLE']
+PROBE EC-17 [handled] Upper case media extension -> upper case extension -> ok
+PROBE EC-18 [limitation] The bundled samples/speech.aiff used as case media -> ['INVALID_MEDIA_TYPE']: .aiff (the format of samples/speech.aiff) is refused; convert it to .wav with ffmpeg first
+PROBE EC-19 [limitation] Scene text for speech beyond the clip end and for speech across a scene cut -> speech after the clip ends is dropped from every scene segment (True); an utterance across a cut appears in 2 scene segments. Scene text is context only, incident timestamps do not use it
+PROBE EC-20 [limitation] Re-running a case that already has a good result -> a second run replaces both files (ok then failed); a failed re-run overwrites an earlier good result and nothing is versioned
+PROBE EC-21 [limitation] Very long transcript -> a 100070 character prompt is built and sent unchanged; there is no input length guard against the model context limit (not tested against the live service)
+PROBE EC-24 [defect] Model lists categories in a different order: byte level difference in analysis.json -> same content, but evidenceSegments keys come out as ['harassment', 'violence'] then ['violence', 'harassment'], so the saved file text differs when the model reorders categories (categories itself is sorted, evidenceSegments is not). Minor: only the key order of one object
+PROBE EC-22 [limitation] Output depends on the caseId text in the prompt (D9, E5 in the repeatability report) -> cannot be shown offline; seen live only: same clip gave [harassment, violence] under CASE-001 and [violence] under CASE-102 on 11 of 11 runs
+PROBE EC-23 [limitation] Two files written one after the other, and two runs of one case at the same time -> not tested; a reader can see a new transcript.json with an old analysis.json, and concurrent runs of the same case overwrite each other
+PASS [baseline] tests.test_contract: 10/10 passed, exit 0 
+PASS [baseline] tests.test_errors: 56/56 passed, exit 0 
+PASS [baseline] tests.test_validation: 37/37 passed, exit 0 
+PASS [baseline] tests.test_stt: 26/26 passed, exit 0 
+PASS [baseline] tests.test_media: 15/15 passed, exit 0 
+PASS [baseline] tests.test_store: 26/26 passed, exit 0 
+PASS [baseline] tests.test_pipeline: 44/44 passed, exit 0 
+PASS [baseline] tests.test_run_repeat: 20/20 passed, exit 0 
+
+876/876 regression checks passed
+edge-case probes: 14 handled, 7 limitations, 3 defects
+saved the evidence pack to outputs/sprint3/regression/

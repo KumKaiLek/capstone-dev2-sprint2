@@ -1,0 +1,118 @@
+{
+  "caseId": "CASE-R103",
+  "resultStatus": "ok",
+  "transcript.json": {
+    "caseId": "CASE-R103",
+    "transcript": "good morning everyone thanks for joining today's call if you do not finish this by tonight i will make sure you regret it let us move on to the next item on the agenda",
+    "confidence": 0.95,
+    "status": "ok",
+    "error": null,
+    "segments": [
+      {
+        "startSec": 0.5,
+        "endSec": 3.5,
+        "text": "good morning everyone thanks for joining today's call",
+        "confidence": 0.97,
+        "timestampStatus": "available",
+        "timestampReason": null
+      },
+      {
+        "startSec": 4.6,
+        "endSec": 7.6,
+        "text": "if you do not finish this by tonight i will make sure you regret it",
+        "confidence": 0.92,
+        "timestampStatus": "available",
+        "timestampReason": null
+      },
+      {
+        "startSec": 8.5,
+        "endSec": 11.4,
+        "text": "let us move on to the next item on the agenda",
+        "confidence": 0.95,
+        "timestampStatus": "available",
+        "timestampReason": null
+      }
+    ],
+    "source": "meeting_audio.wav",
+    "model": "en-US_Multimedia",
+    "durationSeconds": 11.4
+  },
+  "analysis.json": {
+    "caseId": "CASE-R103",
+    "severity": "medium",
+    "summary": "The recording contains content that relates to violence. It is described here without judging the speaker.",
+    "categories": [
+      "violence"
+    ],
+    "evidenceSegments": {
+      "violence": [
+        2
+      ]
+    },
+    "timestamps": [
+      {
+        "start": 4.6,
+        "end": 7.6,
+        "reason": "segment 2 flagged by watsonx.ai (violence)",
+        "timestampStatus": "available"
+      }
+    ],
+    "processingStatus": {
+      "stt": "ok",
+      "mediaAnalysis": "ok",
+      "watsonx": "ok"
+    },
+    "advisory": true,
+    "requiresHumanReview": true,
+    "model": "simulated-model",
+    "mediaType": "video",
+    "mediaFile": "meeting.mp4",
+    "media": {
+      "fileName": "meeting.mp4",
+      "durationSeconds": 12.0,
+      "hasAudio": true,
+      "frameCount": 6,
+      "sceneChanges": [
+        4.0,
+        8.0
+      ]
+    },
+    "sceneSegments": [
+      {
+        "segmentId": 1,
+        "startSec": 0.0,
+        "endSec": 4.0,
+        "label": "scene 1",
+        "frameFiles": [
+          "frame_001.jpg",
+          "frame_002.jpg"
+        ],
+        "transcriptText": "good morning everyone thanks for joining today's call"
+      },
+      {
+        "segmentId": 2,
+        "startSec": 4.0,
+        "endSec": 8.0,
+        "label": "scene 2",
+        "frameFiles": [
+          "frame_003.jpg",
+          "frame_004.jpg"
+        ],
+        "transcriptText": "if you do not finish this by tonight i will make sure you regret it"
+      },
+      {
+        "segmentId": 3,
+        "startSec": 8.0,
+        "endSec": 12.0,
+        "label": "scene 3",
+        "frameFiles": [
+          "frame_005.jpg",
+          "frame_006.jpg"
+        ],
+        "transcriptText": "let us move on to the next item on the agenda"
+      }
+    ],
+    "errors": [],
+    "warnings": []
+  }
+}

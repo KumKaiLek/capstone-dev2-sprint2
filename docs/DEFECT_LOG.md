@@ -1,6 +1,6 @@
-# Defect log, Sprint 2 Week 3 stabilisation
+# Defect log, Sprint 2 Week 3 stabilisation to Sprint 3 final regression
 
-Each entry is one commit on `sprint2-week3-stabilisation` (D1 to D7) or `sprint3-ai-hardening` (D8 onward). Format: defect, cause, fix, before/after test.
+Each entry is one commit on `sprint2-week3-stabilisation` (D1 to D7) or `sprint3-ai-hardening` (D8 onward; D10 to D12 were found by the final regression and are open). Format: defect, cause, fix, before/after test.
 
 ## D1: Case ID only accepted CASE-001 style
 
@@ -103,3 +103,33 @@ Each entry is one commit on `sprint2-week3-stabilisation` (D1 to D7) or `sprint3
 Severity, categories and timestamps are still compared with exact equality, unchanged from D6. Summary wording is reported separately rather than folded into that comparison, since wording is not required to be identical. Identical wording across runs is reported as identical. Different wording is reported as different wording, with the approximate (non-semantic) word overlap against run 1 shown as supporting evidence, and is only described as "most likely the same content, differently worded" when severity and categories, which are genuinely verified by exact equality, matched on every run; if those did not match either, the different wording is reported as unverified rather than assumed to be equivalent.
 
 **Result on the real CASE-001 recording.** `python run_repeat.py CASE-001 3` against the live services: all 3 runs matched exactly on severity (`high`), categories (`["harassment", "violence"]`) and timestamps, and this time the summary wording was identical across all 3 runs too ("The synthetic video contains a short segment where the speaker verbally abuses a target, making threats and stating that others hate the target. The threatening language and intent to cause harm are clear."), 2 sentences, 205 of 1000 characters, no neutral-wording flags, no unverified-detail flags. The "different wording, same content" reporting path exists and is covered by `tests/test_run_repeat.py` with synthetic input, but has not yet been observed on a live run, since this case happened to come back worded identically all three times.
+
+## D10: evidenceSegments keeps the model's category order (Sprint 3 final regression, open)
+
+**Defect.** `categories` is sorted into the fixed `CATEGORIES` order (D6), but `evidenceSegments` is built before that sort, so its keys follow whatever order the model listed the categories in. The same content saved with the model's categories in two orders gives two `analysis.json` files with the same content and a different key order in `evidenceSegments`.
+
+**Cause.** In `validate_result`, `evidence_out` is filled inside the loop over the model's own `categories`, and the sort that fixes the order of `categories` runs afterwards without touching it.
+
+**Fix.** None applied in the regression pass. Proposed: after the sort, `evidence_out = {c: evidence_out[c] for c in categories}`.
+
+**Before/after test.** None yet. Shown by `tests/test_regression.py` probe EC-24 (`python -m tests.test_regression`). Impact is minor: `run_repeat.py` and `run_repeatability.py` compare severity, categories, timestamps and status, not the key order of this object, so the live repeatability report is unaffected.
+
+## D11: A Speech to Text confidence that is not a number makes transcribe raise (Sprint 3 final regression, open)
+
+**Defect.** `normalise` in `src/stt.py` calls `float(conf)` on the confidence with no guard. A confidence such as `"high"` raises `ValueError` out of `transcribe()`, which is documented as never raising.
+
+**Cause.** Only the word timing was guarded in D8; the confidence was still trusted.
+
+**Fix.** None applied. Proposed: treat an unusable confidence as `None`, the same way D8 treats unusable timing. Mitigated meanwhile: `run_case` records the stage as `stt:UNEXPECTED_ERROR`, the case ends `partial`, and `severity` and `summary` stay `null`.
+
+**Before/after test.** None yet. Shown by probe EC-05, which also runs `run_case` on the same input and records the `UNEXPECTED_ERROR` result.
+
+## D12: An IAM answer that is not a token response makes analyze raise (Sprint 3 final regression, open)
+
+**Defect.** `get_token` in `src/analysis.py` reads `r.json()["access_token"]` with no guard. An IAM HTTP 200 whose body is not JSON raises `ValueError`, and one with no `access_token` raises `KeyError`, out of `analyze()`, which is documented as never raising.
+
+**Cause.** Only the HTTP status of the IAM answer was checked, not its body.
+
+**Fix.** None applied. Proposed: catch `ValueError` and `KeyError` in `get_token` and raise `AnalysisError("AUTH_FAILED", ...)`. Mitigated meanwhile: `run_case` records `watsonx:UNEXPECTED_ERROR`, the case ends `partial`, and nothing is filled in.
+
+**Before/after test.** None yet. Shown by probe EC-06, which also runs `run_case` on both bad bodies and records the `UNEXPECTED_ERROR` result.
